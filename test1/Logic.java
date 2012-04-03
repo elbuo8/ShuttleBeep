@@ -51,10 +51,7 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 		//Text field setup
 		inputField = new JTextField();
 		inputField.setText("Enter");
-		inputField.setLayout(null);
-		inputField.setBounds(200, 200, 200, 200);
 		inputField.addActionListener(this);
-		add(inputField);
 
 	}
 
