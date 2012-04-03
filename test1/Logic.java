@@ -31,7 +31,9 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 
 		//Initialize menu
 		bar = new JMenuBar();
+		bar.setBackground(Color.DARK_GRAY);
 		JMenu menu = new JMenu("Menu");
+		menu.setBackground(Color.DARK_GRAY);
 		bar.add(menu);
 		JMenuItem newgame = new JMenuItem("New Game");
 		menu.add(newgame);
@@ -133,7 +135,6 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
