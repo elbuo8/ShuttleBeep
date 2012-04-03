@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -27,8 +28,8 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 	private static final long serialVersionUID = -1144062643362290194L;
 
 	public Logic() {
-		
-		//Initialize menu.
+
+		//Initialize menu
 		bar = new JMenuBar();
 		JMenu menu = new JMenu("Menu");
 		bar.add(menu);
@@ -46,15 +47,44 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		//Initialize high scores
 		hs = new HighScores();
 
+
 		//Text field setup
-		inputField = new JTextField();
-		inputField.setText("Enter");
-		inputField.addActionListener(this);
+		inputField = new JTextField(30);
+		inputField.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String input = inputField.getText();
+				if(verifyInput(input)) {
+					inputField.setText("");
+				}
+
+			}
+		});
+
+		//JButton setup
+		tryButton = new JButton("Try");
+		tryButton.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String input = inputField.getText();
+				if (verifyInput(input)) {
+					inputField.setText("");
+				}
+			}
+		});
+
+
+		//Input panel setup
+		southJPanel = new JPanel();
+		southJPanel.add(inputField);
+		southJPanel.add(tryButton);
 
 	}
 
-	JMenuBar bar;
-	JTextField inputField;
+	public JMenuBar bar;
+	public JTextField inputField;
+	public JButton tryButton;
+	public JPanel southJPanel;
 	private HighScores hs;
 	private int framex = 600;
 	private int framey = 300;
@@ -150,7 +180,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 				try {
 					hs.generateFile();
 				} catch (IOException e1) {}
-			
+
 			}
 			JFrame highscores = new JFrame();
 			highscores.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -159,10 +189,29 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 			highscores.add(scores);
 			highscores.setSize(400, 400);
 			highscores.setVisible(true);
+
+		}
+
+		if (e.getActionCommand().equals("New Game")) {
+
+		}
+
+		if (e.getActionCommand().equals("Open Saved Game")) {
+
 		}
 
 	}
 
+	static boolean verifyInput(String input) {
+		char[] parse = input.toCharArray();
+		if(!Character.isLetter(parse[0]))
+			return false;
+		for (int i = 1; i < parse.length; i++) 
+			if (!Character.isDigit(parse[i])) 
+				return false;
+		return true;
+
+	}
 
 
 }

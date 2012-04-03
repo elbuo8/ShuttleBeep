@@ -32,7 +32,7 @@ public class ShuttleBeep {
 		
 		Logic logic = new Logic();
 		frame.setJMenuBar(logic.bar);
-		frame.getContentPane().add(logic.inputField, BorderLayout.PAGE_END);
+		frame.add(logic.southJPanel, BorderLayout.PAGE_END);
 		frame.add(logic);
 		frame.setVisible(true);
 
