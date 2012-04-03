@@ -26,6 +26,10 @@ public class HighScores {
 
 		fw.close();
 	}
+	
+	public void update() {
+		
+	}
 
 	public String getString() {
 		scores = "";
