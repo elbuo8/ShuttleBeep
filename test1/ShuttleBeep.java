@@ -13,7 +13,7 @@ public class ShuttleBeep {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setResizable(false);
+		frame.setResizable(true);
 		frame.setTitle("ShuttleBeep");
 		
 		/*// Set to the middle of the screen
@@ -26,7 +26,7 @@ public class ShuttleBeep {
 		//Create the menu bar and its submenus
 		
 		
-		frame.setSize(400, 400);
+		frame.setSize(630, 600);
 		
 		Logic logic = new Logic();
 		frame.setJMenuBar(logic.bar);
