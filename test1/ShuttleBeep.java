@@ -31,8 +31,6 @@ public class ShuttleBeep {
 		Logic logic = new Logic();
 		frame.setJMenuBar(logic.bar);
 		frame.add(logic);
-		frame.addKeyListener(logic);
-		frame.addMouseListener(logic);
 		frame.setVisible(true);
 
 	}

@@ -29,6 +29,7 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 	private static final long serialVersionUID = -1144062643362290194L;
 
 	public Logic() {
+		
 		//Initialize menu.
 		bar = new JMenuBar();
 		JMenu menu = new JMenu("Menu");
@@ -43,41 +44,36 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 		JMenuItem highscores = new JMenuItem("View High Scores");
 		menu.add(highscores);
 		highscores.addActionListener(this);
-		
+
 		//Initialize high scores
 		hs = new HighScores();
-		
-		//Textfield setup
+
+		//Text field setup
 		inputField = new JTextField();
 		inputField.setText("Enter");
 		inputField.setLayout(null);
 		inputField.setBounds(200, 200, 200, 200);
 		inputField.addActionListener(this);
-		//add(inputField);
-		
-		first = true;
+		add(inputField);
+
 	}
-	
+
 	public JMenuBar bar;
-	private HighScores hs;
+	public HighScores hs;
 	public JTextField inputField;
 	public int framex = 600;
 	public int framey = 300;
 	public int areax = 20; // modificar cuando cesar haga new
 	public int areay = 10; // modificar cuando cesar haga new
-	public boolean first;
 
 
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g; 
-		if(first) {
-			drawBorders(g2);
-			first = false;
-		}
+		drawBorders(g2);
 
 	}
-	
+
 	public void drawBorders(Graphics2D g2) {
 		//Borders of game
 		Color borde = Color.BLACK;
@@ -85,11 +81,11 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 		g2.setColor(fill);
 		Rectangle background = new Rectangle(0, 0, framex+framex/areax, 15);
 		g2.fill(background);
-		
+
 		g2.setColor(borde);
 		Rectangle corner = new Rectangle(0, 0, framex/areax, 15);
 		g2.draw(corner);
-		
+
 		char letter = 'A';
 		for (int i = 1; i <= areax; i++) {
 			corner = new Rectangle(i*(framex/areax), 0, framex/areax, 15);
@@ -97,11 +93,11 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 			g2.drawString(letter + "", (int)corner.getCenterX()-3, (int)(corner.getCenterY()+4 ));
 			letter += 1;
 		}
-		
+
 		background = new Rectangle(0, 15, framex/areax, framey);
 		g2.setColor(fill);
 		g2.fill(background);
-		
+
 		for (int i = 1; i <= areay; i++) {
 			g2.setColor(borde);
 			corner = new Rectangle(0, i*(framey/areay)-15, framex/areax, framey/areay);
@@ -173,13 +169,12 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("View High Scores")){
+		if(e.getActionCommand().equals("View High Scores")) {
 			if(!new File("highscores.txt").exists()) {
 				try {
 					hs.generateFile();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+				} catch (IOException e1) {}
+			
 			}
 			JFrame highscores = new JFrame();
 			highscores.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
@@ -188,12 +183,10 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 			highscores.add(scores);
 			highscores.setSize(400, 400);
 			highscores.setVisible(true);
-			
-
 		}
-		
+
 	}
-	
+
 
 
 }
