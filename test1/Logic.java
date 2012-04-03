@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +19,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 
-public class Logic extends JPanel implements ActionListener, KeyListener, MouseInputListener{
+public class Logic extends JPanel implements ActionListener, MouseInputListener {
 
 	/**
 	 * 
@@ -55,13 +53,13 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 
 	}
 
-	public JMenuBar bar;
-	public HighScores hs;
-	public JTextField inputField;
-	public int framex = 600;
-	public int framey = 300;
-	public int areax = 20; // modificar cuando cesar haga new
-	public int areay = 10; // modificar cuando cesar haga new
+	JMenuBar bar;
+	JTextField inputField;
+	private HighScores hs;
+	private int framex = 600;
+	private int framey = 300;
+	private int areax = 20; // modificar cuando cesar haga new
+	private int areay = 10; // modificar cuando cesar haga new
 
 
 	@Override
@@ -144,25 +142,6 @@ public class Logic extends JPanel implements ActionListener, KeyListener, MouseI
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
