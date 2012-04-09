@@ -112,7 +112,16 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		g2.setColor(background);
 		Rectangle gridRectangle = new Rectangle(31, 16, 601-((int)FRAMEX/FRAMEY), 301-((int)FRAMEY/FRAMEY));
 		g2.fill(gridRectangle);
-		g2.draw(grid.theGrid[1][1].getRect());
+		
+		for (int i = 0; i < grid.theGrid.length; i++) {
+			for (int j = 0; j < grid.theGrid[0].length; j++) {
+				g2.setColor(Color.black);
+				g2.draw(grid.theGrid[i][j].getRect());
+				if(!grid.theGrid[i][j].isHit())
+					g2.drawString("X", (int)grid.theGrid[i][j].getRect().getCenterX(), (int)grid.theGrid[i][j].getRect().getCenterY());
+			}
+		}
+
 	}
 
 	public void drawBorders(Graphics2D g2) {

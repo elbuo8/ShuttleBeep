@@ -7,7 +7,7 @@ package test1;
  */
 public class TheGrid {
 
-		private Tiles[][]  theGrid = new Tiles[10][10];
+		public Tiles[][]  theGrid = new Tiles[10][10];
 		private static final int WIDTH_OF_GRID = 600;
 		private static final int HEIGHT_OF_GRID = 300;
 		
@@ -19,7 +19,7 @@ public class TheGrid {
 				for(int j = 0; j < 10; j++){
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
-					theGrid[i][j].setRectangleBounds((i+1)*30, (j+1)*30);
+					theGrid[i][j].setRectangleBounds((i+1)*30, (j+1)*15);
 				}
 			}
 		}
