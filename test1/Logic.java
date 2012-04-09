@@ -77,6 +77,9 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		southJPanel = new JPanel();
 		southJPanel.add(inputField);
 		southJPanel.add(tryButton);
+		
+		//TheGrid
+		grid = new TheGrid();
 
 	}
 
@@ -85,6 +88,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 	public JButton tryButton;
 	public JPanel southJPanel;
 	private HighScores hs;
+	private TheGrid grid;
 	private static final int FRAMEX = 600;
 	private static final int FRAMEY = 300;
 	private int areax = 20; // modificar cuando cesar haga new
@@ -108,6 +112,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		g2.setColor(background);
 		Rectangle gridRectangle = new Rectangle(31, 16, 601-((int)FRAMEX/FRAMEY), 301-((int)FRAMEY/FRAMEY));
 		g2.fill(gridRectangle);
+		g2.draw(grid.theGrid[1][1].getRect());
 	}
 
 	public void drawBorders(Graphics2D g2) {
