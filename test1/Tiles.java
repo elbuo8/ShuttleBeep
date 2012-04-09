@@ -106,4 +106,11 @@ public class Tiles {
 			hitNoHit = true;
 		return hitNoHit;
 	}
+	
+	public boolean hasAship(){
+		if(hasAship == true)
+			return true;
+		else
+			return false;
+	}
 }
