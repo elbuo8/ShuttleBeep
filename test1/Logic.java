@@ -128,7 +128,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 			for (int j = 0; j < grid2.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
 				g2.draw(grid2.theGrid[i][j].getRect());
-				if(grid2.theGrid[i][j].isHit())
+				if(!grid2.theGrid[i][j].isHit())
 					g2.drawString("X", (int)grid2.theGrid[i][j].getRect().getCenterX(), (int)grid2.theGrid[i][j].getRect().getCenterY());
 			}
 		}
