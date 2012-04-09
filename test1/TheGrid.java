@@ -30,7 +30,7 @@ public class TheGrid {
 					System.out.println((i+1)*topX + offSet);
 				}
 			}
-			//gridObjects++;
+			gridObjects++;
 		}
 		
 		/**

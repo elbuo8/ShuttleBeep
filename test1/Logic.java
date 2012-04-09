@@ -28,7 +28,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 	public JPanel southJPanel;
 	private HighScores hs;
 	private TheGrid grid1;
-	private TheGrid grid2;
+	//private TheGrid grid2;
 	private static final int FRAMEX = 600;
 	private static final int FRAMEY = 300;
 	private int areax = 20; // modificar cuando cesar haga new
@@ -92,7 +92,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		
 		//TheGrid preparation
 		grid1 = new TheGrid();
-		grid2 = new TheGrid();
+		//grid2 = new TheGrid();
 
 	}
 
@@ -119,20 +119,10 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 			for (int j = 0; j < grid1.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
 				g2.draw(grid1.theGrid[i][j].getRect());
-				if(grid1.theGrid[i][j].isHit())
+				if(!grid1.theGrid[i][j].isHit())
 					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX(), (int)grid1.theGrid[i][j].getRect().getCenterY());
 			}
 		}
-		
-		for (int i = 0; i < grid2.theGrid.length; i++) {
-			for (int j = 0; j < grid2.theGrid[0].length; j++) {
-				g2.setColor(Color.BLACK);
-				g2.draw(grid2.theGrid[i][j].getRect());
-				if(grid2.theGrid[i][j].isHit())
-					g2.drawString("X", (int)grid2.theGrid[i][j].getRect().getCenterX(), (int)grid2.theGrid[i][j].getRect().getCenterY());
-			}
-		}
-		
 
 	}
 
