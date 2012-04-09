@@ -1,12 +1,24 @@
 package test1;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
-import java.io.*;
-import javax.swing.*;
-import javax.swing.event.MouseInputListener;
+import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 
 /**
@@ -14,7 +26,7 @@ import javax.swing.event.MouseInputListener;
  * @author yamilasusta
  *
  */
-public class Logic extends JPanel implements ActionListener, MouseInputListener {
+public class Logic extends JPanel implements ActionListener, MouseListener{
 
 	/**
 	 * Mandatory modification by eclipse
@@ -93,6 +105,9 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		//TheGrid preparation
 		grid1 = new TheGrid();
 		grid2 = new TheGrid();
+		
+		//Initialize mouse listener
+		addMouseListener(this);
 
 	}
 
@@ -121,7 +136,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 				g2.draw(grid1.theGrid[i][j].getRect());
 				
 				if(grid1.theGrid[i][j].isHit() && !grid1.theGrid[i][j].hasAship())
-					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX(), (int)grid1.theGrid[i][j].getRect().getCenterY());
+					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX() -3 , (int)grid1.theGrid[i][j].getRect().getCenterY()+3);
 				else if(grid1.theGrid[i][j].isHit() && grid1.theGrid[i][j].hasAship()) {
 					g2.setColor(Color.RED);
 					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX(), (int)grid1.theGrid[i][j].getRect().getCenterY());					
@@ -181,10 +196,22 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 			g2.drawString(Integer.toString(i), (int)corner.getCenterX()-4, (int)corner.getCenterY()+4);
 		}
 	}
+	
+	public void drawBottom() {
+		
+	}
 
 
 	public void mouseClicked(MouseEvent e) {
+		for (int i = 0; i < grid1.theGrid.length; i++) {
+			for (int j = 0; j < grid1.theGrid[0].length; j++) {
+				if(grid1.theGrid[i][j].getRect().contains(e.getPoint())) {
+					grid1.theGrid[i][j].hit();
+					repaint();
+				}
 
+			}
+		}
 	}
 
 	public void mouseEntered(MouseEvent e) {
