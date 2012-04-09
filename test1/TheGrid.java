@@ -27,10 +27,9 @@ public class TheGrid {
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
 					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15);
-					System.out.println((i+1)*topX + offSet);
 				}
 			}
-			//gridObjects++;
+			gridObjects++;
 		}
 		
 		/**
