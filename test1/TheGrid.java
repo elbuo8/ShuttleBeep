@@ -8,8 +8,11 @@ package test1;
 public class TheGrid {
 
 		public Tiles[][]  theGrid = new Tiles[10][10];
-		public static final int WIDTH_OF_GRID = 600;
-		public static final int HEIGHT_OF_GRID = 300;
+		private static int numberOfGrids = 2;
+		private static final int WIDTH_OF_GRID = 600;
+		private static final int HEIGHT_OF_GRID = 300;
+		private static int numberOfColumns = 10;
+		private static int numberOfRows = 10;
 		
 		/**
 		 * Creates a Grid object that in itself is an array of Tiles, each contains its location. 
@@ -19,7 +22,7 @@ public class TheGrid {
 				for(int j = 0; j < 10; j++){
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
-					theGrid[i][j].setRectangleBounds((i+1)*30, ((j+1)*30)-15);
+					theGrid[i][j].setRectangleBounds((i+1)*((WIDTH_OF_GRID/numberOfGrids)/(numberOfRows)), ((j+1)*((HEIGHT_OF_GRID)/numberOfColumns))-15);
 				}
 			}
 		}
@@ -28,11 +31,12 @@ public class TheGrid {
 		 * @param x will be the size of the matrix (x*x)
 		 */
 		public TheGrid(int x){
+			numberOfGrids++;
 			for(int i = 0; i < x; i++){
 				for(int j = 0; j < x; j++){
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
-					theGrid[i][j].setRectangleBounds((i+1)*30, ((j+1)*30)-15);
+					theGrid[i][j].setRectangleBounds((i+1)*((WIDTH_OF_GRID/numberOfGrids)/numberOfColumns), ((j+1)*(HEIGHT_OF_GRID/numberOfGrids)/(numberOfRows))-15);
 				}
 			}
 		}
@@ -68,5 +72,7 @@ public class TheGrid {
 				}
 			}
 		}
-		
+		public void numberOfGrids(int x){
+			numberOfGrids = x;
+		}
 }
