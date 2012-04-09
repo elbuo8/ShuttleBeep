@@ -20,13 +20,38 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.MouseInputListener;
 
+/**
+ * 
+ * @author yamilasusta
+ *
+ */
 public class Logic extends JPanel implements ActionListener, MouseInputListener {
 
 	/**
-	 * 
+	 * Mandatory modification by eclipse
 	 */
 	private static final long serialVersionUID = -1144062643362290194L;
 
+	// Instance variables
+	public JMenuBar bar;
+	public JTextField inputField;
+	public JButton tryButton;
+	public JPanel southJPanel;
+	private HighScores hs;
+	private TheGrid grid1;
+	//private TheGrid grid2;
+	private static final int FRAMEX = 600;
+	private static final int FRAMEY = 300;
+	private int areax = 20; // modificar cuando cesar haga new
+	private int areay = 10; // modificar cuando cesar haga new
+	//private String player1; // mod cesar new
+	//private String player2; // mod cesar new/default roboto
+	//private int ships; // mod cesar new
+	
+	/**
+	 * Default constructor
+	 * Generates the menus, the grid, and the input options
+	 */
 	public Logic() {
 
 		//Initialize menu
@@ -76,37 +101,25 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		southJPanel.add(inputField);
 		southJPanel.add(tryButton);
 		
-		//TheGrid
+		//TheGrid preparation
 		grid1 = new TheGrid();
-		grid2 = new TheGrid();
+		//grid2 = new TheGrid();
 
 	}
 
-	public JMenuBar bar;
-	public JTextField inputField;
-	public JButton tryButton;
-	public JPanel southJPanel;
-	private HighScores hs;
-	private TheGrid grid1;
-	private TheGrid grid2;
-	private static final int FRAMEX = 600;
-	private static final int FRAMEY = 300;
-	private int areax = 20; // modificar cuando cesar haga new
-	private int areay = 10; // modificar cuando cesar haga new
-	//private String player1; // mod cesar new
-	//private String player2; // mod cesar new/default roboto
-	//private int ships; // mod cesar new
-	
-
-
-	@Override
+	/**
+	 * Modification of the paintComponent to draw in the JPanel
+	 */
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g; 
 		drawBorders(g2);
 		drawGrid(g2);
-
 	}
 	
+	/**
+	 * Draws the actual playing field
+	 * @param g2 Graphical painter
+	 */
 	public void drawGrid(Graphics2D g2) {
 		Color background = Color.white;
 		g2.setColor(background);
@@ -114,7 +127,7 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		g2.fill(gridRectangle);
 		
 		for (int i = 0; i < grid1.theGrid.length; i++) {
-			for (int j = 0; j < grid2.theGrid[0].length; j++) {
+			for (int j = 0; j < grid1.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
 				g2.draw(grid1.theGrid[i][j].getRect());
 				if(!grid1.theGrid[i][j].isHit())
@@ -124,6 +137,10 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 
 	}
 
+	/**
+	 * Draws the margin borders and the legend
+	 * @param g2 Graphical painter
+	 */
 	public void drawBorders(Graphics2D g2) {
 		//Borders of game
 		Color borde = Color.BLACK;
@@ -156,42 +173,38 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
+
+	public void mouseClicked(MouseEvent e) {
 
 	}
 
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
 
 	}
 
-	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseExited(MouseEvent e) {
 
 	}
 
-	@Override
-	public void mousePressed(MouseEvent arg0) {
+	public void mousePressed(MouseEvent e) {
 
 	}
 
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
+	public void mouseReleased(MouseEvent e) {
 
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent e) {
 
 	}
 
-	@Override
 	public void mouseMoved(MouseEvent e) {
 
 	}
 
-	@Override
+	/**
+	 * Waits for the input in the menu bar
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("View High Scores")) {
 			if(!new File("highscores.txt").exists()) {
@@ -220,6 +233,11 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 
 	}
 
+	/**
+	 * Verifies that the input is a valid one
+	 * @param input Input from the user
+	 * @return If the input is valid
+	 */
 	static boolean verifyInput(String input) {
 		char[] parse = input.toCharArray();
 		if(!Character.isLetter(parse[0]))
