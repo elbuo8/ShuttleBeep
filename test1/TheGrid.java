@@ -20,13 +20,13 @@ public class TheGrid {
 		 */
 		public TheGrid(){
 			int topX = ((WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
-			int topY = (HEIGHT_OF_GRID)/(numberOfColumns)-(15);
+			int topY = (HEIGHT_OF_GRID)/(numberOfColumns);
 			int offSet = (WIDTH_OF_GRID/numberOfGrids)*gridObjects;
 			for(int i = 0; i < 10; i++){
 				for(int j = 0; j < 10; j++){
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
-					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY));
+					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15);
 					System.out.println((i+1)*topX + offSet);
 				}
 			}
@@ -38,15 +38,13 @@ public class TheGrid {
 		 */
 		public TheGrid(int x){
 			int topX = ((WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
-			int topY = (HEIGHT_OF_GRID)/(numberOfColumns)-(15);
+			int topY = (HEIGHT_OF_GRID)/(numberOfColumns);
 			int offSet = (WIDTH_OF_GRID/numberOfGrids)*gridObjects;
 			for(int i = 0; i < x; i++){
 				for(int j = 0; j < x; j++){
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
-					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY));
-					//System.out.println((i+1)*topX + offSet);
-					System.out.println(((j+1)*topY));
+					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15);
 				}
 			}
 			gridObjects++;
