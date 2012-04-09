@@ -49,7 +49,6 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		//Initialize high scores
 		hs = new HighScores();
 
-
 		//Text field setup
 		inputField = new JTextField(30);
 		inputField.addActionListener(new ActionListener() {	
@@ -59,7 +58,6 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 				if(verifyInput(input)) {
 					inputField.setText("");
 				}
-
 			}
 		});
 
@@ -75,7 +73,6 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 			}
 		});
 
-
 		//Input panel setup
 		southJPanel = new JPanel();
 		southJPanel.add(inputField);
@@ -88,17 +85,29 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 	public JButton tryButton;
 	public JPanel southJPanel;
 	private HighScores hs;
-	private int framex = 600;
-	private int framey = 300;
+	private static final int FRAMEX = 600;
+	private static final int FRAMEY = 300;
 	private int areax = 20; // modificar cuando cesar haga new
 	private int areay = 10; // modificar cuando cesar haga new
+	//private String player1; // mod cesar new
+	//private String player2; // mod cesar new/default roboto
+	//private int ships; // mod cesar new
+	
 
 
 	@Override
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g; 
 		drawBorders(g2);
+		drawGrid(g2);
 
+	}
+	
+	public void drawGrid(Graphics2D g2) {
+		Color background = Color.white;
+		g2.setColor(background);
+		Rectangle gridRectangle = new Rectangle(31, 16, 601-((int)FRAMEX/FRAMEY), 301-((int)FRAMEY/FRAMEY));
+		g2.fill(gridRectangle);
 	}
 
 	public void drawBorders(Graphics2D g2) {
@@ -106,28 +115,28 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		Color borde = Color.BLACK;
 		Color fill = Color.GRAY;
 		g2.setColor(fill);
-		Rectangle background = new Rectangle(0, 0, framex+framex/areax, 15);
+		Rectangle background = new Rectangle(0, 0, FRAMEX+FRAMEX/areax, 15);
 		g2.fill(background);
 
 		g2.setColor(borde);
-		Rectangle corner = new Rectangle(0, 0, framex/areax, 15);
+		Rectangle corner = new Rectangle(0, 0, FRAMEX/areax, 15);
 		g2.draw(corner);
 
 		char letter = 'A';
 		for (int i = 1; i <= areax; i++) {
-			corner = new Rectangle(i*(framex/areax), 0, framex/areax, 15);
+			corner = new Rectangle(i*(FRAMEX/areax), 0, FRAMEX/areax, 15);
 			g2.draw(corner);
-			g2.drawString(letter + "", (int)corner.getCenterX()-3, (int)(corner.getCenterY()+4 ));
+			g2.drawString(letter + "", (int)corner.getCenterX()-3, (int)(corner.getCenterY()+5 ));
 			letter += 1;
 		}
 
-		background = new Rectangle(0, 15, framex/areax, framey);
+		background = new Rectangle(0, 15, FRAMEX/areax, FRAMEY);
 		g2.setColor(fill);
 		g2.fill(background);
 
 		for (int i = 1; i <= areay; i++) {
 			g2.setColor(borde);
-			corner = new Rectangle(0, i*(framey/areay)-15, framex/areax, framey/areay);
+			corner = new Rectangle(0, i*(FRAMEY/areay)-15, FRAMEX/areax, FRAMEY/areay);
 			g2.draw(corner);
 			g2.drawString(Integer.toString(i), (int)corner.getCenterX()-4, (int)corner.getCenterY()+4);
 		}
@@ -140,37 +149,31 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
