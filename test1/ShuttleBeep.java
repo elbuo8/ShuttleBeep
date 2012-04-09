@@ -28,7 +28,7 @@ public class ShuttleBeep {
 		//Create the menu bar and its submenus
 		
 		
-		frame.setSize(630, 600);
+		frame.setSize(631, 600);
 		
 		Logic logic = new Logic();
 		frame.setJMenuBar(logic.bar);
