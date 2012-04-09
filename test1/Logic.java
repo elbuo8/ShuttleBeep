@@ -52,7 +52,6 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		//Text field setup
 		inputField = new JTextField(30);
 		inputField.addActionListener(new ActionListener() {	
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				String input = inputField.getText();
 				if(verifyInput(input)) {
@@ -64,7 +63,6 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		//JButton setup
 		tryButton = new JButton("Try");
 		tryButton.addActionListener(new ActionListener() {	
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				String input = inputField.getText();
 				if (verifyInput(input)) {
@@ -79,7 +77,8 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		southJPanel.add(tryButton);
 		
 		//TheGrid
-		grid = new TheGrid();
+		grid1 = new TheGrid();
+		grid2 = new TheGrid();
 
 	}
 
@@ -88,7 +87,8 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 	public JButton tryButton;
 	public JPanel southJPanel;
 	private HighScores hs;
-	private TheGrid grid;
+	private TheGrid grid1;
+	private TheGrid grid2;
 	private static final int FRAMEX = 600;
 	private static final int FRAMEY = 300;
 	private int areax = 20; // modificar cuando cesar haga new
@@ -113,12 +113,12 @@ public class Logic extends JPanel implements ActionListener, MouseInputListener 
 		Rectangle gridRectangle = new Rectangle(31, 16, 601-((int)FRAMEX/FRAMEY), 301-((int)FRAMEY/FRAMEY));
 		g2.fill(gridRectangle);
 		
-		for (int i = 0; i < grid.theGrid.length; i++) {
-			for (int j = 0; j < grid.theGrid[0].length; j++) {
-				g2.setColor(Color.black);
-				g2.draw(grid.theGrid[i][j].getRect());
-				if(!grid.theGrid[i][j].isHit())
-					g2.drawString("X", (int)grid.theGrid[i][j].getRect().getCenterX(), (int)grid.theGrid[i][j].getRect().getCenterY());
+		for (int i = 0; i < grid1.theGrid.length; i++) {
+			for (int j = 0; j < grid2.theGrid[0].length; j++) {
+				g2.setColor(Color.BLACK);
+				g2.draw(grid1.theGrid[i][j].getRect());
+				if(!grid1.theGrid[i][j].isHit())
+					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX(), (int)grid1.theGrid[i][j].getRect().getCenterY());
 			}
 		}
 
