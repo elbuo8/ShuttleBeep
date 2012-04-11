@@ -26,7 +26,7 @@ public class TheGrid {
 				for(int j = 0; j < 10; j++){
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
-					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15);
+					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15, (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows), (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 				}
 			}
 			gridObjects++;
@@ -43,7 +43,7 @@ public class TheGrid {
 				for(int j = 0; j < x; j++){
 					theGrid[i][j] = new Tiles();
 					theGrid[i][j].addLocation(i, j);
-					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15);
+					theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15, (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows), (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 				}
 			}
 			gridObjects++;
@@ -80,6 +80,10 @@ public class TheGrid {
 				}
 			}
 		}
+		/**
+		 * 
+		 * @param x amount of grids that you want to add to the game
+		 */
 		public void numberOfGrids(int x){
 			numberOfGrids = x;
 		}

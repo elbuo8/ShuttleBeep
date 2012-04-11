@@ -86,7 +86,7 @@ public class Tiles {
 	 * @param topX 
 	 * @param topY
 	 */
-	public void setRectangleBounds(int topX, int topY){
+	public void setRectangleBounds(int topX, int topY, int x, int y){
 		rect.setBounds(topX, topY, 30, 30);
 	}
 	
@@ -106,11 +106,15 @@ public class Tiles {
 			hitNoHit = true;
 		return hitNoHit;
 	}
-	
+	/**
+	 * 
+	 * @return determines if a tile contain a ship or not.
+	 */
 	public boolean hasAship(){
 		if(hasAship == true)
 			return true;
 		else
 			return false;
 	}
+	
 }
