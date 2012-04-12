@@ -42,7 +42,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	public JTextField inputField;
 	public JButton tryButton;
 	public JPanel southJPanel;
-	private HighScores hs;
+	//private HighScores hs;
+	private Database db;
 	private TheGrid grid1;
 	private TheGrid grid2;
 	private Status status;
@@ -87,7 +88,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		highscores.addActionListener(this);
 
 		//Initialize high scores
-		hs = new HighScores();
+		//hs = new HighScores();
+		db = new Database();
 
 		//Text field setup
 		inputField = new JTextField(30);
@@ -209,8 +211,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		g2.draw(corner);
 
 		char letter = 'A';
-		for (int i = 1; i <= areax; i++) {
-			corner = new Rectangle(i*(FRAMEX/areax), 0, FRAMEX/areax, 15);
+		for (int i = 0; i < areax; i++) {
+			corner = new Rectangle(i*(FRAMEX/areax)+FRAMEX/areax, 0, FRAMEX/areax, 15);
 			g2.draw(corner);
 			g2.drawString(letter + "", (int)corner.getCenterX()-3, (int)(corner.getCenterY()+5 ));
 			letter += 1;
@@ -220,11 +222,11 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		g2.setColor(fill);
 		g2.fill(background);
 
-		for (int i = 1; i <= areay; i++) {
+		for (int i = 0; i < areay; i++) {
 			g2.setColor(borde);
-			corner = new Rectangle(0, i*(FRAMEY/areay)-15, FRAMEX/areax, FRAMEY/areay);
+			corner = new Rectangle(0, i*(FRAMEY/areay)+15, FRAMEX/areax, FRAMEY/areay);
 			g2.draw(corner);
-			g2.drawString(Integer.toString(i), (int)corner.getCenterX()-4, (int)corner.getCenterY()+4);
+			g2.drawString(Integer.toString(i+1), (int)corner.getCenterX()-4, (int)corner.getCenterY()+4);
 		}
 	}
 	
@@ -332,6 +334,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("View High Scores")) {
+			db.showHigh();
+			/**
 			if(!new File("highscores.txt").exists()) {
 				try {
 					hs.generateFile();
@@ -345,6 +349,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 			highscores.add(scores);
 			highscores.setSize(400, 400);
 			highscores.setVisible(true);
+			**/
 
 		}
 
@@ -372,7 +377,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 			if (!Character.isDigit(parse[i])) 
 				return false;
 		return true;
-
 	}
 
 
