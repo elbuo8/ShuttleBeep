@@ -1,142 +1,110 @@
 package test1;
+
 import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
-import java.awt.GridLayout;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
+import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
+
 
 /**
  * @author cesarcruz
  *
  */
-public class NewGame extends JFrame implements ActionListener, KeyListener, MouseListener{
+public class NewGame extends JFrame{
 
-	JPanel panel = new JPanel();
-	JTextField text1, text2, text3;
-	CheckboxGroup gameType;
-	Checkbox checkbox1, checkbox2;
-	JButton a;
-	String numberOfRows, numberOfColumns, numberOfPlayers;
-	JLabel typeTitle, rowsTitle, columnsTitle, playersTitle;
+	private JLabel gameType, rows, columns, players;
+	private JTextField text1, text2, text3;
+	private Checkbox optionOne, optionTwo;
+	private JButton okButton, cancelButton;
+	private CheckboxGroup gameSelection = new CheckboxGroup();
 
 	public NewGame(){
-
-		setTitle("New Game");
-		setSize(500, 300);
-		setLocation(450, 200);
+		setSize(400, 400);
+		setLocation(500, 250);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setResizable(true);
 
-		panel.setLayout(new GridLayout(5,2));
-		
-		typeTitle = new JLabel("Type of Game:");
-		typeTitle.setLocation(20, 20);
-		panel.add(typeTitle);
-		
-		rowsTitle = new JLabel("Rows:");
-		panel.add(rowsTitle);
-		
-		gameType = new CheckboxGroup();
-		checkbox1 = new Checkbox("Player vs. Player", gameType, false);
-		panel.add(checkbox1);
-		
+		GroupLayout layout = new GroupLayout(getContentPane());
+		   getContentPane().setLayout(layout);
+	        layout.setAutoCreateGaps(true);
+	        layout.setAutoCreateContainerGaps(true);
+
+		/**
+		 * Declaration of all the components
+		 */
+		gameType = new JLabel("Game Type: ");
+		rows = new JLabel("Number of Rows:");
+		optionOne = new Checkbox("PvP", gameSelection, false);
+		optionTwo = new Checkbox("PvR", gameSelection, false);
 		text1 = new JTextField();
-		text1.setSize(100, 20);
-		panel.add(text1);
-		
-		checkbox2 = new Checkbox("Player vs. Rofongo", gameType, false);
-		panel.add(checkbox2);
-		
-		columnsTitle = new JLabel("Columns: ");
-		panel.add(columnsTitle);
-		
-		playersTitle = new JLabel("Players");
-		panel.add(playersTitle);
-		
-		
+		players = new JLabel("Number of Players: ");
+		columns = new JLabel("Number of Columns: ");
 		text2 = new JTextField();
-		panel.add(text2);
-		
-		
 		text3 = new JTextField();
-		panel.add(text3);
-
-		add(panel);
-		setVisible(true);
-
-	}
-
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		numberOfPlayers = text1.getText();
-		numberOfRows = text2.getText();
-		numberOfColumns = text3.getText();
+		okButton = new JButton("Ok");
+		cancelButton = new JButton("Cancel");
 		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		/**
+		 * Horizontal arrangement of all the components in the JPanel
+		 */
+	
+		layout.setHorizontalGroup(layout.createSequentialGroup()
+				.addGroup(layout.createParallelGroup()
+						.addComponent(gameType)
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(optionOne)
+								.addComponent(optionTwo))
+						.addComponent(optionTwo)
+						.addComponent(players)
+						.addComponent(text2))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(rows)
+						.addComponent(text1)
+						.addComponent(columns)
+						.addComponent(text3)
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(okButton)
+								.addComponent(cancelButton)))
+				);
+		
+		/**
+		 * Vertical arragement of the components in the JPanel
+		 */
+		
+		layout.setVerticalGroup(layout.createSequentialGroup()
+				.addGroup(layout.createParallelGroup()
+						.addComponent(gameType)
+						.addComponent(rows))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(optionOne)
+						.addComponent(optionTwo)
+						.addComponent(text1))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(players)
+						.addComponent(columns))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(text2)
+						.addComponent(text3))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(okButton)
+						.addComponent(cancelButton)
+						)
+				);
+		
+		/**
+		 * Create a JFrame with the desired specifications using the GroupLayout class
+		 * from the javax.swing package.
+		 */
+		
+		setTitle("New Game");
+		pack();
+		setVisible(true);
 
 	}
 	public static void main(String[] args){
 		NewGame game = new NewGame();
-
 	}
-
-
 }
