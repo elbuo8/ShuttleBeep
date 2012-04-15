@@ -39,7 +39,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	public JTextField inputField;
 	public JButton tryButton;
 	public JPanel southJPanel;
-	//private HighScores hs;
 	private Database db;
 	private TheGrid grid1;
 	private TheGrid grid2;
@@ -90,7 +89,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		highscores.addActionListener(this);
 
 		//Initialize high scores
-		//hs = new HighScores();
 		db = new Database();
 
 		//Text field setup
@@ -210,7 +208,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		Rectangle corner = new Rectangle(0, 0, FRAMEX/areax, 15);
 		g2.draw(corner);
 
-		char letter = 'A';
+		char letter = 'a';
 		for (int i = 0; i < areax; i++) {
 			corner = new Rectangle(i*(FRAMEX/areax)+FRAMEX/areax, 0, FRAMEX/areax, 15);
 			g2.draw(corner);
@@ -243,51 +241,48 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		g2.drawString("Cesar", 450, 340);
 
 		//Player 2
-		if (true) 
+		if (grid1.isSunken(10)) 
 			g2.drawImage(hits10, null, 0, 330);
-		if (true) 
+		if (grid1.isSunken(9)) 
 			g2.drawImage(hits9, null, 0, 380);
-		if (true) 
+		if (grid1.isSunken(8)) 
 			g2.drawImage(hits8, null, 0, 430);
-		if (true) 
+		if (grid1.isSunken(7)) 
 			g2.drawImage(hits7, null, 0, 470);
-		if (true) 
+		if (grid1.isSunken(2)) 
 			g2.drawImage(hits2, null, 200, 370);
-		if (true) 
+		if (grid1.isSunken(3)) 
 			g2.drawImage(hits3, null, 190, 385);
-		if (true) 
+		if (grid1.isSunken(4)) 
 			g2.drawImage(hits4, null, 190, 420);
-		if (true) 
+		if (grid1.isSunken(5)) 
 			g2.drawImage(hits5, null, 175, 450);
-		if (true) 
+		if (grid1.isSunken(6)) 
 			g2.drawImage(hits6, null, 175, 480);
 
-		//player1
-		if (true) 
+		//Player 1
+		if (grid2.isSunken(10)) 
 			g2.drawImage(hits10, null, 330, 330);
-		if (true) 
+		if (grid2.isSunken(9)) 
 			g2.drawImage(hits9, null, 330, 380);
-		if (true) 
+		if (grid2.isSunken(8)) 
 			g2.drawImage(hits8, null, 330, 430);
-		if (true) 
+		if (grid2.isSunken(7)) 
 			g2.drawImage(hits7, null, 330, 470);
-		if (true) 
+		if (grid2.isSunken(2)) 
 			g2.drawImage(hits2, null, 550, 370);
-		if (true) 
+		if (grid2.isSunken(3)) 
 			g2.drawImage(hits3, null, 520, 385);
-		if (true) 
+		if (grid2.isSunken(4)) 
 			g2.drawImage(hits4, null, 520, 420);
-		if (true) 
+		if (grid2.isSunken(5)) 
 			g2.drawImage(hits5, null, 505, 450);
-		if (true) 
+		if (grid2.isSunken(6)) 
 			g2.drawImage(hits6, null, 505, 480);
-
-
-
-
 	}
-
-
+	/**
+	 * ActionListener for the mouseclicked event.
+	 */
 	public void mouseClicked(MouseEvent e) {
 		if (grid1 != null) {
 			for (int i = 0; i < grid1.theGrid.length; i++) {
@@ -382,6 +377,4 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 				return false;
 		return true;
 	}
-
-
 }

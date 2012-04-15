@@ -140,6 +140,21 @@ public class TheGrid {
 		else
 			return false;
 	}
+	/**
+	 * Check the status of a boat.
+	 * @param boatnumber Size of the boat to check
+	 * @return The boat is sunken or not.
+	 */
+	public boolean isSunken(int boatnumber) {
+		int counter = 0;
+		for (int i = 0; i < theGrid.length; i++) 
+			for (int j = 0; j < theGrid[0].length; j++) 
+				if(theGrid[i][j].boatSerial() == boatnumber)
+					counter++;
+		if (counter == boatnumber) 
+			return true;
+		return false;
+	}
 
 	/**
 	 * 
