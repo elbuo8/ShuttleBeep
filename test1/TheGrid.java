@@ -26,9 +26,10 @@ public class TheGrid {
 		theGrid = new Tiles[numberOfColumns][numberOfRows];
 		for(int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++){
-				theGrid[i][j] = new Tiles();
+				theGrid[i][j] = new Tiles((i+1)*topX + offSet, ((j+1)*topY) - 15, 
+						(WIDTH_OF_GRID/numberOfGrids)/(numberOfRows),
+						(WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 				theGrid[i][j].addLocation(i, j);
-				theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15, (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows), (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 			}
 		}
 		gridObjects++;
@@ -38,15 +39,19 @@ public class TheGrid {
 	 * @param x will be the size of the matrix (x*y)
 	 */
 	public TheGrid(int x, int y){
+		numberOfColumns = y;
+		numberOfRows = x;
 		int topX = ((WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 		int topY = (HEIGHT_OF_GRID)/(numberOfColumns);
 		int offSet = (WIDTH_OF_GRID/numberOfGrids)*gridObjects;
 		theGrid = new Tiles[x][y];
 		for(int i = 0; i < x; i++){
 			for(int j = 0; j < y; j++){
-				theGrid[i][j] = new Tiles();
+				theGrid[i][j] = new Tiles((i+1)*topX + offSet, ((j+1)*topY)-
+						((HEIGHT_OF_GRID/numberOfColumns)-15), 
+						(WIDTH_OF_GRID/numberOfGrids)/(numberOfRows),
+						(WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 				theGrid[i][j].addLocation(i, j);
-				theGrid[i][j].setRectangleBounds((i+1)*topX + offSet, ((j+1)*topY) - 15, (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows), (WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 			}
 		}
 		gridObjects++;

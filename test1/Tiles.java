@@ -26,12 +26,12 @@ public class Tiles {
 	 * @param x location of the tile in the 2D array 
 	 * @param y location of the tile in the 2D array
 	 */
-	public Tiles(){
+	public Tiles(int topX, int topY, int x, int y){
 		locationX = 0;
 		locationY = 0;
 		hasAship = false;
 		boatSerial = 0;
-		rect.setBounds(0,0,30,30);
+		rect.setBounds(topX,topY,x,y);
 		isHit = false;
 	}
 	
@@ -85,10 +85,10 @@ public class Tiles {
 	 * in each of the tiles.
 	 * @param topX 
 	 * @param topY
-	 */
+	 *//*
 	public void setRectangleBounds(int topX, int topY, int x, int y){
 		rect.setBounds(topX, topY, x, y);
-	}
+	}*/
 	
 	/**
 	 * @return the rectangle data for the given tile
