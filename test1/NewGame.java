@@ -9,6 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
@@ -28,7 +29,9 @@ public class NewGame extends JFrame implements ActionListener{
 	private JButton okButton, cancelButton;
 	private CheckboxGroup gameSelection = new CheckboxGroup();
 	private String numberOfRows, numberOfColumns, numberOfShuttles;
+	private String player1Name, player2Name;
 	private int xRows, xColumns, xShuttles;
+	private boolean check = false;
 
 	public NewGame(){
 		setSize(400, 400);
@@ -132,8 +135,17 @@ public class NewGame extends JFrame implements ActionListener{
 		return xShuttles;
 	}
 	
+	public String playerOne(){
+		return player1Name;
+	}
 	
+	public String playerTwo(){
+		return player2Name;
+	}
 	
+	public boolean stateOfFrame(){
+		return check;
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -152,18 +164,22 @@ public class NewGame extends JFrame implements ActionListener{
 			xColumns = Integer.parseInt(numberOfColumns);
 			//System.out.println(numberOfColumns);
 			
-			/*not yet implemented
-			 * if(gameSelection.getSelectedCheckbox() == optionOne){
-				
+			if(gameSelection.getSelectedCheckbox() == optionOne){
+				player1Name = JOptionPane.showInputDialog(null, "First player name: ", "New Game");
+				player2Name = JOptionPane.showInputDialog(null, "Second player name: ", "New Game");
 			}
 			else if(gameSelection.getSelectedCheckbox() == optionTwo){
-				
-			}*/
+				player1Name = JOptionPane.showInputDialog(null, "First player name: ", "New Game");
+			}
 			
 			setVisible(false);
+			check = true;
 		}
 		if(e.getActionCommand().equals("Cancel")){
 			setVisible(false);
 		}
 	}
+/*	public static void main(String[] args){
+		NewGame game = new NewGame();
+	}*/
 }
