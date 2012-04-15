@@ -61,7 +61,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private String player1;
 	private String player2;
 	private int ships; 
-	@SuppressWarnings("unused")
 	private NewGame game;
 
 	/**
@@ -396,32 +395,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		if (e.getActionCommand().equals("New Game")) {
 			game = new NewGame();
 			game.addWindowListener(this);
-		
-				/*areax = game.getColumns();
-				areay = game.getRows();
-				ships = game.getBoats();
-				player1 = game.playerOne();
-				player2 = game.playerTwo();
-
-				grid1 = new TheGrid(areax/2, areay);
-				grid2 = new TheGrid(areax/2, areay);
-
-				status = new Status(player1, player2);
-				repaint();*/
-			 
-
-			areax = 20;
-			areay = 10;
-			player1 = "Yamil";
-			player2 = "Cesar";
-			ships = 3;
-			grid1 = new TheGrid(areax/2, areay);
-			grid2 = new TheGrid(areax/2, areay);
-
-			status = new Status(player1, player2);
-			repaint();
-
-
 		}
 
 		if (e.getActionCommand().equals("Open Saved Game")) {
@@ -467,7 +440,16 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
+		areax = game.getColumns();
+		areay = game.getRows();
+		ships = game.getBoats();
+		player1 = game.playerOne();
+		player2 = game.playerTwo();
+
+		grid1 = new TheGrid(areax/2, areay);
+		grid2 = new TheGrid(areax/2, areay);
+
+		status = new Status(player1, player2);
 		repaint();
 	}
 

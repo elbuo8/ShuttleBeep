@@ -165,7 +165,7 @@ public class NewGame extends JFrame implements ActionListener{
 				player2Name = text2.getText();
 
 			if(text3.getText().equals(null) || text3.getText().equals(""))
-				xShuttles = 10;
+				xShuttles = 9;
 			else{
 				numberOfShuttles = text3.getText();
 				xShuttles = Integer.parseInt(numberOfShuttles);
