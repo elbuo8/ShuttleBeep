@@ -42,7 +42,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	private Database db;
 	private TheGrid grid1;
 	private TheGrid grid2;
-	//private Status status;
+	private Status status;
 	private static final int FRAMEX = 600;
 	private static final int FRAMEY = 300;
 	private BufferedImage hits2;
@@ -56,10 +56,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	private BufferedImage hits10;
 	private int areax;
 	private int areay;
-	//private String player1; // mod cesar new
-	//private String player2; // mod cesar new/default roboto
-	@SuppressWarnings("unused")
+	private String player1;
+	private String player2;
 	private int ships; 
+	@SuppressWarnings("unused")
 	private NewGame game;
 
 	/**
@@ -98,6 +98,21 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 				String input = inputField.getText();
 				if(verifyInput(input)) {
 					inputField.setText("");
+					int y = Character.getNumericValue(input.charAt(0))-10;
+					int x = Integer.parseInt(input.substring(1)) - 1;
+
+					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
+						grid1.theGrid[y][x].hit();
+						status.switchStatus();
+						status.incrementP1();
+						repaint();
+					}
+					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
+						grid2.theGrid[y][x].hit();
+						status.switchStatus();
+						status.incrementP2();
+						repaint();
+					}
 				}
 			}
 		});
@@ -109,6 +124,21 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 				String input = inputField.getText();
 				if (verifyInput(input)) {
 					inputField.setText("");
+					int y = Character.getNumericValue(input.charAt(0));
+					int x = Integer.parseInt(input.substring(1));
+
+					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
+						grid1.theGrid[y][x].hit();
+						status.switchStatus();
+						status.incrementP1();
+						repaint();
+					}
+					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
+						grid2.theGrid[y][x].hit();
+						status.switchStatus();
+						status.incrementP2();
+						repaint();
+					}
 				}
 			}
 		});
@@ -118,9 +148,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		southJPanel.add(inputField);
 		southJPanel.add(tryButton);
 
-		//TheGrid preparation
+		//Grid preparation
 		grid1 = null;
 		grid2 = null;
+		status = null;
 
 		//Initialize mouse listener
 		addMouseListener(this);
@@ -159,6 +190,9 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	 * @param g2 Graphical painter
 	 */
 	public void drawGrid(Graphics2D g2) {
+
+		Font font = new Font("sansserif", Font.BOLD, 8);
+		g2.setFont(font);
 
 		for (int i = 0; i < grid1.theGrid.length; i++) {
 			for (int j = 0; j < grid1.theGrid[0].length; j++) {
@@ -207,13 +241,17 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		g2.setColor(borde);
 		Rectangle corner = new Rectangle(0, 0, FRAMEX/areax, 15);
 		g2.draw(corner);
-
+		Font font = new Font("sansserif", Font.BOLD, 8);
+		g2.setFont(font);
 		char letter = 'a';
 		for (int i = 0; i < areax; i++) {
 			corner = new Rectangle(i*(FRAMEX/areax)+FRAMEX/areax, 0, FRAMEX/areax, 15);
 			g2.draw(corner);
 			g2.drawString(letter + "", (int)corner.getCenterX()-3, (int)(corner.getCenterY()+5 ));
-			letter += 1;
+			if (i == (int)(areax/2)-1) 
+				letter = 'a';
+			else
+				letter += 1;
 		}
 
 		background = new Rectangle(0, 15, FRAMEX/areax, FRAMEY);
@@ -235,10 +273,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 
 	public void drawBottom(Graphics2D g2) {
 		g2.setColor(Color.BLACK);
-		Font font = new Font("sansserif", Font.BOLD, 24);
+		Font font = new Font("sansserif", Font.ITALIC, 24);
 		g2.setFont(font);
-		g2.drawString("Yamil", 150, 340);
-		g2.drawString("Cesar", 450, 340);
+		g2.drawString(player1, 150, 340);
+		g2.drawString(player2, 450, 340);
 
 		//Player 2
 		if (grid1.isSunken(10)) 
@@ -279,33 +317,46 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 			g2.drawImage(hits5, null, 505, 450);
 		if (grid2.isSunken(6)) 
 			g2.drawImage(hits6, null, 505, 480);
+
+		if (grid1.allSunken(ships)) {
+			db.update(player1, status.totalPlayer1());
+		}
+		if (grid2.allSunken(ships)) {
+			db.update(player2, status.totalPlayer2());
+		}
+
+
+		if(player2.equals("Rofongo")) {}
+			//insert code here.
 	}
 	/**
 	 * ActionListener for the mouseclicked event.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		if (grid1 != null) {
+		if (grid1 != null && status.getStatus().equals(player1)) {
 			for (int i = 0; i < grid1.theGrid.length; i++) {
 				for (int j = 0; j < grid1.theGrid[0].length; j++) {
 					if(grid1.theGrid[i][j].getRect().contains(e.getPoint())) {
 						grid1.theGrid[i][j].hit();
+						status.switchStatus();
+						status.incrementP1();
 						repaint();
 					}
 				}
 			}			
 		}
-		if (grid2 != null) {
+		if (grid2 != null && status.getStatus().equals(player2)) {
 			for (int i = 0; i < grid2.theGrid.length; i++) {
 				for (int j = 0; j < grid2.theGrid[0].length; j++) {
 					if(grid2.theGrid[i][j].getRect().contains(e.getPoint())) {
 						grid2.theGrid[i][j].hit();
+						status.switchStatus();
+						status.incrementP2();
 						repaint();
 					}
 				}
 			}			
 		}
-
-
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -341,18 +392,34 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		}
 
 		if (e.getActionCommand().equals("New Game")) {
-			game = new NewGame();
+			//game = new NewGame();
+			/**
+			if(game.stateOfFrame()) {
+				areax = game.getColumns();
+				areay = game.getRows();
+				ships = game.getBoats();
+				player1 = game.playerOne();
+				player2 = game.playerTwo();
 
-			// Tenemos q crear un wait aki.
-			
-			areax = game.getColumns();
-			areay = game.getRows();
-			ships = game.getBoats();
-			
+				grid1 = new TheGrid(areax/2, areay);
+				grid2 = new TheGrid(areax/2, areay);
+
+				status = new Status(player1, player2);
+				repaint();
+				}
+			 **/
+
+			areax = 20;
+			areay = 10;
+			player1 = "Yamil";
+			player2 = "Cesar";
+			ships = 3;
 			grid1 = new TheGrid(areax/2, areay);
 			grid2 = new TheGrid(areax/2, areay);
-			
+
+			status = new Status(player1, player2);
 			repaint();
+
 
 		}
 
@@ -368,7 +435,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	 * @return If the input is valid
 	 */
 	static boolean verifyInput(String input) {
-		input = input.toUpperCase();
+		if(input.isEmpty())
+			return false;
 		char[] parse = input.toCharArray();
 		if(!Character.isLetter(parse[0]))
 			return false;
@@ -377,4 +445,5 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 				return false;
 		return true;
 	}
+
 }

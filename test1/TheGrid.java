@@ -155,7 +155,21 @@ public class TheGrid {
 			return true;
 		return false;
 	}
-
+	/**
+	 * Performs a quick test to verify the winner
+	 * @param totalShips
+	 * @return If the player has won.
+	 */
+	public boolean allSunken(int totalShips) {
+		int counter = 0;
+		for (int i = 2; i <= 10; i++) 
+			if(isSunken(i))
+				counter++;
+		if(counter == totalShips)
+			return true;
+		return false;			
+	}
+	
 	/**
 	 * 
 	 * @param x amount of grids that you want to add to the game
@@ -163,4 +177,6 @@ public class TheGrid {
 	public void numberOfGrids(int x){
 		numberOfGrids = x;
 	}
+	
+
 }

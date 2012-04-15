@@ -170,6 +170,7 @@ public class NewGame extends JFrame implements ActionListener{
 			}
 			else if(gameSelection.getSelectedCheckbox() == optionTwo){
 				player1Name = JOptionPane.showInputDialog(null, "First player name: ", "New Game");
+				player2Name = "Rofongo";
 			}
 			
 			setVisible(false);
@@ -179,7 +180,5 @@ public class NewGame extends JFrame implements ActionListener{
 			setVisible(false);
 		}
 	}
-/*	public static void main(String[] args){
-		NewGame game = new NewGame();
-	}*/
+
 }
