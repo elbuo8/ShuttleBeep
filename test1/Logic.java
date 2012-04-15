@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -27,7 +29,7 @@ import javax.swing.JTextField;
  * @author yamilasusta
  *
  */
-public class Logic extends JPanel implements ActionListener, MouseListener{
+public class Logic extends JPanel implements ActionListener, MouseListener, WindowListener{
 
 	/**
 	 * Mandatory modification by eclipse
@@ -89,7 +91,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		highscores.addActionListener(this);
 
 		//Initialize high scores
-		db = new Database();
+		//db = new Database();
 
 		//Text field setup
 		inputField = new JTextField(30);
@@ -392,10 +394,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		}
 
 		if (e.getActionCommand().equals("New Game")) {
-			//game = new NewGame();
-			/**
-			if(game.stateOfFrame()) {
-				areax = game.getColumns();
+			game = new NewGame();
+			game.addWindowListener(this);
+		
+				/*areax = game.getColumns();
 				areay = game.getRows();
 				ships = game.getBoats();
 				player1 = game.playerOne();
@@ -405,9 +407,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 				grid2 = new TheGrid(areax/2, areay);
 
 				status = new Status(player1, player2);
-				repaint();
-				}
-			 **/
+				repaint();*/
+			 
 
 			areax = 20;
 			areay = 10;
@@ -444,6 +445,48 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 			if (!Character.isDigit(parse[i])) 
 				return false;
 		return true;
+	}
+
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		//System.out.println("It works?");
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		repaint();
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
