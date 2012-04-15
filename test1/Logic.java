@@ -4,25 +4,22 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
 
 
 /**
@@ -46,7 +43,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	private Database db;
 	private TheGrid grid1;
 	private TheGrid grid2;
-	private Status status;
+	//private Status status;
 	private static final int FRAMEX = 600;
 	private static final int FRAMEY = 300;
 	private BufferedImage hits2;
@@ -58,17 +55,22 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	private BufferedImage hits8;
 	private BufferedImage hits9;
 	private BufferedImage hits10;
-	private int areax = 20; // modificar cuando cesar haga new
-	private int areay = 10; // modificar cuando cesar haga new
+	private int areax;
+	private int areay;
 	//private String player1; // mod cesar new
 	//private String player2; // mod cesar new/default roboto
-	//private int ships; // mod cesar new
-	
+	@SuppressWarnings("unused")
+	private int ships; 
+	private NewGame game;
+
 	/**
 	 * Default constructor
 	 * Generates the menus, the grid, and the input options
 	 */
 	public Logic() {
+
+		areax = 20; //default value
+		areay = 10; //default value
 
 		//Initialize menu
 		bar = new JMenuBar();
@@ -117,14 +119,14 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 		southJPanel = new JPanel();
 		southJPanel.add(inputField);
 		southJPanel.add(tryButton);
-		
+
 		//TheGrid preparation
-		grid1 = new TheGrid();
-		grid2 = new TheGrid();
-		
+		grid1 = null;
+		grid2 = null;
+
 		//Initialize mouse listener
 		addMouseListener(this);
-		
+
 		//Initialize images
 		try {
 			hits2 = ImageIO.read(getClass().getResource("2hits.png"));
@@ -148,25 +150,23 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g; 
 		drawBorders(g2);
-		drawGrid(g2);
-		drawBottom(g2);
+		if(grid1 != null && grid2 != null) {
+			drawBottom(g2);
+			drawGrid(g2);
+		}
 	}
-	
+
 	/**
 	 * Draws the actual playing field
 	 * @param g2 Graphical painter
 	 */
 	public void drawGrid(Graphics2D g2) {
-		Color background = Color.white;
-		g2.setColor(background);
-		Rectangle gridRectangle = new Rectangle(31, 16, 601-((int)FRAMEX/FRAMEY), 301-((int)FRAMEY/FRAMEY));
-		g2.fill(gridRectangle);
-		
+
 		for (int i = 0; i < grid1.theGrid.length; i++) {
 			for (int j = 0; j < grid1.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
 				g2.draw(grid1.theGrid[i][j].getRect());
-				
+
 				if(grid1.theGrid[i][j].isHit() && !grid1.theGrid[i][j].hasAship())
 					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX() -3 , (int)grid1.theGrid[i][j].getRect().getCenterY()+3);
 				else if(grid1.theGrid[i][j].isHit() && grid1.theGrid[i][j].hasAship()) {
@@ -175,12 +175,12 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < grid2.theGrid.length; i++) {
 			for (int j = 0; j < grid2.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
 				g2.draw(grid2.theGrid[i][j].getRect());
-				
+
 				if(grid2.theGrid[i][j].isHit() && !grid2.theGrid[i][j].hasAship())
 					g2.drawString("X", (int)grid2.theGrid[i][j].getRect().getCenterX()-3, (int)grid2.theGrid[i][j].getRect().getCenterY()+3);
 				else if(grid2.theGrid[i][j].isHit() && grid2.theGrid[i][j].hasAship()) {
@@ -228,15 +228,20 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 			g2.draw(corner);
 			g2.drawString(Integer.toString(i+1), (int)corner.getCenterX()-4, (int)corner.getCenterY()+4);
 		}
+
+		Color back = Color.white;
+		g2.setColor(back);
+		Rectangle gridRectangle = new Rectangle(31, 16, 601-((int)FRAMEX/FRAMEY), 301-((int)FRAMEY/FRAMEY));
+		g2.fill(gridRectangle);
 	}
-	
+
 	public void drawBottom(Graphics2D g2) {
 		g2.setColor(Color.BLACK);
 		Font font = new Font("sansserif", Font.BOLD, 24);
 		g2.setFont(font);
 		g2.drawString("Yamil", 150, 340);
 		g2.drawString("Cesar", 450, 340);
-		
+
 		//Player 2
 		if (true) 
 			g2.drawImage(hits10, null, 0, 330);
@@ -256,7 +261,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 			g2.drawImage(hits5, null, 175, 450);
 		if (true) 
 			g2.drawImage(hits6, null, 175, 480);
-		
+
 		//player1
 		if (true) 
 			g2.drawImage(hits10, null, 330, 330);
@@ -276,33 +281,36 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 			g2.drawImage(hits5, null, 505, 450);
 		if (true) 
 			g2.drawImage(hits6, null, 505, 480);
-		
-		
-		
-		
+
+
+
+
 	}
 
 
 	public void mouseClicked(MouseEvent e) {
-		
-		for (int i = 0; i < grid1.theGrid.length; i++) {
-			for (int j = 0; j < grid1.theGrid[0].length; j++) {
-				if(grid1.theGrid[i][j].getRect().contains(e.getPoint())) {
-					grid1.theGrid[i][j].hit();
-					repaint();
+		if (grid1 != null) {
+			for (int i = 0; i < grid1.theGrid.length; i++) {
+				for (int j = 0; j < grid1.theGrid[0].length; j++) {
+					if(grid1.theGrid[i][j].getRect().contains(e.getPoint())) {
+						grid1.theGrid[i][j].hit();
+						repaint();
+					}
 				}
-			}
+			}			
 		}
-		
-		for (int i = 0; i < grid2.theGrid.length; i++) {
-			for (int j = 0; j < grid2.theGrid[0].length; j++) {
-				if(grid2.theGrid[i][j].getRect().contains(e.getPoint())) {
-					grid2.theGrid[i][j].hit();
-					repaint();
+		if (grid2 != null) {
+			for (int i = 0; i < grid2.theGrid.length; i++) {
+				for (int j = 0; j < grid2.theGrid[0].length; j++) {
+					if(grid2.theGrid[i][j].getRect().contains(e.getPoint())) {
+						grid2.theGrid[i][j].hit();
+						repaint();
+					}
 				}
-			}
+			}			
 		}
-		
+
+
 	}
 
 	public void mouseEntered(MouseEvent e) {
@@ -335,25 +343,21 @@ public class Logic extends JPanel implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals("View High Scores")) {
 			db.showHigh();
-			/**
-			if(!new File("highscores.txt").exists()) {
-				try {
-					hs.generateFile();
-				} catch (IOException e1) {}
-
-			}
-			JFrame highscores = new JFrame();
-			highscores.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-			highscores.setTitle("High Scores");
-			JTextArea scores = new JTextArea(hs.getString());
-			highscores.add(scores);
-			highscores.setSize(400, 400);
-			highscores.setVisible(true);
-			**/
-
 		}
 
 		if (e.getActionCommand().equals("New Game")) {
+			game = new NewGame();
+
+			// Tenemos q crear un wait aki.
+			
+			areax = game.getColumns();
+			areay = game.getRows();
+			ships = game.getBoats();
+			
+			grid1 = new TheGrid(areax/2, areay);
+			grid2 = new TheGrid(areax/2, areay);
+			
+			repaint();
 
 		}
 

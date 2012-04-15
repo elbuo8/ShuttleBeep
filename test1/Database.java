@@ -55,6 +55,7 @@ public class Database {
 		collection.insert(player);
 	}
 	
+	/**
 	public void save(Tiles[][] grid1, Tiles[][] grid2, String name) {
 		DBCollection collection = db.getCollection("saves");
 		BasicDBObject player1 = new BasicDBObject();
@@ -79,5 +80,6 @@ public class Database {
 		plane1.put("plane1", index);
 		
 	}
+	**/
 
 }

@@ -18,6 +18,10 @@ import javax.swing.JTextField;
  */
 public class NewGame extends JFrame implements ActionListener{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel gameType, rows, columns, players;
 	private JTextField text1, text2, text3;
 	private Checkbox optionOne, optionTwo;
@@ -29,7 +33,7 @@ public class NewGame extends JFrame implements ActionListener{
 	public NewGame(){
 		setSize(400, 400);
 		setLocation(500, 250);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 		   getContentPane().setLayout(layout);
@@ -108,21 +112,24 @@ public class NewGame extends JFrame implements ActionListener{
 		setTitle("New Game");
 		pack();
 		setVisible(true);
-
 	}
 	
-	public int Columns(){
+	public int getColumns(){
 		if(xColumns < 10){
 			xColumns = 10;
 		}
-		return xColumns;
+		return xColumns*2;
 	}
 	
-	public int Rows(){
+	public int getRows(){
 		if(xRows < 10){
 			xRows = 10;
 		}
 		return xRows;
+	}
+	
+	public int getBoats() {
+		return xShuttles;
 	}
 	
 	
@@ -152,12 +159,11 @@ public class NewGame extends JFrame implements ActionListener{
 			else if(gameSelection.getSelectedCheckbox() == optionTwo){
 				
 			}*/
+			
+			setVisible(false);
 		}
 		if(e.getActionCommand().equals("Cancel")){
-			System.exit(0);
+			setVisible(false);
 		}
-	}
-	public static void main(String[] args){
-		NewGame game = new NewGame();
 	}
 }

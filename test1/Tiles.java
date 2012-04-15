@@ -87,7 +87,7 @@ public class Tiles {
 	 * @param topY
 	 */
 	public void setRectangleBounds(int topX, int topY, int x, int y){
-		rect.setBounds(topX, topY, 30, 30);
+		rect.setBounds(topX, topY, x, y);
 	}
 	
 	/**
@@ -115,6 +115,14 @@ public class Tiles {
 			return true;
 		else
 			return false;
+	}
+	
+	/**
+	 * 
+	 * @return the serial number of the boat.
+	 */
+	public int boatSerial() {
+		return boatSerial;
 	}
 	
 }

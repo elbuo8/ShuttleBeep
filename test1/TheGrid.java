@@ -7,7 +7,7 @@ package test1;
  */
 public class TheGrid {
 
-	public Tiles[][]  theGrid; // = new Tiles[][];
+	public Tiles[][]  theGrid;
 	private static int numberOfGrids = 2;
 	private static final int WIDTH_OF_GRID = 600;
 	private static final int HEIGHT_OF_GRID = 300;
