@@ -126,7 +126,7 @@ public class NewGame extends JFrame implements ActionListener{
 		if(xColumns < 10){
 			xColumns = 10;
 		}
-		return xColumns*2;
+		return xColumns;
 	}
 
 	public int getRows(){

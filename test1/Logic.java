@@ -233,6 +233,12 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 */
 	public void drawBorders(Graphics2D g2) {
 		//Borders of game
+
+		Color back = Color.white;
+		g2.setColor(back);
+		Rectangle gridRectangle = new Rectangle(0, 0, 631-((int)FRAMEX/FRAMEY), 316-((int)FRAMEY/FRAMEY));
+		g2.fill(gridRectangle);
+		
 		Color borde = Color.BLACK;
 		Color fill = Color.GRAY;
 		g2.setColor(fill);
@@ -265,11 +271,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			g2.draw(corner);
 			g2.drawString(Integer.toString(i+1), (int)corner.getCenterX()-4, (int)corner.getCenterY()+4);
 		}
-
-		Color back = Color.white;
-		g2.setColor(back);
-		Rectangle gridRectangle = new Rectangle(31, 16, 601-((int)FRAMEX/FRAMEY), 301-((int)FRAMEY/FRAMEY));
-		g2.fill(gridRectangle);
 	}
 
 	public void drawBottom(Graphics2D g2) {
@@ -440,7 +441,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {
-		areax = game.getColumns();
+		areax = game.getColumns()*2;
 		areay = game.getRows();
 		ships = game.getBoats();
 		player1 = game.playerOne();
