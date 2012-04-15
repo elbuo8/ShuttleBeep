@@ -15,6 +15,7 @@ public class Status {
 	public String switchStatus() {
 		current = player2;
 		player2 = player1;
+		player1 = current;
 		return current;
 	}
 	
