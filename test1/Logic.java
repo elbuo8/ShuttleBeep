@@ -62,6 +62,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private String player2;
 	private int ships; 
 	private NewGame game;
+	private boolean reset;
 
 	/**
 	 * Default constructor
@@ -90,7 +91,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		highscores.addActionListener(this);
 
 		//Initialize high scores
-		//db = new Database();
+		db = new Database();
 
 		//Text field setup
 		inputField = new JTextField(30);
@@ -101,7 +102,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 					inputField.setText("");
 					int y = Character.getNumericValue(input.charAt(0))-10;
 					int x = Integer.parseInt(input.substring(1)) - 1;
-
 					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
 						grid1.theGrid[y][x].hit();
 						status.switchStatus();
@@ -127,7 +127,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 					inputField.setText("");
 					int y = Character.getNumericValue(input.charAt(0));
 					int x = Integer.parseInt(input.substring(1));
-
 					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
 						grid1.theGrid[y][x].hit();
 						status.switchStatus();
@@ -153,6 +152,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		grid1 = null;
 		grid2 = null;
 		status = null;
+		reset = false;
 
 		//Initialize mouse listener
 		addMouseListener(this);
@@ -171,7 +171,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		} catch (IOException e1) {
 			System.out.println("Images were not found.");
 		}
-
 	}
 
 	/**
@@ -179,11 +178,19 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 */
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g; 
+		if(reset)
+			purge(g2);
 		drawBorders(g2);
 		if(grid1 != null && grid2 != null) {
 			drawBottom(g2);
 			drawGrid(g2);
 		}
+	}
+	
+	public void purge(Graphics2D g2) {
+		g2.setColor(this.getBackground());
+		g2.fillRect(0, 0, 631, 600);
+		reset = false;
 	}
 
 	/**
@@ -191,15 +198,12 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 * @param g2 Graphical painter
 	 */
 	public void drawGrid(Graphics2D g2) {
-
 		Font font = new Font("sansserif", Font.BOLD, 8);
 		g2.setFont(font);
-
 		for (int i = 0; i < grid1.theGrid.length; i++) {
 			for (int j = 0; j < grid1.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
 				g2.draw(grid1.theGrid[i][j].getRect());
-
 				if(grid1.theGrid[i][j].isHit() && !grid1.theGrid[i][j].hasAship())
 					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX() -3 , (int)grid1.theGrid[i][j].getRect().getCenterY()+3);
 				else if(grid1.theGrid[i][j].isHit() && grid1.theGrid[i][j].hasAship()) {
@@ -208,7 +212,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 				}
 			}
 		}
-
 		for (int i = 0; i < grid2.theGrid.length; i++) {
 			for (int j = 0; j < grid2.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
@@ -233,18 +236,15 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 */
 	public void drawBorders(Graphics2D g2) {
 		//Borders of game
-
 		Color back = Color.white;
 		g2.setColor(back);
 		Rectangle gridRectangle = new Rectangle(0, 0, 631-((int)FRAMEX/FRAMEY), 316-((int)FRAMEY/FRAMEY));
-		g2.fill(gridRectangle);
-		
+		g2.fill(gridRectangle);		
 		Color borde = Color.BLACK;
 		Color fill = Color.GRAY;
 		g2.setColor(fill);
 		Rectangle background = new Rectangle(0, 0, FRAMEX+FRAMEX/areax, 15);
 		g2.fill(background);
-
 		g2.setColor(borde);
 		Rectangle corner = new Rectangle(0, 0, FRAMEX/areax, 15);
 		g2.draw(corner);
@@ -260,11 +260,9 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			else
 				letter += 1;
 		}
-
 		background = new Rectangle(0, 15, FRAMEX/areax, FRAMEY);
 		g2.setColor(fill);
 		g2.fill(background);
-
 		for (int i = 0; i < areay; i++) {
 			g2.setColor(borde);
 			corner = new Rectangle(0, i*(FRAMEY/areay)+15, FRAMEX/areax, FRAMEY/areay);
@@ -279,7 +277,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		g2.setFont(font);
 		g2.drawString(player1, 150, 340);
 		g2.drawString(player2, 450, 340);
-
 		//Player 2
 		if (grid1.isSunken(10)) 
 			g2.drawImage(hits10, null, 0, 330);
@@ -299,7 +296,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			g2.drawImage(hits5, null, 175, 450);
 		if (grid1.isSunken(6)) 
 			g2.drawImage(hits6, null, 175, 480);
-
 		//Player 1
 		if (grid2.isSunken(10)) 
 			g2.drawImage(hits10, null, 330, 330);
@@ -319,18 +315,16 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			g2.drawImage(hits5, null, 505, 450);
 		if (grid2.isSunken(6)) 
 			g2.drawImage(hits6, null, 505, 480);
-
 		if (grid1.allSunken(ships)) {
 			db.update(player1, status.totalPlayer1());
 		}
 		if (grid2.allSunken(ships)) {
 			db.update(player2, status.totalPlayer2());
 		}
-
-
 		if(player2.equals("Rofongo")) {}
 			//insert code here.
 	}
+	
 	/**
 	 * ActionListener for the mouseclicked event.
 	 */
@@ -361,47 +355,26 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		}
 	}
 
-	public void mouseEntered(MouseEvent e) {
-
-	}
-
-	public void mouseExited(MouseEvent e) {
-
-	}
-
-	public void mousePressed(MouseEvent e) {
-
-	}
-
-	public void mouseReleased(MouseEvent e) {
-
-	}
-
-	public void mouseDragged(MouseEvent e) {
-
-	}
-
-	public void mouseMoved(MouseEvent e) {
-
-	}
+	public void mouseEntered(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {}
+	public void mouseDragged(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {}
 
 	/**
 	 * Waits for the input in the menu bar
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("View High Scores")) {
+		if(e.getActionCommand().equals("View High Scores")) 
 			db.showHigh();
-		}
-
 		if (e.getActionCommand().equals("New Game")) {
 			game = new NewGame();
 			game.addWindowListener(this);
 		}
-
 		if (e.getActionCommand().equals("Open Saved Game")) {
 
 		}
-
 	}
 
 	/**
@@ -421,55 +394,25 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		return true;
 	}
 
-	@Override
-	public void windowActivated(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowActivated(WindowEvent arg0) {}
+	public void windowClosed(WindowEvent arg0) {}
+	public void windowClosing(WindowEvent e) {}
 
-	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
-		//System.out.println("It works?");
-	}
-
-	@Override
 	public void windowDeactivated(WindowEvent arg0) {
 		areax = game.getColumns()*2;
 		areay = game.getRows();
 		ships = game.getBoats();
 		player1 = game.playerOne();
 		player2 = game.playerTwo();
-
 		grid1 = new TheGrid(areax/2, areay);
 		grid2 = new TheGrid(areax/2, areay);
-
 		status = new Status(player1, player2);
+		reset = true;
 		repaint();
 	}
 
-	@Override
-	public void windowDeiconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowIconified(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void windowOpened(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void windowDeiconified(WindowEvent arg0) {}
+	public void windowIconified(WindowEvent arg0) {}
+	public void windowOpened(WindowEvent arg0) {}
 
 }
