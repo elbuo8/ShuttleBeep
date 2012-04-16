@@ -70,7 +70,7 @@ public class TheGrid {
 			for (int i = x1; i <= x2; i++) 
 				theGrid[y][i].setSerial(boatSerial);
 			return true;
-			}
+		}
 		else
 			return false;
 	}
@@ -86,6 +86,16 @@ public class TheGrid {
 			return true;
 		}
 		else
+			return false;
+	}
+
+	public boolean addBoatDiagonal(int x, int x2) {
+		if (checkIfBoatDiagonal(x, x2)) {
+			for (int i = x; i <= x2; i++) 
+				theGrid[i][i].setSerial(boatSerial);
+			return true;
+		}
+		else 
 			return false;
 	}
 	/**
@@ -116,8 +126,16 @@ public class TheGrid {
 			if(theGrid[y][i].boatSerial() != 0)
 				return false;
 		return true;
-		
+
 	}
+
+	public boolean checkIfBoatDiagonal(int x, int x2) {
+		for (int i = x; i <= x2; i++) 
+			if(theGrid[i][i].boatSerial() != 0)
+				return false;
+		return true;
+	}
+
 	/**
 	 * Check the status of a boat.
 	 * @param boatnumber Size of the boat to check
@@ -172,37 +190,72 @@ public class TheGrid {
 				return false;
 		return true;
 	}
-	
-	
+
+
 	public void placeTheBoats(int x){
 		boatSerial = 2;
-		for(int i = 0; i < x; i++){
-			boolean accepted = false;
-			do {
-				String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
-				boatCoordinates = boatCoordinates.toLowerCase();
-				String first[] = boatCoordinates.split("-");
+		if(boatSerial ==0 ) {//fix ASAP
+			for(int i = 0; i < x; i++){
+				boolean accepted = false;
+				do {
+					String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
+					boatCoordinates = boatCoordinates.toLowerCase();
+					String first[] = boatCoordinates.split("-");
 
-				int y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
-				int x1 = Character.getNumericValue(first[0].charAt(1)) - 1;
-				int y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
-				int x2 = Character.getNumericValue(first[1].charAt(1)) - 1;
+					int y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
+					int x1 = Character.getNumericValue(first[0].charAt(1)) - 1;
+					int y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
+					int x2 = Character.getNumericValue(first[1].charAt(1)) - 1;
 
-				if(x1 == x2){
-					accepted = addBoatHorizontal(x1, y1, y2);
-					if(Math.abs(y2-y1)+1 != boatSerial)
-						accepted = false;
-				}
-				if(y1 == y2){
-					accepted = addBoatVertical(y1, x1, x2);
-					if(Math.abs(x2-x1)+1 != boatSerial)
-						accepted = false;
-				}	
-				
-			} while (!accepted);
-			boatSerial++;
+					if(x1 == x2){
+						accepted = addBoatHorizontal(x1, y1, y2);
+						if(Math.abs(y2-y1)+1 != boatSerial)
+							accepted = false;
+					}
+					if(y1 == y2){
+						accepted = addBoatVertical(y1, x1, x2);
+						if(Math.abs(x2-x1)+1 != boatSerial)
+							accepted = false;
+					}	
+
+				} while (!accepted);
+				boatSerial++;
+			}
 		}
-	}
-}
+		else {
+			for(int i = 0; i < x; i++){
+				boolean accepted = false;
+				do {
+					String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
+					boatCoordinates = boatCoordinates.toLowerCase();
+					String first[] = boatCoordinates.split("-");
 
+					int y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
+					int x1 = Character.getNumericValue(first[0].charAt(1)) - 1;
+					int y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
+					int x2 = Character.getNumericValue(first[1].charAt(1)) - 1;
+
+					if(x1 == x2){
+						accepted = addBoatHorizontal(x1, y1, y2);
+						if(Math.abs(y2-y1)+1 != boatSerial)
+							accepted = false;
+					}
+					else if(y1 == y2){
+						accepted = addBoatVertical(y1, x1, x2);
+						if(Math.abs(x2-x1)+1 != boatSerial)
+							accepted = false;
+					}
+					else {
+						accepted = addBoatDiagonal(x1, x2);// work on this
+					}
+
+				} while (!accepted);
+				boatSerial++;
+			}
+		}
+
+	}
+
+
+}
 

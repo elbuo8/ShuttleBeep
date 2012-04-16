@@ -9,6 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -21,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -31,7 +34,7 @@ import javax.swing.JTextField;
  * @author yamilasusta
  *
  */
-public class Logic extends JPanel implements ActionListener, MouseListener, WindowListener{
+public class Logic extends JPanel implements ActionListener, MouseListener, WindowListener, KeyListener{
 
 	/**
 	 * Mandatory modification by eclipse
@@ -67,6 +70,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private boolean reset;
 	private AudioClip hit;
 	private AudioClip miss;
+	private boolean placement;
 
 	/**
 	 * Default constructor
@@ -234,7 +238,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 * @param g2 Graphical painter
 	 */
 	public void drawGrid(Graphics2D g2) {
-		Font font = new Font("sansserif", Font.BOLD, 8);
+		Font font = new Font("sansserif", Font.BOLD, 9);
 		g2.setFont(font);
 		for (int i = 0; i < grid1.theGrid.length; i++) {
 			for (int j = 0; j < grid1.theGrid[0].length; j++) {
@@ -357,10 +361,16 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			g2.drawImage(hits6, null, 505, 480);
 		
 		if (grid1.allSunken(ships)) {
-			//db.update(player1, status.totalPlayer1());
+			JOptionPane.showMessageDialog(null, player1 + " has won!");
+			db.update(player1, status.totalPlayer1());
+			System.out.println("End of the game.");
+			System.exit(0);
 		}
 		if (grid2.allSunken(ships)) {
-			//db.update(player2, status.totalPlayer2());
+			JOptionPane.showMessageDialog(null, player2 + " has won!");
+			db.update(player2, status.totalPlayer2());
+			System.out.println("End of the game.");
+			System.exit(0);
 		}
 		if(player2.equals("Rofongo")) {}
 		//insert code here.
@@ -460,12 +470,19 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		ships = game.getBoats();
 		player1 = game.playerOne();
 		player2 = game.playerTwo();
+		placement = game.gameType();
 		grid1 = new TheGrid(areax/2, areay);
 		grid2 = new TheGrid(areax/2, areay);
 		grid1.resetGridOffset();
 		grid2.resetGridOffset();
-		grid1.placeTheBoats(ships);
-		grid2.placeTheBoats(ships);
+		//Add level.
+		if(placement != true && !player2.equals("Rofongo")) {
+			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates");
+			grid1.placeTheBoats(ships);
+			JOptionPane.showMessageDialog(null, player2 + " enter your coordinates");
+			grid2.placeTheBoats(ships);
+		}
+
 		status = new Status(player1, player2);
 		reset = true;
 		repaint();
@@ -474,4 +491,11 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	public void windowDeiconified(WindowEvent arg0) {}
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
+
+	public void keyPressed(KeyEvent e) {
+	if ((e.getKeyCode()) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)) 
+		System.exit(0);
+	}
+	public void keyReleased(KeyEvent e) {}
+	public void keyTyped(KeyEvent e) {}
 }
