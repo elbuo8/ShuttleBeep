@@ -50,7 +50,7 @@ public class TheGrid {
 				theGrid[i][j] = new Tiles((i+1)*topX + offSet, ((j+1)*topY)-
 						((HEIGHT_OF_GRID/numberOfColumns)-15), 
 						(WIDTH_OF_GRID/numberOfGrids)/(numberOfRows),
-						(WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
+						((HEIGHT_OF_GRID)/(numberOfColumns)));
 				theGrid[i][j].addLocation(i, j);
 			}
 		}
@@ -182,6 +182,11 @@ public class TheGrid {
 	public void numberOfGrids(int x){
 		numberOfGrids = x;
 	}
-	
+	/**
+	 * Cleans up the offset for the gridObjects
+	 */
+	public void resetGridOffset(){
+		gridObjects = 0;
+	}
 
 }
