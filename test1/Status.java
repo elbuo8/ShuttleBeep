@@ -83,8 +83,9 @@ public class Status {
 			parse = "Hits.";
 		else
 			parse = "Misses.";
-		logger = "Turn " + turn + ": " + current + "tried " + location + ". " + parse + "\n";
+		logger = "Turn " + turn + ": " + current + " tried " + location + ". " + parse + "\n";
 		System.out.println(logger);
+		turn++;
 
 	}
 
