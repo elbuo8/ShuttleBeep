@@ -89,10 +89,10 @@ public class TheGrid {
 			return false;
 	}
 
-	public boolean addBoatDiagonal(int x, int x2) {
-		if (checkIfBoatDiagonal(x, x2)) {
-			for (int i = x; i <= x2; i++) 
-				theGrid[i][i].setSerial(boatSerial);
+	public boolean addBoatDiagonal(int x, int y) {
+		if (checkIfBoatDiagonal(x, y)) {
+			for (int i = 0; i < boatSerial; i++) 
+				theGrid[i+x][i+y].setSerial(boatSerial);
 			return true;
 		}
 		else 
@@ -129,9 +129,9 @@ public class TheGrid {
 
 	}
 
-	public boolean checkIfBoatDiagonal(int x, int x2) {
-		for (int i = x; i <= x2; i++) 
-			if(theGrid[i][i].boatSerial() != 0)
+	public boolean checkIfBoatDiagonal(int x, int y) {
+		for (int i = 0; i < boatSerial; i++) 
+			if(theGrid[x+i][y+i].boatSerial() != 0)
 				return false;
 		return true;
 	}
@@ -192,32 +192,54 @@ public class TheGrid {
 	}
 
 
-	public void placeTheBoats(int x){
+	public void placeTheBoats(int x, boolean diagonal){
 		boatSerial = 2;
-		if(boatSerial ==0 ) {//fix ASAP
+		if(!diagonal) {
 			for(int i = 0; i < x; i++){
 				boolean accepted = false;
 				do {
-					String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
-					boatCoordinates = boatCoordinates.toLowerCase();
-					String first[] = boatCoordinates.split("-");
+					boolean parsed = false;
+					int y1;
+					int x1;
+					int y2;
+					int x2;
+					String[] first = new String[2];
+					do {
+						String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
+						boatCoordinates = boatCoordinates.toLowerCase();
+						try {
+							first = boatCoordinates.split("-");
+							if(verifyInput(first[0]) && verifyInput(first[1]))
+								parsed = true;							
+						} catch (Exception e) {}
 
-					int y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
-					int x1 = Character.getNumericValue(first[0].charAt(1)) - 1;
-					int y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
-					int x2 = Character.getNumericValue(first[1].charAt(1)) - 1;
+					} while (!parsed);
 
-					if(x1 == x2){
+					y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
+					x1 = Integer.parseInt(first[0].substring(1)) - 1;
+					y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
+					x2 = Integer.parseInt(first[1].substring(1)) - 1;
+
+					if(x1 == x2) {
+						if(y1 > y2) {
+							int temp = y2;
+							y2 = y1;
+							y1 = temp;
+						}
 						accepted = addBoatHorizontal(x1, y1, y2);
 						if(Math.abs(y2-y1)+1 != boatSerial)
 							accepted = false;
 					}
-					if(y1 == y2){
+					else if (y1 == y2) {
+						if(x1 > x2) {
+							int temp = x2;
+							x2 = x1;
+							x1 = temp;
+						}
 						accepted = addBoatVertical(y1, x1, x2);
 						if(Math.abs(x2-x1)+1 != boatSerial)
 							accepted = false;
 					}	
-
 				} while (!accepted);
 				boatSerial++;
 			}
@@ -226,27 +248,51 @@ public class TheGrid {
 			for(int i = 0; i < x; i++){
 				boolean accepted = false;
 				do {
-					String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
-					boatCoordinates = boatCoordinates.toLowerCase();
-					String first[] = boatCoordinates.split("-");
+					boolean parsed = false;
+					int y1;
+					int x1;
+					int y2;
+					int x2;
+					String[] first = new String[2];
+					do {
+						String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
+						boatCoordinates = boatCoordinates.toLowerCase();
+						try {
+							first = boatCoordinates.split("-");
+							if(verifyInput(first[0]) && verifyInput(first[1]))
+								parsed = true;							
+						} catch (Exception e) {}
 
-					int y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
-					int x1 = Character.getNumericValue(first[0].charAt(1)) - 1;
-					int y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
-					int x2 = Character.getNumericValue(first[1].charAt(1)) - 1;
+					} while (!parsed);
 
-					if(x1 == x2){
+					y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
+					x1 = Integer.parseInt(first[0].substring(1)) - 1;
+					y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
+					x2 = Integer.parseInt(first[1].substring(1)) - 1;
+
+					if(x1 == x2) {
+						if(y1 > y2) {
+							int temp = y2;
+							y2 = y1;
+							y1 = temp;
+						}
 						accepted = addBoatHorizontal(x1, y1, y2);
 						if(Math.abs(y2-y1)+1 != boatSerial)
 							accepted = false;
 					}
-					else if(y1 == y2){
+					else if (y1 == y2) {
+						if(x1 > x2) {
+							int temp = x2;
+							x2 = x1;
+							x1 = temp;
+						}
 						accepted = addBoatVertical(y1, x1, x2);
 						if(Math.abs(x2-x1)+1 != boatSerial)
 							accepted = false;
-					}
+					}	
+					
 					else {
-						accepted = addBoatDiagonal(x1, x2);// work on this
+						accepted = addBoatDiagonal(x1, y1);
 					}
 
 				} while (!accepted);

@@ -71,6 +71,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private AudioClip hit;
 	private AudioClip miss;
 	private boolean placement;
+	private boolean diagonal;
 
 	/**
 	 * Default constructor
@@ -471,17 +472,19 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		player1 = game.playerOne();
 		player2 = game.playerTwo();
 		placement = game.gameType();
+		diagonal = game.levelType();
 		grid1 = new TheGrid(areax/2, areay);
 		grid2 = new TheGrid(areax/2, areay);
 		grid1.resetGridOffset();
 		grid2.resetGridOffset();
-		//Add level.
+
 		if(placement != true && !player2.equals("Rofongo")) {
 			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates");
-			grid1.placeTheBoats(ships);
+			grid1.placeTheBoats(ships, diagonal);
 			JOptionPane.showMessageDialog(null, player2 + " enter your coordinates");
-			grid2.placeTheBoats(ships);
+			grid2.placeTheBoats(ships, diagonal);
 		}
+		
 
 		status = new Status(player1, player2);
 		reset = true;

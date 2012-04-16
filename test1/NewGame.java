@@ -187,7 +187,6 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("OK")){
 
 			if(text1.getText().equals(null) || text1.getText().equals("")){
@@ -242,7 +241,6 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
 			player1Name = text1.getText();
 
