@@ -15,7 +15,7 @@ public class Status {
 	public Status(String player1, String player2) {
 		this.player1 = player1;
 		this.player2 = player2;
-		current = player1;
+		current = "placement";
 		movesplayer1 = 0;
 		movesplayer2 = 0;
 		logger = "";
@@ -52,9 +52,9 @@ public class Status {
 	 * @return Next players turn.
 	 */
 	public String switchStatus() {
-		current = player2;
-		player2 = player1;
-		player1 = current;
+		current = player1;
+		player1 = player2;
+		player2 = current;
 		return current;
 	}
 
