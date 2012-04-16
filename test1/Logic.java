@@ -426,6 +426,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		grid2 = new TheGrid(areax/2, areay);
 		grid1.resetGridOffset();
 		grid2.resetGridOffset();
+		grid1.placeTheBoats(ships);
+		grid2.placeTheBoats(ships);
 		status = new Status(player1, player2);
 		reset = true;
 		repaint();

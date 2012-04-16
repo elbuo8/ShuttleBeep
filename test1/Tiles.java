@@ -81,16 +81,6 @@ public class Tiles {
 	}
 	
 	/**
-	 * Given the top x and top y coordinates, modifies this values for the rectangle
-	 * in each of the tiles.
-	 * @param topX 
-	 * @param topY
-	 *//*
-	public void setRectangleBounds(int topX, int topY, int x, int y){
-		rect.setBounds(topX, topY, x, y);
-	}*/
-	
-	/**
 	 * @return the rectangle data for the given tile
 	 */
 	public Rectangle getRect(){

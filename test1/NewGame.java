@@ -4,12 +4,13 @@ import java.awt.Checkbox;
 import java.awt.CheckboxGroup;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 
@@ -17,13 +18,13 @@ import javax.swing.JTextField;
  * @author cesarcruz
  *
  */
-public class NewGame extends JFrame implements ActionListener{
+public class NewGame extends JFrame implements ActionListener, KeyListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel gameType, rows, columns, player1, player2, shuttle;
+	private JLabel rows, columns, player1, player2, shuttle;
 	private JTextField text1, text2, text3, text4, text5;
 	private Checkbox optionOne, optionTwo;
 	private JButton okButton, cancelButton;
@@ -36,14 +37,13 @@ public class NewGame extends JFrame implements ActionListener{
 	public NewGame(){
 		setSize(400, 400);
 		setLocation(500, 250);
-		//setDefaultCloseOperation(okButton.getMnemonic());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		GroupLayout layout = new GroupLayout(getContentPane());
 
 		/**
 		 * Declaration of all the components
 		 */
-		gameType = new JLabel("Game Type: ");
 		rows = new JLabel("Number of Rows:");
 		optionOne = new Checkbox("PvP", gameSelection, false);
 		optionTwo = new Checkbox("PvR", gameSelection, false);
@@ -54,6 +54,7 @@ public class NewGame extends JFrame implements ActionListener{
 		text3 = new JTextField(10);
 		okButton = new JButton("Ok");
 		okButton.addActionListener(this);
+		okButton.addKeyListener(this);
 		cancelButton = new JButton("Cancel");
 		cancelButton.addActionListener(this);
 		player1 = new JLabel("Player One: ");
@@ -187,8 +188,56 @@ public class NewGame extends JFrame implements ActionListener{
 			dispose();
 		}
 		if(e.getActionCommand().equals("Cancel")){
-			setVisible(false);
+				dispose();
 		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getKeyCode() == KeyEvent.VK_ENTER){
+			player1Name = text1.getText();
+
+			if(text2.getText().equals(null) || text2.getText().equals(""))
+				player2Name = "Rofongo";
+			else
+				player2Name = text2.getText();
+
+			if(text3.getText().equals(null) || text3.getText().equals(""))
+				xShuttles = 9;
+			else{
+				numberOfShuttles = text3.getText();
+				xShuttles = Integer.parseInt(numberOfShuttles);
+			}
+			if(text4.getText().equals(null) || text4.getText().equals("")){
+				xRows = 10;
+			}
+			else{
+				numberOfRows = text4.getText();
+				xRows = Integer.parseInt(numberOfRows);
+			}
+			if(text5.getText().equals(null) || text5.getText().equals("")){
+				xColumns = 10;
+			}
+			else{
+				numberOfColumns = text5.getText();
+				xColumns = Integer.parseInt(numberOfColumns);
+			}
+			dispose();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+		
 	}
 
 }

@@ -1,5 +1,7 @@
 package test1;
 
+import javax.swing.JOptionPane;
+
 
 /**
  * @author cesarcruz
@@ -15,6 +17,7 @@ public class TheGrid {
 	private static int numberOfRows = 10;
 	private static int gridObjects = 0;
 	private static int boatSerial;
+	private static String[] coordinates;
 
 	/**
 	 * Creates a Grid object that in itself is an array of Tiles, each contains its location. 
@@ -111,7 +114,7 @@ public class TheGrid {
 		for(int i = 0; i < numberOfColumns; i++){
 			for(int j = 0; j < numberOfRows; j++){
 				if(y1 >= j && y2 <= j && x == i){
-					if(!theGrid[i][j].hasAship())
+					if(theGrid[i][j].hasAship())
 						check++;
 				}
 			}
@@ -135,7 +138,7 @@ public class TheGrid {
 		for(int i = 0; i < numberOfColumns; i++){
 			for(int j = 0; j < numberOfRows; j++){
 				if(x1 >= i && x2 <= i && j == y){
-					if(!theGrid[i][j].hasAship())
+					if(theGrid[i][j].hasAship())
 						check++;
 				}
 			}
@@ -174,7 +177,7 @@ public class TheGrid {
 			return true;
 		return false;			
 	}
-	
+
 	/**
 	 * 
 	 * @param x amount of grids that you want to add to the game
@@ -188,5 +191,51 @@ public class TheGrid {
 	public void resetGridOffset(){
 		gridObjects = 0;
 	}
-
+	static boolean verifyInput(String input) {
+		if(input.isEmpty())
+			return false;
+		char[] parse = input.toCharArray();
+		if(!Character.isLetter(parse[0]))
+			return false;
+		for (int i = 1; i < parse.length; i++) 
+			if (!Character.isDigit(parse[i])) 
+				return false;
+		return true;
+	}
+	public void placement(int[] place){
+		if(place[1] == place[3]){
+			addBoatHorizontal(place[1], place[2], place[4]);
+		}
+		else if(place[2] == place[4]){
+			addBoatVertical(place[1], place[2], place[3]);
+		}
+	}
+	public void placeTheBoats(int x){
+		for(int i = 0; i < x; i++){
+			String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates","");
+			boatCoordinates = boatCoordinates.toLowerCase();
+			String first[] = boatCoordinates.split("-");
+			
+			int y1 = Character.getNumericValue(first[0].charAt(0));
+			y1 = y1 - 10;
+			
+			int x1 = Character.getNumericValue(first[0].charAt(1));
+			x1 = x1 -1;
+			
+			int y2 = Character.getNumericValue(first[1].charAt(0));
+			y2 = y2 - 10;
+			
+			int x2 = Character.getNumericValue(first[1].charAt(1));
+			x2 = x2 - 1;
+			
+			if(x1 == x2){
+				addBoatHorizontal(x1, y1, y2);
+			}
+			if(y1 == y2){
+				addBoatVertical(y1, x1, x2);
+			}
+		}
+	}
 }
+
+
