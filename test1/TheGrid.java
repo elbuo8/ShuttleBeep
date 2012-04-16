@@ -89,11 +89,18 @@ public class TheGrid {
 			return false;
 	}
 
-	public boolean addBoatDiagonal(int x, int y) {
-		if (checkIfBoatDiagonal(x, y)) {
+	public boolean addBoatDiagonal(int x, int y, boolean direction) {
+		if (checkIfBoatDiagonal(x, y, direction)) {
+			if(direction) {
 			for (int i = 0; i < boatSerial; i++) 
 				theGrid[i+x][i+y].setSerial(boatSerial);
 			return true;
+			}
+			else {
+				for (int i = 0; i < boatSerial; i++) 
+					theGrid[x-i][y+i].setSerial(boatSerial);
+				return true;
+			}
 		}
 		else 
 			return false;
@@ -129,10 +136,17 @@ public class TheGrid {
 
 	}
 
-	public boolean checkIfBoatDiagonal(int x, int y) {
-		for (int i = 0; i < boatSerial; i++) 
-			if(theGrid[x+i][y+i].boatSerial() != 0)
-				return false;
+	public boolean checkIfBoatDiagonal(int x, int y, boolean direction) {
+		if(direction) {
+			for (int i = 0; i < boatSerial; i++) 
+				if(theGrid[x+i][y+i].boatSerial() != 0)
+					return false;
+		}
+		else {
+			for (int i = 0; i < boatSerial; i++) 
+				if(theGrid[x-i][y+i].boatSerial() != 0)
+					return false;	
+		}
 		return true;
 	}
 
@@ -290,9 +304,23 @@ public class TheGrid {
 						if(Math.abs(x2-x1)+1 != boatSerial)
 							accepted = false;
 					}	
-					
 					else {
-						accepted = addBoatDiagonal(x1, y1);
+						if(y2 < y1) {
+							int temp = y2;
+							y2 = y1;
+							y1 = temp;
+
+							temp = x2;
+							x2 = x1;
+							x1 = temp;
+						}
+						boolean direction = true; //right
+						if(x1 > x2)
+							direction = false; // left
+						accepted = addBoatDiagonal(x1, y1, direction);
+						if (Math.abs(x1-x2)+1 != boatSerial || Math.abs(y1-y2)+1 != boatSerial) {
+							accepted = false;
+						}
 					}
 
 				} while (!accepted);
