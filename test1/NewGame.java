@@ -24,15 +24,16 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel rows, columns, player1, player2, shuttle, gameSetting;
+	private JLabel rows, columns, player1, player2, shuttle, gameSetting, levelSelection;
 	private JTextField text1, text2, text3, text4, text5;
-	private Checkbox optionOne, optionTwo;
+	private Checkbox optionOne, optionTwo, levelOne, levelTwo;
 	private JButton okButton, cancelButton;
 	private CheckboxGroup gameSelection = new CheckboxGroup();
+	private CheckboxGroup level = new CheckboxGroup();
 	private String numberOfRows, numberOfColumns, numberOfShuttles;
 	private String player1Name, player2Name;
 	private int xRows, xColumns, xShuttles;
-	private boolean rand = false;
+	private boolean rand = false, levelState = false;
 
 	public NewGame(){
 		setSize(400, 400);
@@ -62,6 +63,9 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 		text4 = new JTextField(10);
 		text5 = new JTextField(10);
 		gameSetting = new JLabel("Boat Placement: ");
+		levelSelection = new JLabel("Select Level: ");
+		levelOne = new Checkbox("Level 1", level, false);
+		levelTwo = new Checkbox("Level 2", level, false);
 		
 		/**
 		 * Horizontal arrangement of all the components in the JPanel
@@ -74,7 +78,8 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addComponent(shuttle)
 						.addComponent(rows)
 						.addComponent(columns)
-						.addComponent(gameSetting))
+						.addComponent(gameSetting)
+						.addComponent(levelSelection))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(text1)
 						.addComponent(text2)
@@ -84,6 +89,9 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addGroup(layout.createSequentialGroup()
 								.addComponent(optionOne)
 								.addComponent(optionTwo))
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(levelOne)
+								.addComponent(levelTwo))
 						.addGroup(layout.createSequentialGroup()
 								.addComponent(okButton)
 								.addComponent(cancelButton)))
@@ -114,6 +122,11 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addGroup(layout.createParallelGroup()
 								.addComponent(optionOne)
 								.addComponent(optionTwo)))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(levelSelection)
+						.addGroup(layout.createParallelGroup()
+								.addComponent(levelOne)
+								.addComponent(levelTwo)))
 				.addGroup(layout.createParallelGroup()
 						.addGroup(layout.createParallelGroup()
 								.addComponent(okButton)
@@ -157,9 +170,19 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	public String playerTwo(){
 		return player2Name;
 	}
-
+	/**
+	 * 
+	 * @return true if boats are to be placed at random, false if user defined
+	 */
 	public boolean gameType(){
 		return rand;
+	}
+	/**
+	 * 
+	 * @return true if level 2 is selected, false if level 1 is selected
+	 */
+	public boolean levelType(){
+		return levelState;
 	}
 
 	@Override
@@ -167,7 +190,11 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 		// TODO Auto-generated method stub
 		if(e.getActionCommand().equals("OK")){
 
-			player1Name = text1.getText();
+			if(text1.getText().equals(null) || text1.getText().equals("")){
+				player1Name = "Player 1";
+			}
+			else
+				player1Name = text1.getText();
 
 			if(text2.getText().equals(null) || text2.getText().equals(""))
 				player2Name = "Rofongo";
@@ -199,6 +226,12 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 			}
 			else if(optionTwo.getState()){
 				rand = false;
+			}
+			if(levelOne.getState()){
+				levelState = false;
+			}
+			else if(levelTwo.getState()){
+				levelState = true;
 			}
 			dispose();
 		}
