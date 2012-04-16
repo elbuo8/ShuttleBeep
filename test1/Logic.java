@@ -63,12 +63,17 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private int ships; 
 	private NewGame game;
 	private boolean reset;
+	//private AudioClip hit;
+	//private AudioClip miss;
 
 	/**
 	 * Default constructor
 	 * Generates the menus, the grid, and the input options
 	 */
 	public Logic() {
+
+		//URL urlClick = getClass().getResource("hit.wav");
+	   // hit = Applet.newAudioClip(urlClick);
 
 		areax = 20; //default value
 		areay = 10; //default value
@@ -108,6 +113,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						status.switchStatus();
 						status.incrementP1();
 						repaint();
+						//hit.play();
 					}
 					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
 						grid2.theGrid[y][x].hit();
@@ -394,6 +400,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 * @return If the input is valid
 	 */
 	static boolean verifyInput(String input) {
+		input = input.toLowerCase();
 		if(input.isEmpty())
 			return false;
 		char[] parse = input.toCharArray();
