@@ -215,8 +215,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			for (int j = 0; j < grid1.theGrid[0].length; j++) {
 				g2.setColor(Color.BLACK);
 				g2.draw(grid1.theGrid[i][j].getRect());
-				if(grid1.theGrid[i][j].isHit() && !grid1.theGrid[i][j].hasAship())
+				if(grid1.theGrid[i][j].isHit() && !grid1.theGrid[i][j].hasAship()) {
+					g2.setColor(Color.BLACK);
 					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX() -3 , (int)grid1.theGrid[i][j].getRect().getCenterY()+3);
+				}
 				else if(grid1.theGrid[i][j].isHit() && grid1.theGrid[i][j].hasAship()) {
 					g2.setColor(Color.RED);
 					g2.drawString("X", (int)grid1.theGrid[i][j].getRect().getCenterX() -3, (int)grid1.theGrid[i][j].getRect().getCenterY()+3);					
@@ -228,8 +230,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 				g2.setColor(Color.BLACK);
 				g2.draw(grid2.theGrid[i][j].getRect());
 
-				if(grid2.theGrid[i][j].isHit() && !grid2.theGrid[i][j].hasAship())
+				if(grid2.theGrid[i][j].isHit() && !grid2.theGrid[i][j].hasAship()) {
+					g2.setColor(Color.BLACK);
 					g2.drawString("X", (int)grid2.theGrid[i][j].getRect().getCenterX()-3, (int)grid2.theGrid[i][j].getRect().getCenterY()+3);
+				}
 				else if(grid2.theGrid[i][j].isHit() && grid2.theGrid[i][j].hasAship()) {
 					g2.setColor(Color.RED);
 					g2.drawString("X", (int)grid2.theGrid[i][j].getRect().getCenterX()-3, (int)grid2.theGrid[i][j].getRect().getCenterY()+3);

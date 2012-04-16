@@ -17,7 +17,6 @@ public class TheGrid {
 	private static int numberOfRows = 10;
 	private static int gridObjects = 0;
 	private static int boatSerial;
-	private static String[] coordinates;
 
 	/**
 	 * Creates a Grid object that in itself is an array of Tiles, each contains its location. 
@@ -89,16 +88,14 @@ public class TheGrid {
 	public void addBoatHorizontal(int x, int y1, int y2){
 		boatSerial = y2 - y1;
 		if(checkIfBoatHorizontal(x, y1, y2)){
-			for(int i = 0; i < 10; i++){
-				for(int j = 0; j < 10; j++){
-					if(y1 >= j && y2 <= j && x == i)
-						theGrid[i][j].placeBoat();
-					theGrid[i][j].setSerial(boatSerial);
-				}
-			}
+			for (int i = y1; i <= y2; i++) 
+				theGrid[x][i].setSerial(boatSerial);
 		}
 		else{
 			System.out.println("Boat cannot be placed in the desired spot.");
+		}
+		for (int i = y1; i <= y2; i++) {
+			System.out.println(theGrid[x][i].boatSerial());
 		}
 	}
 	/**
@@ -110,19 +107,10 @@ public class TheGrid {
 	 * @return true if the boat can be placed in the desired spot, false if it can't
 	 */
 	public boolean checkIfBoatHorizontal(int x, int y1, int y2){
-		int check = 0;
-		for(int i = 0; i < numberOfColumns; i++){
-			for(int j = 0; j < numberOfRows; j++){
-				if(y1 >= j && y2 <= j && x == i){
-					if(theGrid[i][j].hasAship())
-						check++;
-				}
-			}
-		}
-		if(check == boatSerial)
-			return true;
-		else
-			return false;
+		for (int i = y1; i <= y2; i++) 
+			if(theGrid[x][i].boatSerial() != 0)
+				return false;
+		return true;
 	}
 
 	/**
@@ -215,16 +203,16 @@ public class TheGrid {
 			String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates","");
 			boatCoordinates = boatCoordinates.toLowerCase();
 			String first[] = boatCoordinates.split("-");
-			
+
 			int y1 = Character.getNumericValue(first[0].charAt(0));
 			y1 = y1 - 10;
-			
+
 			int x1 = Character.getNumericValue(first[0].charAt(1));
 			x1 = x1 -1;
-			
+
 			int y2 = Character.getNumericValue(first[1].charAt(0));
 			y2 = y2 - 10;
-			
+
 			int x2 = Character.getNumericValue(first[1].charAt(1));
 			x2 = x2 - 1;
 			if(x1 == x2){
