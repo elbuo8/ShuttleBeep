@@ -98,31 +98,27 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		inputField.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				String input = inputField.getText();
-				if (!status.getStatus().equals("placement")) {
-					if(verifyInput(input)) {
-						inputField.setText("");
-						int y = Character.getNumericValue(input.charAt(0))-10;
-						int x = Integer.parseInt(input.substring(1)) - 1;
-						if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
-							grid1.theGrid[y][x].hit();
-							status.log(input, grid1.theGrid[y][x].hasAship());
-							status.switchStatus();
-							status.incrementP1();
-							repaint();
-						}
-						else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
-							grid2.theGrid[y][x].hit();
-							status.log(input, grid2.theGrid[y][x].hasAship());
-							status.switchStatus();
-							status.incrementP2();
-							repaint();
-						}
+				if(verifyInput(input)) {
+					inputField.setText("");
+					int y = Character.getNumericValue(input.charAt(0))-10;
+					int x = Integer.parseInt(input.substring(1)) - 1;
+					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
+						grid1.theGrid[y][x].hit();
+						status.log(input, grid1.theGrid[y][x].hasAship());
+						status.switchStatus();
+						status.incrementP1();
+						repaint();
+					}
+					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
+						grid2.theGrid[y][x].hit();
+						status.log(input, grid2.theGrid[y][x].hasAship());
+						status.switchStatus();
+						status.incrementP2();
+						repaint();
 					}
 				}
-				else {
-
-				}
 			}
+
 		});
 
 		//JButton setup
@@ -130,29 +126,24 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		tryButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
 				String input = inputField.getText();
-				if(!status.getStatus().equals("placement")) {
-					if (verifyInput(input)) {
-						inputField.setText("");
-						int y = Character.getNumericValue(input.charAt(0));
-						int x = Integer.parseInt(input.substring(1));
-						if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
-							grid1.theGrid[y][x].hit();
-							status.log(input, grid1.theGrid[y][x].hasAship());
-							status.switchStatus();
-							status.incrementP1();
-							repaint();
-						}
-						else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
-							grid2.theGrid[y][x].hit();
-							status.log(input, grid2.theGrid[y][x].hasAship());
-							status.switchStatus();
-							status.incrementP2();
-							repaint();
-						}
+				if (verifyInput(input)) {
+					inputField.setText("");
+					int y = Character.getNumericValue(input.charAt(0));
+					int x = Integer.parseInt(input.substring(1));
+					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
+						grid1.theGrid[y][x].hit();
+						status.log(input, grid1.theGrid[y][x].hasAship());
+						status.switchStatus();
+						status.incrementP1();
+						repaint();
 					}
-				}
-				else {
-
+					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
+						grid2.theGrid[y][x].hit();
+						status.log(input, grid2.theGrid[y][x].hasAship());
+						status.switchStatus();
+						status.incrementP2();
+						repaint();
+					}
 				}
 			}
 		});
@@ -343,37 +334,35 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 * ActionListener for the mouseclicked event.
 	 */
 	public void mouseClicked(MouseEvent e) {
-		if (!status.getStatus().equals("placement")) {
-			if (grid1 != null && status.getStatus().equals(player1)) {
-				for (int i = 0; i < grid1.theGrid.length; i++) {
-					for (int j = 0; j < grid1.theGrid[0].length; j++) {
-						if(grid1.theGrid[i][j].getRect().contains(e.getPoint()) && !grid1.theGrid[i][j].isHit()) {
-							grid1.theGrid[i][j].hit();
-							char parse = (char) ('a' + i);
-							String input = parse + "" + (j+1);
-							status.log(input, grid1.theGrid[i][j].hasAship());
-							status.switchStatus();
-							status.incrementP1();
-							repaint();
-						}
+		if (grid1 != null && status.getStatus().equals(player1)) {
+			for (int i = 0; i < grid1.theGrid.length; i++) {
+				for (int j = 0; j < grid1.theGrid[0].length; j++) {
+					if(grid1.theGrid[i][j].getRect().contains(e.getPoint()) && !grid1.theGrid[i][j].isHit()) {
+						grid1.theGrid[i][j].hit();
+						char parse = (char) ('a' + i);
+						String input = parse + "" + (j+1);
+						status.log(input, grid1.theGrid[i][j].hasAship());
+						status.switchStatus();
+						status.incrementP1();
+						repaint();
 					}
-				}			
-			}
-			if (grid2 != null && status.getStatus().equals(player2)) {
-				for (int i = 0; i < grid2.theGrid.length; i++) {
-					for (int j = 0; j < grid2.theGrid[0].length; j++) {
-						if(grid2.theGrid[i][j].getRect().contains(e.getPoint()) && !grid2.theGrid[i][j].isHit()) {
-							grid2.theGrid[i][j].hit();
-							char parse = (char) ('a' + i);
-							String input = parse + "" + (j+1);
-							status.log(input, grid1.theGrid[i][j].hasAship());
-							status.switchStatus();
-							status.incrementP2();
-							repaint();
-						}
+				}
+			}			
+		}
+		if (grid2 != null && status.getStatus().equals(player2)) {
+			for (int i = 0; i < grid2.theGrid.length; i++) {
+				for (int j = 0; j < grid2.theGrid[0].length; j++) {
+					if(grid2.theGrid[i][j].getRect().contains(e.getPoint()) && !grid2.theGrid[i][j].isHit()) {
+						grid2.theGrid[i][j].hit();
+						char parse = (char) ('a' + i);
+						String input = parse + "" + (j+1);
+						status.log(input, grid1.theGrid[i][j].hasAship());
+						status.switchStatus();
+						status.incrementP2();
+						repaint();
 					}
-				}			
-			}
+				}
+			}			
 		}
 	}
 
@@ -438,13 +427,4 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	public void windowDeiconified(WindowEvent arg0) {}
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
-
-	static boolean verifyInput2(String input) {
-		String[] parser = input.split("-");
-		if(verifyInput(parser[0]) && verifyInput(parser[1]))
-			return true;
-		return false;
-
-	}
-
 }
