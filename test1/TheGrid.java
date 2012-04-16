@@ -92,9 +92,9 @@ public class TheGrid {
 	public boolean addBoatDiagonal(int x, int y, boolean direction) {
 		if (checkIfBoatDiagonal(x, y, direction)) {
 			if(direction) {
-			for (int i = 0; i < boatSerial; i++) 
-				theGrid[i+x][i+y].setSerial(boatSerial);
-			return true;
+				for (int i = 0; i < boatSerial; i++) 
+					theGrid[i+x][i+y].setSerial(boatSerial);
+				return true;
 			}
 			else {
 				for (int i = 0; i < boatSerial; i++) 
@@ -234,25 +234,21 @@ public class TheGrid {
 					y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
 					x2 = Integer.parseInt(first[1].substring(1)) - 1;
 
-					if(x1 == x2) {
+					if(x1 == x2 && Math.abs(y2-y1)+1 == boatSerial) {
 						if(y1 > y2) {
 							int temp = y2;
 							y2 = y1;
 							y1 = temp;
 						}
 						accepted = addBoatHorizontal(x1, y1, y2);
-						if(Math.abs(y2-y1)+1 != boatSerial)
-							accepted = false;
 					}
-					else if (y1 == y2) {
+					else if (y1 == y2 && Math.abs(x2-x1)+1 == boatSerial) {
 						if(x1 > x2) {
 							int temp = x2;
 							x2 = x1;
 							x1 = temp;
 						}
 						accepted = addBoatVertical(y1, x1, x2);
-						if(Math.abs(x2-x1)+1 != boatSerial)
-							accepted = false;
 					}	
 				} while (!accepted);
 				boatSerial++;
@@ -284,27 +280,23 @@ public class TheGrid {
 					y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
 					x2 = Integer.parseInt(first[1].substring(1)) - 1;
 
-					if(x1 == x2) {
+					if(x1 == x2 && Math.abs(y2-y1)+1 == boatSerial) {
 						if(y1 > y2) {
 							int temp = y2;
 							y2 = y1;
 							y1 = temp;
 						}
 						accepted = addBoatHorizontal(x1, y1, y2);
-						if(Math.abs(y2-y1)+1 != boatSerial)
-							accepted = false;
 					}
-					else if (y1 == y2) {
+					else if (y1 == y2 && Math.abs(x2-x1)+1 == boatSerial) {
 						if(x1 > x2) {
 							int temp = x2;
 							x2 = x1;
 							x1 = temp;
 						}
 						accepted = addBoatVertical(y1, x1, x2);
-						if(Math.abs(x2-x1)+1 != boatSerial)
-							accepted = false;
 					}	
-					else {
+					else if (Math.abs(x1-x2)+1 == boatSerial && Math.abs(y1-y2)+1 == boatSerial) {
 						if(y2 < y1) {
 							int temp = y2;
 							y2 = y1;
@@ -318,9 +310,6 @@ public class TheGrid {
 						if(x1 > x2)
 							direction = false; // left
 						accepted = addBoatDiagonal(x1, y1, direction);
-						if (Math.abs(x1-x2)+1 != boatSerial || Math.abs(y1-y2)+1 != boatSerial) {
-							accepted = false;
-						}
 					}
 
 				} while (!accepted);
