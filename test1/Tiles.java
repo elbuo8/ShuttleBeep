@@ -60,7 +60,7 @@ public class Tiles {
 	/**
 	 * Places a boat (or a piece of a boat) in the selected tile.
 	 */
-	public void placeBoat(int x, int y){
+	public void placeBoat(){
 		hasAship = true;
 	}
 	/**

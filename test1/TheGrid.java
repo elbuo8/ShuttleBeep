@@ -72,7 +72,7 @@ public class TheGrid {
 			for(int i = 0; i < 10; i++){
 				for(int j = 0; j < 10; j++){
 					if(x1 >= i && x2 <= i && j == y)
-						theGrid[i][j].placeBoat(i, j);
+						theGrid[i][j].placeBoat();
 					theGrid[i][j].setSerial(boatSerial);
 				}
 			}
@@ -92,7 +92,7 @@ public class TheGrid {
 			for(int i = 0; i < 10; i++){
 				for(int j = 0; j < 10; j++){
 					if(y1 >= j && y2 <= j && x == i)
-						theGrid[i][j].placeBoat(i, j);
+						theGrid[i][j].placeBoat();
 					theGrid[i][j].setSerial(boatSerial);
 				}
 			}
@@ -227,7 +227,6 @@ public class TheGrid {
 			
 			int x2 = Character.getNumericValue(first[1].charAt(1));
 			x2 = x2 - 1;
-			
 			if(x1 == x2){
 				addBoatHorizontal(x1, y1, y2);
 			}
