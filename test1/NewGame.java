@@ -24,7 +24,7 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel rows, columns, player1, player2, shuttle;
+	private JLabel rows, columns, player1, player2, shuttle, gameSetting;
 	private JTextField text1, text2, text3, text4, text5;
 	private Checkbox optionOne, optionTwo;
 	private JButton okButton, cancelButton;
@@ -32,7 +32,7 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	private String numberOfRows, numberOfColumns, numberOfShuttles;
 	private String player1Name, player2Name;
 	private int xRows, xColumns, xShuttles;
-	private boolean check = false;
+	private boolean rand = false;
 
 	public NewGame(){
 		setSize(400, 400);
@@ -45,14 +45,14 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 		 * Declaration of all the components
 		 */
 		rows = new JLabel("Number of Rows:");
-		optionOne = new Checkbox("PvP", gameSelection, false);
-		optionTwo = new Checkbox("PvR", gameSelection, false);
+		optionOne = new Checkbox("Random", gameSelection, false);
+		optionTwo = new Checkbox("User Defined", gameSelection, false);
 		text1 = new JTextField(10);
 		shuttle = new JLabel("Number of Shuttles: ");
 		columns = new JLabel("Number of Columns: ");
 		text2 = new JTextField(10);
 		text3 = new JTextField(10);
-		okButton = new JButton("Ok");
+		okButton = new JButton("OK");
 		okButton.addActionListener(this);
 		okButton.addKeyListener(this);
 		cancelButton = new JButton("Cancel");
@@ -61,8 +61,8 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 		player2 = new JLabel("Player Two");
 		text4 = new JTextField(10);
 		text5 = new JTextField(10);
-		//text1.setSize(50, 50);
-
+		gameSetting = new JLabel("Boat Placement: ");
+		
 		/**
 		 * Horizontal arrangement of all the components in the JPanel
 		 */
@@ -73,16 +73,20 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addComponent(player2)
 						.addComponent(shuttle)
 						.addComponent(rows)
-						.addComponent(columns))
-						.addGroup(layout.createParallelGroup()
-								.addComponent(text1)
-								.addComponent(text2)
-								.addComponent(text3)
-								.addComponent(text4)
-								.addComponent(text5)
-								.addGroup(layout.createSequentialGroup()
-										.addComponent(okButton)
-										.addComponent(cancelButton)))
+						.addComponent(columns)
+						.addComponent(gameSetting))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(text1)
+						.addComponent(text2)
+						.addComponent(text3)
+						.addComponent(text4)
+						.addComponent(text5)
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(optionOne)
+								.addComponent(optionTwo))
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(okButton)
+								.addComponent(cancelButton)))
 				);
 
 		/**
@@ -93,22 +97,27 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 				.addGroup(layout.createParallelGroup()
 						.addComponent(player1)
 						.addComponent(text1))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(player2)
+						.addComponent(text2))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(shuttle)
+						.addComponent(text3))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(rows)
+						.addComponent(text4))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(columns)
+						.addComponent(text5))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(gameSetting)
 						.addGroup(layout.createParallelGroup()
-								.addComponent(player2)
-								.addComponent(text2))
-								.addGroup(layout.createParallelGroup()
-										.addComponent(shuttle)
-										.addComponent(text3))
-										.addGroup(layout.createParallelGroup()
-												.addComponent(rows)
-												.addComponent(text4))
-												.addGroup(layout.createParallelGroup()
-														.addComponent(columns)
-														.addComponent(text5))
-														.addGroup(layout.createParallelGroup()
-																.addGroup(layout.createParallelGroup()
-																		.addComponent(okButton)
-																		.addComponent(cancelButton)))
+								.addComponent(optionOne)
+								.addComponent(optionTwo)))
+				.addGroup(layout.createParallelGroup()
+						.addGroup(layout.createParallelGroup()
+								.addComponent(okButton)
+								.addComponent(cancelButton)))
 				);
 
 		/**
@@ -149,8 +158,8 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 		return player2Name;
 	}
 
-	public boolean stateOfFrame(){
-		return check;
+	public boolean gameType(){
+		return rand;
 	}
 
 	@Override
@@ -184,6 +193,12 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 			else{
 				numberOfColumns = text5.getText();
 				xColumns = Integer.parseInt(numberOfColumns);
+			}
+			if(optionOne.getState()){
+				rand = true;
+			}
+			else if(optionTwo.getState()){
+				rand = false;
 			}
 			dispose();
 		}
