@@ -1,5 +1,7 @@
 package test1;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -63,17 +65,20 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private int ships; 
 	private NewGame game;
 	private boolean reset;
-	//private AudioClip hit;
-	//private AudioClip miss;
+	private AudioClip hit;
+	private AudioClip miss;
 
 	/**
 	 * Default constructor
 	 * Generates the menus, the grid, and the input options
 	 */
 	public Logic() {
-
-		//URL urlClick = getClass().getResource("hit.wav");
-		// hit = Applet.newAudioClip(urlClick);
+		
+		//Initialize audio
+		java.net.URL urlClick = getClass().getResource("hit.wav");
+		hit = Applet.newAudioClip(urlClick);
+		urlClick = getClass().getResource("miss.wav");
+		miss = Applet.newAudioClip(urlClick);
 
 		areax = 20; //default value
 		areay = 10; //default value
@@ -111,14 +116,21 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 					int x = Integer.parseInt(input.substring(1)) - 1;
 					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
 						grid1.theGrid[y][x].hit();
+						if(grid1.theGrid[y][x].hasAship())
+							hit.play();
+						else 
+							miss.play();
 						status.log(input, grid1.theGrid[y][x].hasAship());
 						status.switchStatus();
 						status.incrementP1();
 						repaint();
-						//hit.play();
 					}
 					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
 						grid2.theGrid[y][x].hit();
+						if(grid2.theGrid[y][x].hasAship())
+							hit.play();
+						else 
+							miss.play();
 						status.log(input, grid2.theGrid[y][x].hasAship());
 						status.switchStatus();
 						status.incrementP2();
@@ -142,6 +154,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						int x = Integer.parseInt(input.substring(1));
 						if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
 							grid1.theGrid[y][x].hit();
+							if(grid1.theGrid[y][x].hasAship())
+								hit.play();
+							else 
+								miss.play();
 							status.log(input, grid1.theGrid[y][x].hasAship());
 							status.switchStatus();
 							status.incrementP1();
@@ -149,6 +165,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						}
 						else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
 							grid2.theGrid[y][x].hit();
+							if(grid2.theGrid[y][x].hasAship())
+								hit.play();
+							else 
+								miss.play();
 							status.log(input, grid2.theGrid[y][x].hasAship());
 							status.switchStatus();
 							status.incrementP2();
@@ -335,11 +355,12 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			g2.drawImage(hits5, null, 505, 450);
 		if (grid2.isSunken(6)) 
 			g2.drawImage(hits6, null, 505, 480);
+		
 		if (grid1.allSunken(ships)) {
-			db.update(player1, status.totalPlayer1());
+			//db.update(player1, status.totalPlayer1());
 		}
 		if (grid2.allSunken(ships)) {
-			db.update(player2, status.totalPlayer2());
+			//db.update(player2, status.totalPlayer2());
 		}
 		if(player2.equals("Rofongo")) {}
 		//insert code here.
@@ -357,6 +378,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						char parse = (char) ('a' + i);
 						String input = parse + "" + (j+1);
 						status.log(input, grid1.theGrid[i][j].hasAship());
+						if(grid1.theGrid[i][j].hasAship())
+							hit.play();
+						else 
+							miss.play();
 						status.switchStatus();
 						status.incrementP1();
 						repaint();
@@ -372,6 +397,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						char parse = (char) ('a' + i);
 						String input = parse + "" + (j+1);
 						status.log(input, grid1.theGrid[i][j].hasAship());
+						if(grid2.theGrid[i][j].hasAship())
+							hit.play();
+						else 
+							miss.play();
 						status.switchStatus();
 						status.incrementP2();
 						repaint();
