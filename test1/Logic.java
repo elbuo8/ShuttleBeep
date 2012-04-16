@@ -73,7 +73,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	public Logic() {
 
 		//URL urlClick = getClass().getResource("hit.wav");
-	   // hit = Applet.newAudioClip(urlClick);
+		// hit = Applet.newAudioClip(urlClick);
 
 		areax = 20; //default value
 		areay = 10; //default value
@@ -102,6 +102,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		inputField = new JTextField(30);
 		inputField.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
+				if(grid1 != null || grid2 != null) {
 				String input = inputField.getText();
 				if(verifyInput(input)) {
 					inputField.setText("");
@@ -123,6 +124,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						repaint();
 					}
 				}
+				}
 			}
 
 		});
@@ -131,24 +133,26 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		tryButton = new JButton("Try");
 		tryButton.addActionListener(new ActionListener() {	
 			public void actionPerformed(ActionEvent e) {
-				String input = inputField.getText();
-				if (verifyInput(input)) {
-					inputField.setText("");
-					int y = Character.getNumericValue(input.charAt(0));
-					int x = Integer.parseInt(input.substring(1));
-					if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
-						grid1.theGrid[y][x].hit();
-						status.log(input, grid1.theGrid[y][x].hasAship());
-						status.switchStatus();
-						status.incrementP1();
-						repaint();
-					}
-					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
-						grid2.theGrid[y][x].hit();
-						status.log(input, grid2.theGrid[y][x].hasAship());
-						status.switchStatus();
-						status.incrementP2();
-						repaint();
+				if(grid1 != null || grid2 != null) {
+					String input = inputField.getText();
+					if (verifyInput(input)) {
+						inputField.setText("");
+						int y = Character.getNumericValue(input.charAt(0));
+						int x = Integer.parseInt(input.substring(1));
+						if(status.getStatus().equals(player1) && !grid1.theGrid[y][x].isHit()) {
+							grid1.theGrid[y][x].hit();
+							status.log(input, grid1.theGrid[y][x].hasAship());
+							status.switchStatus();
+							status.incrementP1();
+							repaint();
+						}
+						else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
+							grid2.theGrid[y][x].hit();
+							status.log(input, grid2.theGrid[y][x].hasAship());
+							status.switchStatus();
+							status.incrementP2();
+							repaint();
+						}
 					}
 				}
 			}

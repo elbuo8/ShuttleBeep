@@ -65,38 +65,28 @@ public class TheGrid {
 	 * @param x2 ending point of the boat in the x coordinate
 	 * @param y the number of the row
 	 */
-	public void addBoatVertical(int y, int x1, int x2){
-		boatSerial = x2 - x1;
-		if(checkIfBoatVertical(y, x1, x2)){	
-			for(int i = 0; i < 10; i++){
-				for(int j = 0; j < 10; j++){
-					if(x1 >= i && x2 <= i && j == y)
-						theGrid[i][j].placeBoat();
-					theGrid[i][j].setSerial(boatSerial);
-				}
+	public boolean addBoatVertical(int y, int x1, int x2){
+		if(checkIfBoatVertical(y, x1, x2)) {	
+			for (int i = x1; i <= x2; i++) 
+				theGrid[y][i].setSerial(boatSerial);
+			return true;
 			}
-		}
-		else{
-			System.out.println("The boat cannot be placed in the desired spot.");
-		}
+		else
+			return false;
 	}
 	/**
 	 * @param x the number of the column
 	 * @param y1 the starting point of the boat in the y coordinate
 	 * @param y2 the ending point of the boat in the y coordinate
 	 */
-	public void addBoatHorizontal(int x, int y1, int y2){
-		boatSerial = y2 - y1;
-		if(checkIfBoatHorizontal(x, y1, y2)){
+	public boolean addBoatHorizontal(int x, int y1, int y2){
+		if(checkIfBoatHorizontal(x, y1, y2)) {
 			for (int i = y1; i <= y2; i++) 
-				theGrid[x][i].setSerial(boatSerial);
+				theGrid[i][x].setSerial(boatSerial);
+			return true;
 		}
-		else{
-			System.out.println("Boat cannot be placed in the desired spot.");
-		}
-		for (int i = y1; i <= y2; i++) {
-			System.out.println(theGrid[x][i].boatSerial());
-		}
+		else
+			return false;
 	}
 	/**
 	 * The three parameters indicate the location and the size of the boat
@@ -108,7 +98,7 @@ public class TheGrid {
 	 */
 	public boolean checkIfBoatHorizontal(int x, int y1, int y2){
 		for (int i = y1; i <= y2; i++) 
-			if(theGrid[x][i].boatSerial() != 0)
+			if(theGrid[i][x].boatSerial() != 0)
 				return false;
 		return true;
 	}
@@ -122,19 +112,11 @@ public class TheGrid {
 	 * @return true if the boat can be placed in the desired spot, false if it can't
 	 */
 	public boolean checkIfBoatVertical(int y, int x1, int x2){
-		int check = 0;
-		for(int i = 0; i < numberOfColumns; i++){
-			for(int j = 0; j < numberOfRows; j++){
-				if(x1 >= i && x2 <= i && j == y){
-					if(theGrid[i][j].hasAship())
-						check++;
-				}
-			}
-		}
-		if(check == boatSerial)
-			return true;
-		else
-			return false;
+		for (int i = x1; i <= x2; i++) 
+			if(theGrid[y][i].boatSerial() != 0)
+				return false;
+		return true;
+		
 	}
 	/**
 	 * Check the status of a boat.
@@ -145,7 +127,7 @@ public class TheGrid {
 		int counter = 0;
 		for (int i = 0; i < theGrid.length; i++) 
 			for (int j = 0; j < theGrid[0].length; j++) 
-				if(theGrid[i][j].boatSerial() == boatnumber)
+				if(theGrid[i][j].boatSerial() == boatnumber && theGrid[i][j].isHit())
 					counter++;
 		if (counter == boatnumber) 
 			return true;
@@ -190,37 +172,35 @@ public class TheGrid {
 				return false;
 		return true;
 	}
-	public void placement(int[] place){
-		if(place[1] == place[3]){
-			addBoatHorizontal(place[1], place[2], place[4]);
-		}
-		else if(place[2] == place[4]){
-			addBoatVertical(place[1], place[2], place[3]);
-		}
-	}
+	
+	
 	public void placeTheBoats(int x){
+		boatSerial = 2;
 		for(int i = 0; i < x; i++){
-			String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates","");
-			boatCoordinates = boatCoordinates.toLowerCase();
-			String first[] = boatCoordinates.split("-");
+			boolean accepted = false;
+			do {
+				String boatCoordinates = JOptionPane.showInputDialog(null, "Enter boat " +(i+1)+ " coordinates. Current size of boat is: " + boatSerial,"");
+				boatCoordinates = boatCoordinates.toLowerCase();
+				String first[] = boatCoordinates.split("-");
 
-			int y1 = Character.getNumericValue(first[0].charAt(0));
-			y1 = y1 - 10;
+				int y1 = Character.getNumericValue(first[0].charAt(0)) - 10;
+				int x1 = Character.getNumericValue(first[0].charAt(1)) - 1;
+				int y2 = Character.getNumericValue(first[1].charAt(0)) - 10;
+				int x2 = Character.getNumericValue(first[1].charAt(1)) - 1;
 
-			int x1 = Character.getNumericValue(first[0].charAt(1));
-			x1 = x1 -1;
-
-			int y2 = Character.getNumericValue(first[1].charAt(0));
-			y2 = y2 - 10;
-
-			int x2 = Character.getNumericValue(first[1].charAt(1));
-			x2 = x2 - 1;
-			if(x1 == x2){
-				addBoatHorizontal(x1, y1, y2);
-			}
-			if(y1 == y2){
-				addBoatVertical(y1, x1, x2);
-			}
+				if(x1 == x2){
+					accepted = addBoatHorizontal(x1, y1, y2);
+					if(Math.abs(y2-y1)+1 != boatSerial)
+						accepted = false;
+				}
+				if(y1 == y2){
+					accepted = addBoatVertical(y1, x1, x2);
+					if(Math.abs(x2-x1)+1 != boatSerial)
+						accepted = false;
+				}	
+				
+			} while (!accepted);
+			boatSerial++;
 		}
 	}
 }

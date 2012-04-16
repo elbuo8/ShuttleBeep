@@ -78,6 +78,7 @@ public class Tiles {
 	 */
 	public void setSerial(int x){
 		boatSerial = x;
+		placeBoat();
 	}
 	
 	/**
