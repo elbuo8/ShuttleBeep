@@ -67,6 +67,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private String player2;
 	private int ships; 
 	private NewGame game;
+	private RandomBoat randomboats1, randomboats2;
 	private boolean reset;
 	private AudioClip hit;
 	private AudioClip miss;
@@ -475,6 +476,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		diagonal = game.levelType();
 		grid1 = new TheGrid(areax/2, areay);
 		grid2 = new TheGrid(areax/2, areay);
+		randomboats1 = new RandomBoat();
+		randomboats2 = new RandomBoat();
 		grid1.resetGridOffset();
 		grid2.resetGridOffset();
 
@@ -483,6 +486,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			grid1.placeTheBoats(ships, diagonal);
 			JOptionPane.showMessageDialog(null, player2 + " enter your coordinates");
 			grid2.placeTheBoats(ships, diagonal);
+		}
+		else if(placement == true){
+			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1);
+			randomboats2.placeRandomBoats(ships, areay, areax/2, grid2);
 		}
 		
 
