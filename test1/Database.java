@@ -12,12 +12,20 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 import com.mongodb.MongoURI;
 
-
+/**
+ * 
+ * @author yamilasusta
+ *
+ */
 public class Database {
 	
+	//Instance variables
 	private MongoURI mongo;
 	private DB db;
 
+	/**
+	 * Default constructor
+	 */
 	public Database() {
 		mongo = new MongoURI("mongodb://scorer:123456@staff.mongohq.com:10005/shuttlebeep");
 		try {
@@ -33,7 +41,9 @@ public class Database {
 		db.authenticate("scorer", passwd);
 	}
 	
-	
+	/**
+	 * Shows the top 10 scores on the screen
+	 */
 	public void showHigh() {
 		DBCollection collection = db.getCollection("scores");
 		DBCursor cursor = collection.find().sort(new BasicDBObject("shots", 1)).limit(10);
@@ -47,6 +57,11 @@ public class Database {
 		JOptionPane.showMessageDialog(null, parser);
 	}
 	
+	/**
+	 * Updates the database with the winners information.
+	 * @param winner Winners name.
+	 * @param shots Amount of shots taken by the winner.
+	 */
 	public void update(String winner, int shots) {
 		DBCollection collection = db.getCollection("scores");
 		BasicDBObject player = new BasicDBObject();
