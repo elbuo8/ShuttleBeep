@@ -82,6 +82,13 @@ public class TheGrid implements Serializable{
 			return false;
 	}
 	/**
+	 * Adds serial to each boat when using Random.
+	 * @param serial
+	 */
+	public void setSerial(int serial){
+		boatSerial = serial;
+	}
+	/**
 	 * @param x the number of the column
 	 * @param y1 the starting point of the boat in the y coordinate
 	 * @param y2 the ending point of the boat in the y coordinate

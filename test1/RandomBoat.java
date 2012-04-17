@@ -44,7 +44,7 @@ public class RandomBoat {
 							y2 = rand.nextInt(k + 2) + y1;
 						}
 						for(int j = 0; j < available.length; j++){
-							if(((y2 - y1)+1) == available[j]){
+							if(((y2 - y1)+1) == available[j] && ((y2 - y2)+1) > 1){
 								check2 = false;
 								break;
 							}
@@ -52,6 +52,7 @@ public class RandomBoat {
 						}
 					}while(!check2);
 					boatSerial = (y2 - y1) + 1;
+					currentGrid.setSerial(boatSerial);
 					check1 = currentGrid.addBoatHorizontal(x, y1, y2);
 
 				}
@@ -76,7 +77,7 @@ public class RandomBoat {
 							x2 = rand.nextInt(k + 2) + x1;
 						}
 						for(int j = 0; j < available.length; j++){
-							if(((x2 - x1)+1) == available[j]){
+							if(((x2 - x1)+1) == available[j] && ((x2 - x2)+1) > 1){
 								check2 = false;
 								break;
 							}
@@ -84,6 +85,7 @@ public class RandomBoat {
 						}
 					}while(!check2);
 					boatSerial = (x2 - x1) + 1;
+					currentGrid.setSerial(boatSerial);
 					check1 = currentGrid.addBoatVertical(y, x1, x2);
 					System.out.println("Vertical OK");
 
