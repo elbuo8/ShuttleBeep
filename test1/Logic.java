@@ -80,7 +80,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	 * Generates the menus, the grid, and the input options
 	 */
 	public Logic() {
-
 		//Initialize audio
 		java.net.URL urlClick = getClass().getResource("hit.wav");
 		hit = Applet.newAudioClip(urlClick);
@@ -241,6 +240,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		}
 	}
 
+	/**
+	 * If a new game is created, the screen is cleared with this method.
+	 * @param g2 Graphical painter
+	 */
 	public void purge(Graphics2D g2) {
 		g2.setColor(this.getBackground());
 		g2.fillRect(0, 0, 631, 600);
@@ -329,6 +332,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		}
 	}
 
+	/**
+	 * Displays the bottom of the frame. Sunken boats, names, performs automated tasks
+	 * @param g2
+	 */
 	public void drawBottom(Graphics2D g2) {
 		g2.setColor(Color.BLACK);
 		Font font = new Font("sansserif", Font.ITALIC, 24);
@@ -414,6 +421,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 
 		/**
 		 * ActionListener for the mouseclicked event.
+		 * In charge of placing hits on the grid.
 		 */
 		public void mouseClicked(MouseEvent e) {
 			if (grid1 != null && status.getStatus().equals(player1)) {
@@ -460,12 +468,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			}
 		}
 
-		public void mouseEntered(MouseEvent e) {}
-		public void mouseExited(MouseEvent e) {}
-		public void mousePressed(MouseEvent e) {}
-		public void mouseReleased(MouseEvent e) {}
-		public void mouseDragged(MouseEvent e) {}
-		public void mouseMoved(MouseEvent e) {}
 
 		/**
 		 * Waits for the input in the menu bar
@@ -548,10 +550,9 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			return true;
 		}
 
-		public void windowActivated(WindowEvent arg0) {}
-		public void windowClosed(WindowEvent arg0) {}
-		public void windowClosing(WindowEvent e) {}
-
+		/**
+		 * Listens to the NewGame window
+		 */
 		public void windowDeactivated(WindowEvent arg0) {
 			areax = game.getColumns()*2;
 			areay = game.getRows();
@@ -594,14 +595,26 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			repaint();
 		}
 
-		public void windowDeiconified(WindowEvent arg0) {}
-		public void windowIconified(WindowEvent arg0) {}
-		public void windowOpened(WindowEvent arg0) {}
-
+		/**
+		 * Closes the game if ALT+F4 is pressed.
+		 */
 		public void keyPressed(KeyEvent e) {
 			if ((e.getKeyCode()) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)) 
 				System.exit(0);
 		}
+		
+		public void windowActivated(WindowEvent arg0) {}
+		public void windowClosed(WindowEvent arg0) {}
+		public void windowClosing(WindowEvent e) {}
+		public void windowDeiconified(WindowEvent arg0) {}
+		public void windowIconified(WindowEvent arg0) {}
+		public void windowOpened(WindowEvent arg0) {}
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+		public void mouseDragged(MouseEvent e) {}
+		public void mouseMoved(MouseEvent e) {}
 		public void keyReleased(KeyEvent e) {}
 		public void keyTyped(KeyEvent e) {}
 	}
