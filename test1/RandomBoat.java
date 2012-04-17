@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package test1;
 
 import java.util.Random;
@@ -12,55 +10,93 @@ import java.util.Random;
 public class RandomBoat {
 
 	private Random rand;
+	private boolean check1 = false, check2 = false;
+	private int[] available;
 	private int boatSerial;
-	private boolean check = false;
+	private int boatAlignment;
 	public RandomBoat(){
 		rand = new Random();
 	}
 
 
-	public void placeRandomBoats(int k, int rows, int columns, TheGrid currentGrid){
+	public void placeRandomBoats(int k, int rows, int columns, TheGrid currentGrid, boolean level){
+		available = new int[k];
 		for(int i = 0; i < k; i++){
-			boatSerial = 2;
-			int boatAlignment = rand.nextInt(2) + 1;
+			if(!level)
+				boatAlignment = rand.nextInt(2) + 1;
+			else
+				boatAlignment = rand.nextInt(3) + 1;
+
 			if(boatAlignment == 1){
-				int x = rand.nextInt(rows);
-				int y1 = 0;
-				int y2 = 0;
 
-				while(!check){
+				while(!check1){
 
+					int x = rand.nextInt(rows);
+					int y1 = rand.nextInt(columns);
+					int y2;
 					do{
-						y1 = rand.nextInt(columns);
-						y2 = rand.nextInt(columns);
-					}while(y1 > y2 && (y2 - y1)+1 != boatSerial && ((y2 - y1)) < k+2);
-					check = currentGrid.addBoatHorizontal(x, y1, y2);
-					System.out.println("Horizontal OK");
+						if(y1 > columns/2){
+							y2 = y1;
+							y1 = y2 - rand.nextInt(k + 2);
+						}
+
+						else{
+							y2 = rand.nextInt(k + 2) + y1;
+						}
+						for(int j = 0; j < available.length; j++){
+							if(((y2 - y1)+1) == available[j]){
+								check2 = false;
+								break;
+							}
+							check2 = true;
+						}
+					}while(!check2);
+					boatSerial = (y2 - y1) + 1;
+					check1 = currentGrid.addBoatHorizontal(x, y1, y2);
+
 				}
-				boatSerial = (y2 - y1)+1;
+				check1 = false;
+				check2 = false;
+				available[i] = boatSerial;
 			}
+
 			else if(boatAlignment == 2){
 
-				int y = rand.nextInt(columns);
-				int x1 = 0;
-				int x2 = 0;
-
-				while(!check){
-
+				while(!check1){
+					int y = rand.nextInt(columns);
+					int x1 = rand.nextInt(rows);
+					int x2;
 					do{
-						x1 = rand.nextInt(rows);
-						x2 = rand.nextInt(rows);
-					}while(x1 > x2 && (x2 - x1)+1 != boatSerial && ((x2 - x1)) < k+2);
-					check = currentGrid.addBoatVertical(y, x1, x2);
+						if(x1 > rows/2){
+							x2 = x1;
+							x1 = x2 - rand.nextInt(k + 2);
+						}
+
+						else{
+							x2 = rand.nextInt(k + 2) + x1;
+						}
+						for(int j = 0; j < available.length; j++){
+							if(((x2 - x1)+1) == available[j]){
+								check2 = false;
+								break;
+							}
+							check2 = true;
+						}
+					}while(!check2);
+					boatSerial = (x2 - x1) + 1;
+					check1 = currentGrid.addBoatVertical(y, x1, x2);
 					System.out.println("Vertical OK");
+
 				}
-				boatSerial = (x2 - x1) + 1;
+				check1 = false;
+				check2 = false;
+				available[i] = boatSerial;
 			}
+
 			else if(boatAlignment == 3){
 				int x = rand.nextInt(rows);
 				int y = rand.nextInt(columns);
 				currentGrid.addBoatDiagonal(x, y, true);
-				System.out.println("Diagonal OK");
 			}
 		}
 	}

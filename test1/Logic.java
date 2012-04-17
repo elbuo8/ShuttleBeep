@@ -528,15 +528,15 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			grid2.placeTheBoats(ships, diagonal);
 		}
 		else if(placement == true && !player2.equals("Rofongo")) {
-			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1);
-			randomboats2.placeRandomBoats(ships, areay, areax/2, grid2);
+			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
+			randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
 		}
 		else if (placement == true && player2.equals("Rofongo")) {
-			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1);
-			randomboats2.placeRandomBoats(ships, areay, areax/2, grid2);
+			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
+			randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
 		}
 		else if (placement != true && player2.equals("Rofongo")) {
-			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1);
+			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
 			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates");
 			grid2.placeTheBoats(ships, diagonal);
 		}
