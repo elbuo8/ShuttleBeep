@@ -136,8 +136,13 @@ public class TheGrid implements Serializable{
 	 */
 	public boolean checkIfBoatHorizontal(int x, int y1, int y2){
 		for (int i = y1; i <= y2; i++) 
-			if(theGrid[i][x].boatSerial() != 0)
+			try {
+				if(theGrid[i][x].boatSerial() != 0)
+					return false;				
+			} catch (Exception e) {
 				return false;
+			}
+
 		return true;
 	}
 
@@ -150,9 +155,14 @@ public class TheGrid implements Serializable{
 	 * @return true if the boat can be placed in the desired spot, false if it can't
 	 */
 	public boolean checkIfBoatVertical(int y, int x1, int x2){
-		for (int i = x1; i <= x2; i++) 
-			if(theGrid[y][i].boatSerial() != 0)
-				return false;
+		try {
+			for (int i = x1; i <= x2; i++) 
+				if(theGrid[y][i].boatSerial() != 0)
+					return false;			
+		} catch (Exception e) {
+			return false;
+		}
+
 		return true;
 
 	}
@@ -166,14 +176,24 @@ public class TheGrid implements Serializable{
 	 */
 	public boolean checkIfBoatDiagonal(int x, int y, boolean direction) {
 		if(direction) {
-			for (int i = 0; i < boatSerial; i++) 
-				if(theGrid[y+i][x+i].boatSerial() != 0)
-					return false;
+			try {
+				for (int i = 0; i < boatSerial; i++) 
+					if(theGrid[y+i][x+i].boatSerial() != 0)
+						return false;				
+			} catch (Exception e) {
+				return false;
+			}
+
 		}
 		else {
-			for (int i = 0; i < boatSerial; i++) 
-				if(theGrid[y+i][x-i].boatSerial() != 0)
-					return false;	
+			try {
+				for (int i = 0; i < boatSerial; i++) 
+					if(theGrid[y+i][x-i].boatSerial() != 0)
+						return false;					
+			} catch (Exception e) {
+				return false;
+			}
+
 		}
 		return true;
 	}

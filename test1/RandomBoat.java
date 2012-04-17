@@ -95,13 +95,13 @@ public class RandomBoat {
 			}
 
 			else if(boatAlignment == 3){
-				
+
 				while(!check1){
-					
+
 					while(!check2){
-						
+
 						boatSerial = rand.nextInt((k + 1))+2;
-						
+
 						for(int j = 0; j < available.length; j++){
 							if(boatSerial == available[j] && boatSerial > 1){
 								check2 = false;
@@ -110,9 +110,16 @@ public class RandomBoat {
 							check2 = true;
 						}
 					}
+
+					/**
+					 * Esta resta jamas puede dar 0. Primer bug pq boatSerial crece asta 10 y rows por default es 10.
+					 * Luego no puedes dejar q se kede iterando aki. Haz un checkeo, si es un 8 row game el size 10 se alloca primero.
+					 * Problema resuelto.
+					 * 
+					 */
 					
 					int x = rand.nextInt(rows - boatSerial);
-					int y = rand.nextInt(columns - boatSerial);
+					int	y = rand.nextInt(columns - boatSerial);
 
 					currentGrid.setSerial(boatSerial);
 					check1 = currentGrid.addBoatDiagonal(x, y, true);
