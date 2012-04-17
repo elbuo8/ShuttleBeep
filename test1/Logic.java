@@ -547,9 +547,9 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		grid2.resetGridOffset();
 
 		if(placement != true && !player2.equals("Rofongo")) {
-			JOptionPane.showMessageDialog(null, player2 + " enter your coordinates");
+			JOptionPane.showMessageDialog(null, player2 + " enter your coordinates. \nExample: a1-b1");
 			grid1.placeTheBoats(ships, diagonal);
-			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates");
+			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates. \nExample: a1-b1");
 			grid2.placeTheBoats(ships, diagonal);
 		}
 		else if(placement == true && !player2.equals("Rofongo")) {
@@ -562,7 +562,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		}
 		else if (placement != true && player2.equals("Rofongo")) {
 			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
-			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates");
+			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates. \nExample: a1-b1");
 			grid2.placeTheBoats(ships, diagonal);
 		}
 
