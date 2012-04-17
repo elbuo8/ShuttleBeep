@@ -1,6 +1,7 @@
 package test1;
 
 import java.awt.Rectangle;
+import java.io.Serializable;
 
 /**
  * 
@@ -11,8 +12,12 @@ import java.awt.Rectangle;
  * @author cesarcruz
  *
  */
-public class Tiles {
+public class Tiles implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4414497512044381787L;
 	private int locationX = 0;
 	private int locationY = 0;
 	private boolean hasAship = false;

@@ -1,5 +1,7 @@
 package test1;
 
+import java.io.Serializable;
+
 import javax.swing.JOptionPane;
 
 
@@ -7,8 +9,12 @@ import javax.swing.JOptionPane;
  * @author cesarcruz
  *
  */
-public class TheGrid {
+public class TheGrid implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8284307328057296169L;
 	public Tiles[][]  theGrid;
 	private static int numberOfGrids = 2;
 	private static final int WIDTH_OF_GRID = 600;

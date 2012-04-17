@@ -100,6 +100,9 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		JMenuItem newgame = new JMenuItem("New Game");
 		menu.add(newgame);
 		newgame.addActionListener(this);
+		JMenuItem savegame = new JMenuItem("Save Game");
+		menu.add(savegame);
+		savegame.addActionListener(this);
 		JMenuItem opengame = new JMenuItem("Open Saved Game");
 		menu.add(opengame);
 		opengame.addActionListener(this);
@@ -452,7 +455,30 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			game = new NewGame();
 			game.addWindowListener(this);
 		}
+		if(e.getActionCommand().equals("Save Game")) { 
+			SaveGame saver = new SaveGame();
+			try {
+				saver.save(grid1, grid2);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
 		if (e.getActionCommand().equals("Open Saved Game")) {
+			SaveGame opengame = new SaveGame();
+			try {
+				opengame.open();
+				grid1 = opengame.getGrid1();
+				grid2 = opengame.getGrid2();
+				/**
+				status = new Status(player1, player2);
+				reset = true;
+				repaint();
+				**/
+			} catch (IOException e1) {
+				System.out.println("Fail opening game.");
+			} catch (ClassNotFoundException e1) {
+
+			}	
 
 		}
 	}

@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -18,12 +19,15 @@ import javax.swing.JTextField;
  * @author cesarcruz
  *
  */
-public class NewGame extends JFrame implements ActionListener, KeyListener{
+public class NewGame extends JFrame implements ActionListener, KeyListener, Serializable{
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6700372114296604407L;
+	/**
+	 * 
+	 */
 	private JLabel rows, columns, player1, player2, shuttle, gameSetting, levelSelection, mode;
 	private JTextField text1, text2, text3, text4, text5;
 	private Checkbox optionOne, optionTwo, levelOne, levelTwo, marked, unmarked;
