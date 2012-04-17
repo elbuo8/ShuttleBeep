@@ -24,16 +24,17 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel rows, columns, player1, player2, shuttle, gameSetting, levelSelection;
+	private JLabel rows, columns, player1, player2, shuttle, gameSetting, levelSelection, mode;
 	private JTextField text1, text2, text3, text4, text5;
-	private Checkbox optionOne, optionTwo, levelOne, levelTwo;
+	private Checkbox optionOne, optionTwo, levelOne, levelTwo, marked, unmarked;
 	private JButton okButton, cancelButton;
 	private CheckboxGroup gameSelection = new CheckboxGroup();
 	private CheckboxGroup level = new CheckboxGroup();
+	private CheckboxGroup gameMode = new CheckboxGroup();
 	private String numberOfRows, numberOfColumns, numberOfShuttles;
 	private String player1Name, player2Name;
 	private int xRows, xColumns, xShuttles;
-	private boolean rand = false, levelState = false;
+	private boolean rand = false, levelState = false, markedOrNot = false;
 
 	public NewGame(){
 		setSize(400, 400);
@@ -66,6 +67,9 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 		levelSelection = new JLabel("Select Level: ");
 		levelOne = new Checkbox("Level 1", level, false);
 		levelTwo = new Checkbox("Level 2", level, false);
+		mode = new JLabel("Game Mode: ");
+		marked = new Checkbox("Marked", gameMode, false);
+		unmarked = new Checkbox("Unmarked" , gameMode, false);
 		
 		/**
 		 * Horizontal arrangement of all the components in the JPanel
@@ -79,7 +83,8 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addComponent(rows)
 						.addComponent(columns)
 						.addComponent(gameSetting)
-						.addComponent(levelSelection))
+						.addComponent(levelSelection)
+						.addComponent(mode))
 				.addGroup(layout.createParallelGroup()
 						.addComponent(text1)
 						.addComponent(text2)
@@ -92,6 +97,9 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addGroup(layout.createSequentialGroup()
 								.addComponent(levelOne)
 								.addComponent(levelTwo))
+						.addGroup(layout.createSequentialGroup()
+								.addComponent(marked)
+								.addComponent(unmarked))
 						.addGroup(layout.createSequentialGroup()
 								.addComponent(okButton)
 								.addComponent(cancelButton)))
@@ -127,6 +135,11 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addGroup(layout.createParallelGroup()
 								.addComponent(levelOne)
 								.addComponent(levelTwo)))
+				.addGroup(layout.createParallelGroup()
+						.addComponent(mode)
+						.addGroup(layout.createParallelGroup()
+								.addComponent(marked)
+								.addComponent(unmarked)))
 				.addGroup(layout.createParallelGroup()
 						.addGroup(layout.createParallelGroup()
 								.addComponent(okButton)
@@ -187,6 +200,9 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	public boolean levelType(){
 		return levelState;
 	}
+	public boolean gameMode(){
+		return markedOrNot;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -235,6 +251,10 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 			else if(levelTwo.getState()){
 				levelState = true;
 			}
+			if(marked.getState())
+				markedOrNot = true;
+			else if(unmarked.getState())
+				markedOrNot = false;
 			dispose();
 		}
 		if(e.getActionCommand().equals("Cancel")){
