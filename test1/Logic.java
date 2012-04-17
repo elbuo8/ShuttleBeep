@@ -73,6 +73,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private AudioClip miss;
 	private boolean placement;
 	private boolean diagonal;
+	private boolean marked;
 
 	/**
 	 * Default constructor
@@ -129,6 +130,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						status.log(input, grid1.theGrid[y][x].hasAship());
 						status.switchStatus();
 						status.incrementP1();
+						if(marked && !grid1.theGrid[y][x].hasAship())
+							grid1.theGrid[y][x].unhit();
 						repaint();
 					}
 					else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
@@ -140,6 +143,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 						status.log(input, grid2.theGrid[y][x].hasAship());
 						status.switchStatus();
 						status.incrementP2();
+						if(marked && !grid2.theGrid[y][x].hasAship())
+							grid2.theGrid[y][x].unhit();
 						repaint();
 					}
 				}
@@ -167,6 +172,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 							status.log(input, grid1.theGrid[y][x].hasAship());
 							status.switchStatus();
 							status.incrementP1();
+							if(marked && !grid1.theGrid[y][x].hasAship())
+								grid1.theGrid[y][x].unhit();
 							repaint();
 						}
 						else if (status.getStatus().equals(player2) && !grid2.theGrid[y][x].isHit()) {
@@ -178,6 +185,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 							status.log(input, grid2.theGrid[y][x].hasAship());
 							status.switchStatus();
 							status.incrementP2();
+							if(marked && !grid2.theGrid[y][x].hasAship())
+								grid2.theGrid[y][x].unhit();
 							repaint();
 						}
 					}
@@ -396,6 +405,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 							miss.play();
 						status.switchStatus();
 						status.incrementP1();
+						if(marked && !grid1.theGrid[i][j].hasAship())
+							grid1.theGrid[i][j].unhit();
 						repaint();
 					}
 				}
@@ -415,6 +426,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 							miss.play();
 						status.switchStatus();
 						status.incrementP2();
+						if(marked && !grid2.theGrid[i][j].hasAship())
+							grid2.theGrid[i][j].unhit();
 						repaint();
 					}
 				}
@@ -474,6 +487,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		player2 = game.playerTwo();
 		placement = game.gameType();
 		diagonal = game.levelType();
+		marked = game.gameMode();
 		grid1 = new TheGrid(areax/2, areay);
 		grid2 = new TheGrid(areax/2, areay);
 		randomboats1 = new RandomBoat();

@@ -43,6 +43,11 @@ public class Tiles {
 		if(isHit == false)
 			isHit = true;
 	}
+	
+	public void unhit() {
+		if(isHit == true)
+			isHit = false;
+	}
 	/**
 	 * 
 	 * @return the y location of the current tile in the 2D array or Grid.

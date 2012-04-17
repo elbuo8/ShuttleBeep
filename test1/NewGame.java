@@ -70,7 +70,7 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 		mode = new JLabel("Game Mode: ");
 		marked = new Checkbox("Marked", gameMode, false);
 		unmarked = new Checkbox("Unmarked" , gameMode, false);
-		
+
 		/**
 		 * Horizontal arrangement of all the components in the JPanel
 		 */
@@ -85,24 +85,24 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 						.addComponent(gameSetting)
 						.addComponent(levelSelection)
 						.addComponent(mode))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(text1)
-						.addComponent(text2)
-						.addComponent(text3)
-						.addComponent(text4)
-						.addComponent(text5)
-						.addGroup(layout.createSequentialGroup()
-								.addComponent(optionOne)
-								.addComponent(optionTwo))
-						.addGroup(layout.createSequentialGroup()
-								.addComponent(levelOne)
-								.addComponent(levelTwo))
-						.addGroup(layout.createSequentialGroup()
-								.addComponent(marked)
-								.addComponent(unmarked))
-						.addGroup(layout.createSequentialGroup()
-								.addComponent(okButton)
-								.addComponent(cancelButton)))
+						.addGroup(layout.createParallelGroup()
+								.addComponent(text1)
+								.addComponent(text2)
+								.addComponent(text3)
+								.addComponent(text4)
+								.addComponent(text5)
+								.addGroup(layout.createSequentialGroup()
+										.addComponent(optionOne)
+										.addComponent(optionTwo))
+										.addGroup(layout.createSequentialGroup()
+												.addComponent(levelOne)
+												.addComponent(levelTwo))
+												.addGroup(layout.createSequentialGroup()
+														.addComponent(marked)
+														.addComponent(unmarked))
+														.addGroup(layout.createSequentialGroup()
+																.addComponent(okButton)
+																.addComponent(cancelButton)))
 				);
 
 		/**
@@ -113,37 +113,37 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 				.addGroup(layout.createParallelGroup()
 						.addComponent(player1)
 						.addComponent(text1))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(player2)
-						.addComponent(text2))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(shuttle)
-						.addComponent(text3))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(rows)
-						.addComponent(text4))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(columns)
-						.addComponent(text5))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(gameSetting)
 						.addGroup(layout.createParallelGroup()
-								.addComponent(optionOne)
-								.addComponent(optionTwo)))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(levelSelection)
-						.addGroup(layout.createParallelGroup()
-								.addComponent(levelOne)
-								.addComponent(levelTwo)))
-				.addGroup(layout.createParallelGroup()
-						.addComponent(mode)
-						.addGroup(layout.createParallelGroup()
-								.addComponent(marked)
-								.addComponent(unmarked)))
-				.addGroup(layout.createParallelGroup()
-						.addGroup(layout.createParallelGroup()
-								.addComponent(okButton)
-								.addComponent(cancelButton)))
+								.addComponent(player2)
+								.addComponent(text2))
+								.addGroup(layout.createParallelGroup()
+										.addComponent(shuttle)
+										.addComponent(text3))
+										.addGroup(layout.createParallelGroup()
+												.addComponent(rows)
+												.addComponent(text4))
+												.addGroup(layout.createParallelGroup()
+														.addComponent(columns)
+														.addComponent(text5))
+														.addGroup(layout.createParallelGroup()
+																.addComponent(gameSetting)
+																.addGroup(layout.createParallelGroup()
+																		.addComponent(optionOne)
+																		.addComponent(optionTwo)))
+																		.addGroup(layout.createParallelGroup()
+																				.addComponent(levelSelection)
+																				.addGroup(layout.createParallelGroup()
+																						.addComponent(levelOne)
+																						.addComponent(levelTwo)))
+																						.addGroup(layout.createParallelGroup()
+																								.addComponent(mode)
+																								.addGroup(layout.createParallelGroup()
+																										.addComponent(marked)
+																										.addComponent(unmarked)))
+																										.addGroup(layout.createParallelGroup()
+																												.addGroup(layout.createParallelGroup()
+																														.addComponent(okButton)
+																														.addComponent(cancelButton)))
 				);
 
 		/**
@@ -200,6 +200,10 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	public boolean levelType(){
 		return levelState;
 	}
+	/**
+	 * 
+	 * @return Play marked or unmarked
+	 */
 	public boolean gameMode(){
 		return markedOrNot;
 	}
@@ -252,20 +256,25 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 				levelState = true;
 			}
 			if(marked.getState())
-				markedOrNot = true;
-			else if(unmarked.getState())
 				markedOrNot = false;
+			else if(unmarked.getState())
+				markedOrNot = true;
 			dispose();
 		}
 		if(e.getActionCommand().equals("Cancel")){
-				dispose();
+			dispose();
 		}
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER){
-			player1Name = text1.getText();
+
+			if(text1.getText().equals(null) || text1.getText().equals("")){
+				player1Name = "Player 1";
+			}
+			else
+				player1Name = text1.getText();
 
 			if(text2.getText().equals(null) || text2.getText().equals(""))
 				player2Name = "Rofongo";
@@ -292,6 +301,25 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 				numberOfColumns = text5.getText();
 				xColumns = Integer.parseInt(numberOfColumns);
 			}
+			if(optionOne.getState()){
+				rand = true;
+			}
+			else if(optionTwo.getState()){
+				rand = false;
+			}
+			if(levelOne.getState()){
+				levelState = false;
+			}
+			else if(levelTwo.getState()){
+				levelState = true;
+			}
+			if(marked.getState())
+				markedOrNot = false;
+			else if(unmarked.getState())
+				markedOrNot = true;
+			dispose();
+		}
+		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
 			dispose();
 		}
 	}
@@ -299,14 +327,14 @@ public class NewGame extends JFrame implements ActionListener, KeyListener{
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
-		
+
 	}
 
 }
