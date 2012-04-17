@@ -2,6 +2,8 @@ package test1;
 
 import java.io.Serializable;
 
+import javax.swing.JOptionPane;
+
 /**
  * 
  * @author yamilasusta
@@ -26,7 +28,7 @@ public class Status implements Serializable{
 		movesplayer2 = 0;
 		logger = "";
 		turn = 1;
-		System.out.println("Start of the game.");
+		JOptionPane.showMessageDialog(null, current + " start the game!");
 	}
 
 	/**
@@ -61,6 +63,8 @@ public class Status implements Serializable{
 		current = player2;
 		player2 = player1;
 		player1 = current;
+		if(!player2.equals("Rofongo"))
+			JOptionPane.showMessageDialog(null, current + " is your turn bro");
 		return current;
 	}
 
@@ -84,6 +88,8 @@ public class Status implements Serializable{
 	 * @param hits Indicator of result
 	 */
 	public void log(String location, boolean hits) {
+		if(turn == 0)
+			System.out.println("Start of the game.");
 		String parse = "";
 		if(hits)
 			parse = "Hits.";
