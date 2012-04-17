@@ -63,7 +63,7 @@ public class Status implements Serializable{
 		current = player2;
 		player2 = player1;
 		player1 = current;
-		if(!player2.equals("Rofongo"))
+		if(!current.equals("Rofongo"))
 			JOptionPane.showMessageDialog(null, current + " is your turn bro");
 		return current;
 	}
