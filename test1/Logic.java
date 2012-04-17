@@ -386,200 +386,222 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			System.out.println("End of the game.");
 			System.exit(0);
 		}
-		if(player2.equals("Rofongo")) {}
-		//insert code here.
-	}
-
-	/**
-	 * ActionListener for the mouseclicked event.
-	 */
-	public void mouseClicked(MouseEvent e) {
-		if (grid1 != null && status.getStatus().equals(player1)) {
-			for (int i = 0; i < grid1.theGrid.length; i++) {
-				for (int j = 0; j < grid1.theGrid[0].length; j++) {
-					if(grid1.theGrid[i][j].getRect().contains(e.getPoint()) && !grid1.theGrid[i][j].isHit()) {
-						grid1.theGrid[i][j].hit();
-						char parse = (char) ('a' + i);
-						String input = parse + "" + (j+1);
-						status.log(input, grid1.theGrid[i][j].hasAship());
-						if(grid1.theGrid[i][j].hasAship())
-							hit.play();
-						else 
-							miss.play();
-						status.switchStatus();
-						status.incrementP1();
-						if(marked && !grid1.theGrid[i][j].hasAship())
-							grid1.theGrid[i][j].unhit();
-						repaint();
-					}
+		if(status.getStatus().equals("Rofongo")) {
+			boolean complete = false;
+			do {
+				int[] attack = Rofongo.attack(areax/2, areay);
+				if(!grid2.theGrid[attack[1]][attack[0]].isHit()) {
+					complete = true;
+					grid2.theGrid[attack[1]][attack[0]].hit();
+					if(grid2.theGrid[attack[1]][attack[0]].hasAship())
+						hit.play();
+					else 
+						miss.play();
+					char parse = (char) ('a' + attack[1]);
+					String input = parse + "" + (attack[0]+1);
+					status.log(input, grid2.theGrid[attack[1]][attack[0]].hasAship());
+					status.switchStatus();
+					status.incrementP2();
+					if(marked && !grid2.theGrid[attack[1]][attack[0]].hasAship())
+						grid2.theGrid[attack[1]][attack[0]].unhit();
 				}
-			}			
+				} while (!complete);
+
+			repaint();
+			}
+
 		}
-		if (grid2 != null && status.getStatus().equals(player2)) {
-			for (int i = 0; i < grid2.theGrid.length; i++) {
-				for (int j = 0; j < grid2.theGrid[0].length; j++) {
-					if(grid2.theGrid[i][j].getRect().contains(e.getPoint()) && !grid2.theGrid[i][j].isHit()) {
-						grid2.theGrid[i][j].hit();
-						char parse = (char) ('a' + i);
-						String input = parse + "" + (j+1);
-						status.log(input, grid1.theGrid[i][j].hasAship());
-						if(grid2.theGrid[i][j].hasAship())
-							hit.play();
-						else 
-							miss.play();
-						status.switchStatus();
-						status.incrementP2();
-						if(marked && !grid2.theGrid[i][j].hasAship())
-							grid2.theGrid[i][j].unhit();
-						repaint();
+
+		/**
+		 * ActionListener for the mouseclicked event.
+		 */
+		public void mouseClicked(MouseEvent e) {
+			if (grid1 != null && status.getStatus().equals(player1)) {
+				for (int i = 0; i < grid1.theGrid.length; i++) {
+					for (int j = 0; j < grid1.theGrid[0].length; j++) {
+						if(grid1.theGrid[i][j].getRect().contains(e.getPoint()) && !grid1.theGrid[i][j].isHit()) {
+							grid1.theGrid[i][j].hit();
+							char parse = (char) ('a' + i);
+							String input = parse + "" + (j+1);
+							status.log(input, grid1.theGrid[i][j].hasAship());
+							if(grid1.theGrid[i][j].hasAship())
+								hit.play();
+							else 
+								miss.play();
+							status.switchStatus();
+							status.incrementP1();
+							if(marked && !grid1.theGrid[i][j].hasAship())
+								grid1.theGrid[i][j].unhit();
+							repaint();
+						}
 					}
-				}
-			}			
-		}
-	}
-
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void mousePressed(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
-	public void mouseDragged(MouseEvent e) {}
-	public void mouseMoved(MouseEvent e) {}
-
-	/**
-	 * Waits for the input in the menu bar
-	 */
-	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("View High Scores")) 
-			db.showHigh();
-		if (e.getActionCommand().equals("New Game")) {
-			game = new NewGame();
-			game.addWindowListener(this);
-		}
-		if(e.getActionCommand().equals("Save Game")) { 
-
-			try {
-				Object[] data = new Object[11];
-				data[0] = areax;
-				data[1] = areay;
-				data[2] = ships;
-				data[3] = player1;
-				data[4] = player2;
-				data[5] = placement;
-				data[6] = diagonal;
-				data[7] = marked;
-				data[8] = status;
-				data[9] = grid1;
-				data[10] = grid2;
-				SaveGame.save(data);
-				String gamefile = JOptionPane.showInputDialog(null, "Insert name for save file");
-				db.saveGame(gamefile);
-				JOptionPane.showMessageDialog(null, "Game saved bro");
-			} catch (IOException e1) {
-				System.out.println("Fail saving game.");
+				}			
+			}
+			if (grid2 != null && status.getStatus().equals(player2)) {
+				for (int i = 0; i < grid2.theGrid.length; i++) {
+					for (int j = 0; j < grid2.theGrid[0].length; j++) {
+						if(grid2.theGrid[i][j].getRect().contains(e.getPoint()) && !grid2.theGrid[i][j].isHit()) {
+							grid2.theGrid[i][j].hit();
+							char parse = (char) ('a' + i);
+							String input = parse + "" + (j+1);
+							status.log(input, grid1.theGrid[i][j].hasAship());
+							if(grid2.theGrid[i][j].hasAship())
+								hit.play();
+							else 
+								miss.play();
+							status.switchStatus();
+							status.incrementP2();
+							if(marked && !grid2.theGrid[i][j].hasAship())
+								grid2.theGrid[i][j].unhit();
+							repaint();
+						}
+					}
+				}			
 			}
 		}
-		if (e.getActionCommand().equals("Open Saved Game")) {
-			SaveGame opengame = new SaveGame();
-			try {
-				String gamefile = JOptionPane.showInputDialog(null, "Insert name of save file");
-				db.openGame(gamefile);
-				opengame.open();
-				Object[] data = opengame.getData();
-				areax = (Integer) data[0];
-				areay = (Integer) data[1];
-				ships = (Integer) data[2];
-				player1 = (String) data[3];
-				player2 = (String) data[4];
-				placement = (Boolean) data[5];
-				diagonal = (Boolean) data[6];
-				marked = (Boolean) data[7];
-				status = (Status) data[8];
-				grid1 = (TheGrid) data[9];
-				grid2 = (TheGrid) data[10];
-				reset = true;
-				JOptionPane.showMessageDialog(null, "Welcome back bro");
-				repaint();
-			} catch (IOException e1) {
-				System.out.println("Fail opening game.");
-			} catch (ClassNotFoundException e1) {
 
-			}	
+		public void mouseEntered(MouseEvent e) {}
+		public void mouseExited(MouseEvent e) {}
+		public void mousePressed(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {}
+		public void mouseDragged(MouseEvent e) {}
+		public void mouseMoved(MouseEvent e) {}
 
+		/**
+		 * Waits for the input in the menu bar
+		 */
+		public void actionPerformed(ActionEvent e) {
+			if(e.getActionCommand().equals("View High Scores")) 
+				db.showHigh();
+			if (e.getActionCommand().equals("New Game")) {
+				game = new NewGame();
+				game.addWindowListener(this);
+			}
+			if(e.getActionCommand().equals("Save Game")) { 
+
+				try {
+					Object[] data = new Object[11];
+					data[0] = areax;
+					data[1] = areay;
+					data[2] = ships;
+					data[3] = player1;
+					data[4] = player2;
+					data[5] = placement;
+					data[6] = diagonal;
+					data[7] = marked;
+					data[8] = status;
+					data[9] = grid1;
+					data[10] = grid2;
+					SaveGame.save(data);
+					String gamefile = JOptionPane.showInputDialog(null, "Insert name for save file");
+					db.saveGame(gamefile);
+					JOptionPane.showMessageDialog(null, "Game saved bro");
+				} catch (IOException e1) {
+					System.out.println("Fail saving game.");
+				}
+			}
+			if (e.getActionCommand().equals("Open Saved Game")) {
+				SaveGame opengame = new SaveGame();
+				try {
+					String gamefile = JOptionPane.showInputDialog(null, "Insert name of save file");
+					db.openGame(gamefile);
+					opengame.open();
+					Object[] data = opengame.getData();
+					areax = (Integer) data[0];
+					areay = (Integer) data[1];
+					ships = (Integer) data[2];
+					player1 = (String) data[3];
+					player2 = (String) data[4];
+					placement = (Boolean) data[5];
+					diagonal = (Boolean) data[6];
+					marked = (Boolean) data[7];
+					status = (Status) data[8];
+					grid1 = (TheGrid) data[9];
+					grid2 = (TheGrid) data[10];
+					reset = true;
+					JOptionPane.showMessageDialog(null, "Welcome back bro");
+					repaint();
+				} catch (IOException e1) {
+					System.out.println("Fail opening game.");
+				} catch (ClassNotFoundException e1) {
+
+				}	
+
+			}
 		}
-	}
 
-	/**
-	 * Verifies that the input is a valid one
-	 * @param input Input from the user
-	 * @return If the input is valid
-	 */
-	static boolean verifyInput(String input) {
-		input = input.toLowerCase();
-		if(input.isEmpty())
-			return false;
-		char[] parse = input.toCharArray();
-		if(!Character.isLetter(parse[0]))
-			return false;
-		for (int i = 1; i < parse.length; i++) 
-			if (!Character.isDigit(parse[i])) 
+		/**
+		 * Verifies that the input is a valid one
+		 * @param input Input from the user
+		 * @return If the input is valid
+		 */
+		static boolean verifyInput(String input) {
+			input = input.toLowerCase();
+			if(input.isEmpty())
 				return false;
-		return true;
+			char[] parse = input.toCharArray();
+			if(!Character.isLetter(parse[0]))
+				return false;
+			for (int i = 1; i < parse.length; i++) 
+				if (!Character.isDigit(parse[i])) 
+					return false;
+			return true;
+		}
+
+		public void windowActivated(WindowEvent arg0) {}
+		public void windowClosed(WindowEvent arg0) {}
+		public void windowClosing(WindowEvent e) {}
+
+		public void windowDeactivated(WindowEvent arg0) {
+			areax = game.getColumns()*2;
+			areay = game.getRows();
+			ships = game.getBoats();
+			player1 = game.playerOne();
+			player2 = game.playerTwo();
+			placement = game.gameType();
+			diagonal = game.levelType();
+			marked = game.gameMode();
+			grid1 = new TheGrid(areax/2, areay);
+			grid2 = new TheGrid(areax/2, areay);
+			randomboats1 = new RandomBoat();
+			randomboats2 = new RandomBoat();
+			grid1.resetGridOffset();
+			grid2.resetGridOffset();
+
+			if(placement != true && !player2.equals("Rofongo")) {
+				JOptionPane.showMessageDialog(null, player2 + " enter your coordinates. \nExample: a1-b1");
+				grid1.placeTheBoats(ships, diagonal);
+				JOptionPane.showMessageDialog(null, player1 + " enter your coordinates. \nExample: a1-b1");
+				grid2.placeTheBoats(ships, diagonal);
+			}
+			else if(placement == true && !player2.equals("Rofongo")) {
+				randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
+				randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
+			}
+			else if (placement == true && player2.equals("Rofongo")) {
+				randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
+				randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
+			}
+			else if (placement != true && player2.equals("Rofongo")) {
+				randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
+				JOptionPane.showMessageDialog(null, player1 + " enter your coordinates. \nExample: a1-b1");
+				grid2.placeTheBoats(ships, diagonal);
+			}
+
+
+			status = new Status(player1, player2);
+			reset = true;
+			repaint();
+		}
+
+		public void windowDeiconified(WindowEvent arg0) {}
+		public void windowIconified(WindowEvent arg0) {}
+		public void windowOpened(WindowEvent arg0) {}
+
+		public void keyPressed(KeyEvent e) {
+			if ((e.getKeyCode()) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)) 
+				System.exit(0);
+		}
+		public void keyReleased(KeyEvent e) {}
+		public void keyTyped(KeyEvent e) {}
 	}
-
-	public void windowActivated(WindowEvent arg0) {}
-	public void windowClosed(WindowEvent arg0) {}
-	public void windowClosing(WindowEvent e) {}
-
-	public void windowDeactivated(WindowEvent arg0) {
-		areax = game.getColumns()*2;
-		areay = game.getRows();
-		ships = game.getBoats();
-		player1 = game.playerOne();
-		player2 = game.playerTwo();
-		placement = game.gameType();
-		diagonal = game.levelType();
-		marked = game.gameMode();
-		grid1 = new TheGrid(areax/2, areay);
-		grid2 = new TheGrid(areax/2, areay);
-		randomboats1 = new RandomBoat();
-		randomboats2 = new RandomBoat();
-		grid1.resetGridOffset();
-		grid2.resetGridOffset();
-
-		if(placement != true && !player2.equals("Rofongo")) {
-			JOptionPane.showMessageDialog(null, player2 + " enter your coordinates. \nExample: a1-b1");
-			grid1.placeTheBoats(ships, diagonal);
-			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates. \nExample: a1-b1");
-			grid2.placeTheBoats(ships, diagonal);
-		}
-		else if(placement == true && !player2.equals("Rofongo")) {
-			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
-			randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
-		}
-		else if (placement == true && player2.equals("Rofongo")) {
-			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
-			randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
-		}
-		else if (placement != true && player2.equals("Rofongo")) {
-			randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
-			JOptionPane.showMessageDialog(null, player1 + " enter your coordinates. \nExample: a1-b1");
-			grid2.placeTheBoats(ships, diagonal);
-		}
-
-
-		status = new Status(player1, player2);
-		reset = true;
-		repaint();
-	}
-
-	public void windowDeiconified(WindowEvent arg0) {}
-	public void windowIconified(WindowEvent arg0) {}
-	public void windowOpened(WindowEvent arg0) {}
-
-	public void keyPressed(KeyEvent e) {
-		if ((e.getKeyCode()) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)) 
-			System.exit(0);
-	}
-	public void keyReleased(KeyEvent e) {}
-	public void keyTyped(KeyEvent e) {}
-}
