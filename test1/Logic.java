@@ -458,7 +458,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		if(e.getActionCommand().equals("Save Game")) { 
 
 			try {
-				Object[] data = new Object[8];
+				Object[] data = new Object[11];
 				data[0] = areax;
 				data[1] = areay;
 				data[2] = ships;
@@ -467,7 +467,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 				data[5] = placement;
 				data[6] = diagonal;
 				data[7] = marked;
-				SaveGame.save(grid1, grid2, data);
+				data[8] = status;
+				data[9] = grid1;
+				data[10] = grid2;
+				SaveGame.save(data);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -485,9 +488,9 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 				placement = (Boolean) data[5];
 				diagonal = (Boolean) data[6];
 				marked = (Boolean) data[7];
-				grid1 = opengame.getGrid1();
-				grid2 = opengame.getGrid2();
-				status = new Status(player1, player2);
+				status = (Status) data[8];
+				grid1 = (TheGrid) data[9];
+				grid2 = (TheGrid) data[10];
 				reset = true;
 				JOptionPane.showMessageDialog(null, "Welcome back bro");
 				repaint();
