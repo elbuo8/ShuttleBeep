@@ -7,11 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class SaveGame {
-
-	public SaveGame() {
-	}
 	
-	public void save(TheGrid grid1, TheGrid grid2) throws IOException {
+	public static void save(TheGrid grid1, TheGrid grid2, Object[] data) throws IOException {
 		FileOutputStream file = new FileOutputStream("grid1.dat");
 		ObjectOutputStream writter = new ObjectOutputStream(file);
 		writter.writeObject(grid1);
@@ -19,12 +16,11 @@ public class SaveGame {
 		file = new FileOutputStream("grid2.dat");
 		writter = new ObjectOutputStream(file);
 		writter.writeObject(grid2);
-		/**
+
 		 
-		file = new FileOutputStream("game.dat");
+		file = new FileOutputStream("data.dat");
 		writter = new ObjectOutputStream(file);
-		writter.writeObject(game);
-		*/
+		writter.writeObject(data);
 	}
 	
 	public void open() throws IOException, ClassNotFoundException {
@@ -36,21 +32,12 @@ public class SaveGame {
 		reader = new ObjectInputStream(file);
 		grid2 = (TheGrid) reader.readObject();
 		
-		/**
-		file = new FileInputStream("game.dat");
+		file = new FileInputStream("data.dat");
 		reader = new ObjectInputStream(file);
-		game = (NewGame) reader.readObject();
-		*/
+		data = (Object[]) reader.readObject();
 			
 	}
 	
-	/**
-	 * @return the game
-	 */
-	public NewGame getGame() {
-		return game;
-	}
-
 	/**
 	 * @return the grid1
 	 */
@@ -65,7 +52,15 @@ public class SaveGame {
 		return grid2;
 	}
 
-	private NewGame game;
+
+	/**
+	 * @return the data
+	 */
+	public Object[] getData() {
+		return data;
+	}
+
+	private Object[] data;
 	private TheGrid grid1;
 	private TheGrid grid2;
 }
