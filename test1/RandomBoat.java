@@ -87,7 +87,6 @@ public class RandomBoat {
 					boatSerial = (x2 - x1) + 1;
 					currentGrid.setSerial(boatSerial);
 					check1 = currentGrid.addBoatVertical(y, x1, x2);
-					System.out.println("Vertical OK");
 
 				}
 				check1 = false;
@@ -96,11 +95,33 @@ public class RandomBoat {
 			}
 
 			else if(boatAlignment == 3){
-				int x = rand.nextInt(rows);
-				int y = rand.nextInt(columns);
-				currentGrid.addBoatDiagonal(x, y, true);
+				while(!check1){
+					while(!check2){
+						boatSerial = rand.nextInt(k+2)+2;
+						for(int j = 0; j < available.length; j++){
+							if(boatSerial == available[j] && boatSerial > 1){
+								check2 = false;
+								break;
+							}
+							check2 = true;
+						}
+					}
+					int x = rand.nextInt(rows);
+					if(x > boatSerial){
+						x-=boatSerial;
+					}
+					int y = rand.nextInt(columns);
+					if(y > boatSerial){
+						y-=boatSerial;
+					}
+					check1 = currentGrid.addBoatDiagonal(x, y, true);
+				}
+				check1 = false;
+				check2 = false;
+				available[i] = boatSerial;
 			}
 		}
 	}
-
 }
+
+
