@@ -1,5 +1,7 @@
 package test1;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
@@ -11,6 +13,9 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoException;
 import com.mongodb.MongoURI;
+import com.mongodb.gridfs.GridFS;
+import com.mongodb.gridfs.GridFSDBFile;
+import com.mongodb.gridfs.GridFSInputFile;
 
 /**
  * 
@@ -70,31 +75,20 @@ public class Database {
 		collection.insert(player);
 	}
 	
-	/**
-	public void save(Tiles[][] grid1, Tiles[][] grid2, String name) {
-		DBCollection collection = db.getCollection("saves");
-		BasicDBObject player1 = new BasicDBObject();
-		player1.put("Game", name);
-		BasicDBObject plane1 = new BasicDBObject();
-		BasicDBObject plane2 = new BasicDBObject();
-		BasicDBObject index = new BasicDBObject();
-		for (int i = 0; i < grid1.length; i++) {
-			for (int j = 0; j < grid1[0].length; j++) {
-				index.put("indexi", i);
-				index.put("indexj", j);
-				BasicDBObject parse = new BasicDBObject();
-				parse.put("X", grid1[i][j].getX());
-				parse.put("Y", grid1[i][j].getY());
-				parse.put("Rect", grid1[i][j].getRect());
-				parse.put("isHit", grid1[i][j].isHit());
-				parse.put("hasAship", grid1[i][j].hasAship());
-				//parse.put("boatSerial", grid1[i][j].getSerial());
-				index.put("tiles", parse);
-			}
-		}
-		plane1.put("plane1", index);
-		
+	public void saveGame(String name) throws IOException {
+		GridFS gridstore = new GridFS(db);
+		File gameFile = new File("data.dat");
+		GridFSInputFile importer = gridstore.createFile(gameFile);
+		importer.setFilename(name);
+		importer.save();
+		gameFile.delete();
 	}
-	**/
+	
+	public void openGame(String name) throws IOException {
+		GridFS gridstore = new GridFS(db);
+		GridFSDBFile export = gridstore.findOne(name);
+		export.writeTo("data.dat");
+		gridstore.remove(gridstore.findOne(name));
+	}
 
 }

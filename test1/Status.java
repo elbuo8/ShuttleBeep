@@ -1,12 +1,18 @@
 package test1;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author yamilasusta
  *
  */
-public class Status {
+public class Status implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3811193190303251896L;
 	/**
 	 * Default constructor
 	 * @param player1 Player 1 name.

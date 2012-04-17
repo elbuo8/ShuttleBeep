@@ -471,13 +471,18 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 				data[9] = grid1;
 				data[10] = grid2;
 				SaveGame.save(data);
+				String gamefile = JOptionPane.showInputDialog(null, "Insert name for save file");
+				db.saveGame(gamefile);
+				JOptionPane.showMessageDialog(null, "Game saved bro");
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				System.out.println("Fail saving game.");
 			}
 		}
 		if (e.getActionCommand().equals("Open Saved Game")) {
 			SaveGame opengame = new SaveGame();
 			try {
+				String gamefile = JOptionPane.showInputDialog(null, "Insert name of save file");
+				db.openGame(gamefile);
 				opengame.open();
 				Object[] data = opengame.getData();
 				areax = (Integer) data[0];
