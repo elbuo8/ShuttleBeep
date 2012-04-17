@@ -64,6 +64,7 @@ public class TheGrid {
 	 * @param x1 starting point of the boat in the x coordinate
 	 * @param x2 ending point of the boat in the x coordinate
 	 * @param y the number of the row
+	 * @return If the boat was placed.
 	 */
 	public boolean addBoatVertical(int y, int x1, int x2){
 		if(checkIfBoatVertical(y, x1, x2)) {	
@@ -78,6 +79,7 @@ public class TheGrid {
 	 * @param x the number of the column
 	 * @param y1 the starting point of the boat in the y coordinate
 	 * @param y2 the ending point of the boat in the y coordinate
+	 * @return If the boat was placed.
 	 */
 	public boolean addBoatHorizontal(int x, int y1, int y2){
 		if(checkIfBoatHorizontal(x, y1, y2)) {
@@ -88,17 +90,23 @@ public class TheGrid {
 		else
 			return false;
 	}
-
+	/**
+	 * 
+	 * @param x Initial x coordinate
+	 * @param y Initial y coordinate
+	 * @param direction Direction on which to add the boat
+	 * @return If the boat was placed.
+	 */
 	public boolean addBoatDiagonal(int x, int y, boolean direction) {
 		if (checkIfBoatDiagonal(x, y, direction)) {
 			if(direction) {
 				for (int i = 0; i < boatSerial; i++) 
-					theGrid[i+x][i+y].setSerial(boatSerial);
+					theGrid[i+y][i+x].setSerial(boatSerial);
 				return true;
 			}
 			else {
 				for (int i = 0; i < boatSerial; i++) 
-					theGrid[x-i][y+i].setSerial(boatSerial);
+					theGrid[y+i][x-i].setSerial(boatSerial);
 				return true;
 			}
 		}
@@ -108,9 +116,9 @@ public class TheGrid {
 	/**
 	 * The three parameters indicate the location and the size of the boat
 	 * that will be place
-	 * @param x 
-	 * @param y1
-	 * @param y2
+	 * @param x The current column
+	 * @param y1 Starting point for the row
+	 * @param y2 Final point for the row
 	 * @return true if the boat can be placed in the desired spot, false if it can't
 	 */
 	public boolean checkIfBoatHorizontal(int x, int y1, int y2){
@@ -123,9 +131,9 @@ public class TheGrid {
 	/**
 	 * The three parameters indicate the location and the size of the boat
 	 * that will be place
-	 * @param y 
-	 * @param x1
-	 * @param x2
+	 * @param y Current row
+	 * @param x1 Starting point for the column
+	 * @param x2 Final point for the column
 	 * @return true if the boat can be placed in the desired spot, false if it can't
 	 */
 	public boolean checkIfBoatVertical(int y, int x1, int x2){
@@ -136,15 +144,22 @@ public class TheGrid {
 
 	}
 
+	/**
+	 * Verify if the space is available in the grid
+	 * @param x Initial x coordinate
+	 * @param y Initial x coorinate
+	 * @param direction Direction on which to lay the boat
+	 * @return If the space is available.
+	 */
 	public boolean checkIfBoatDiagonal(int x, int y, boolean direction) {
 		if(direction) {
 			for (int i = 0; i < boatSerial; i++) 
-				if(theGrid[x+i][y+i].boatSerial() != 0)
+				if(theGrid[y+i][x+i].boatSerial() != 0)
 					return false;
 		}
 		else {
 			for (int i = 0; i < boatSerial; i++) 
-				if(theGrid[x-i][y+i].boatSerial() != 0)
+				if(theGrid[y+i][x-i].boatSerial() != 0)
 					return false;	
 		}
 		return true;
@@ -193,6 +208,12 @@ public class TheGrid {
 	public void resetGridOffset(){
 		gridObjects = 0;
 	}
+	
+	/**
+	 * 
+	 * @param input The string to be parsed
+	 * @return If the input is a valid one.
+	 */
 	static boolean verifyInput(String input) {
 		if(input.isEmpty())
 			return false;
@@ -205,7 +226,11 @@ public class TheGrid {
 		return true;
 	}
 
-
+	/**
+	 * Places the boats on the grid.
+	 * @param x The amount of boats to be placed.
+	 * @param diagonal Indicates if diagonal boats may be used.
+	 */
 	public void placeTheBoats(int x, boolean diagonal){
 		boatSerial = 2;
 		if(!diagonal) {
@@ -316,7 +341,6 @@ public class TheGrid {
 				boatSerial++;
 			}
 		}
-
 	}
 
 
