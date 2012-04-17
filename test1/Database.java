@@ -75,6 +75,11 @@ public class Database {
 		collection.insert(player);
 	}
 	
+	/**
+	 * Saves the game in the remote database.
+	 * @param name Name of the stored game.
+	 * @throws IOException
+	 */
 	public void saveGame(String name) throws IOException {
 		GridFS gridstore = new GridFS(db);
 		File gameFile = new File("data.dat");
@@ -84,6 +89,11 @@ public class Database {
 		gameFile.delete();
 	}
 	
+	/**
+	 * Pulls the specified game from remote database.
+	 * @param name Name given to the saved file in the db.
+	 * @throws IOException
+	 */
 	public void openGame(String name) throws IOException {
 		GridFS gridstore = new GridFS(db);
 		GridFSDBFile export = gridstore.findOne(name);

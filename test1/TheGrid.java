@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 
 
 /**
- * @author cesarcruz
+ * @author cesarcruz && yamilasusta
  *
  */
 public class TheGrid implements Serializable{
