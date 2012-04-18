@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * @author cesarcruz
- *
+ * 
  */
 public class Tiles implements Serializable{
 	
@@ -41,7 +41,7 @@ public class Tiles implements Serializable{
 	}
 	
 	/**
-	 * @param
+	 * 
 	 * Action to be taken if a tile is pressed or clicked.
 	 */
 	public void hit(){
