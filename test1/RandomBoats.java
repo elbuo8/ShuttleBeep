@@ -14,23 +14,30 @@ public class RandomBoats {
 				if(!placed && menu == 0) { //horizontal.
 					int x = random.nextInt(columns);
 					int y = random.nextInt(rows);
+					if(boatSerial > 6) 	
+						y = random.nextInt(3);
 					int y2 = y + boatSerial;
 					grid.setSerial(boatSerial);
 					placed = grid.addBoatHorizontal(x, y, y2);
+					System.out.println("Horizontal " + placed + " " + boatSerial);
 				}
 				if (!placed && menu == 1) { //vertical
 					int x = random.nextInt(columns);
 					int y = random.nextInt(rows);
+					if(boatSerial > 6)
+						x = random.nextInt(3);
 					int x2 = x + boatSerial;
 					grid.setSerial(boatSerial);
 					placed = grid.addBoatVertical(y, x, x2);
+					System.out.println("Vertical " + placed + " " + boatSerial);
 				}
 				if (!placed && diagonal && menu == 2) {//diagonal
 					int x = random.nextInt(columns);
 					int y = random.nextInt(rows);
 					grid.setSerial(boatSerial);
 					placed = grid.addBoatDiagonal(x, y, true);
-				}			
+					System.out.println("Diagonal " + placed + " " + boatSerial);
+				}	
 			}			
 			boatSerial--;
 		}
