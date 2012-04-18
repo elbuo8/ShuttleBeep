@@ -62,7 +62,7 @@ public class RandomBoat {
 							}
 							check2 = true;
 						}
-					}while(!check2 && y2-y1 >= 2);
+					}while(!check2);
 
 					boatSerial = (y2 - y1) + 1;
 					currentGrid.setSerial(boatSerial);
@@ -98,7 +98,7 @@ public class RandomBoat {
 							}
 							check2 = true;
 						}
-					}while(!check2 && x2-x1 >= 2);
+					}while(!check2);
 
 					boatSerial = (x2 - x1) + 1;
 
