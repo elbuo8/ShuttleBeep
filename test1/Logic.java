@@ -109,7 +109,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		JMenuItem highscores = new JMenuItem("View High Scores");
 		menu.add(highscores);
 		highscores.addActionListener(this);
-
+		addKeyListener(this);
+		setFocusable(true);
 		//Initialize high scores
 		db = new Database();
 
@@ -599,7 +600,9 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 		 * Closes the game if ALT+F4 is pressed.
 		 */
 		public void keyPressed(KeyEvent e) {
-			if ((e.getKeyCode()) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)) 
+			int keyCode1 = e.getKeyCode();
+			int keyCode2 = e.getKeyCode();
+			if ((keyCode1 | keyCode2) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)) 
 				System.exit(0);
 		}
 		

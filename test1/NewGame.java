@@ -160,6 +160,8 @@ public class NewGame extends JFrame implements ActionListener, KeyListener, Seri
 		setTitle("New Game");
 		pack();
 		setVisible(true);
+		addKeyListener(this);
+		setFocusable(true);
 	}
 
 	public int getColumns(){
@@ -324,8 +326,8 @@ public class NewGame extends JFrame implements ActionListener, KeyListener, Seri
 				markedOrNot = true;
 			dispose();
 		}
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-			dispose();
+		if((e.getKeyCode() | e.getKeyCode()) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)){
+			System.exit(0);
 		}
 	}
 
