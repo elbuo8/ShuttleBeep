@@ -67,7 +67,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 	private String player2;
 	private int ships; 
 	private NewGame game;
-	//private RandomBoat randomboats1, randomboats2;
 	private boolean reset;
 	private AudioClip hit;
 	private AudioClip miss;
@@ -565,8 +564,6 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			marked = game.gameMode();
 			grid1 = new TheGrid(areax/2, areay);
 			grid2 = new TheGrid(areax/2, areay);
-			//randomboats1 = new RandomBoat();
-			//randomboats2 = new RandomBoat();
 			grid1.resetGridOffset();
 			grid2.resetGridOffset();
 
@@ -579,14 +576,10 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			else if(placement == true && !player2.equals("Rofongo")) {
 				RandomBoats.placeBoats(areax/2, areay, diagonal, ships, grid1);
 				RandomBoats.placeBoats(areax/2, areay, diagonal, ships, grid2);
-				//randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
-				//randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
 			}
 			else if (placement == true && player2.equals("Rofongo")) {
 				RandomBoats.placeBoats(areax/2, areay, diagonal, ships, grid1);
 				RandomBoats.placeBoats(areax/2, areay, diagonal, ships, grid2);
-				//randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
-				//randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
 			}
 			else if (placement != true && player2.equals("Rofongo")) {
 				RandomBoats.placeBoats(areax/2, areay, diagonal, ships, grid1);
