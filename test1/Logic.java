@@ -564,8 +564,8 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			marked = game.gameMode();
 			grid1 = new TheGrid(areax/2, areay);
 			grid2 = new TheGrid(areax/2, areay);
-			randomboats1 = new RandomBoat();
-			randomboats2 = new RandomBoat();
+			//randomboats1 = new RandomBoat();
+			//randomboats2 = new RandomBoat();
 			grid1.resetGridOffset();
 			grid2.resetGridOffset();
 
@@ -584,7 +584,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 				randomboats2.placeRandomBoats(ships, areay, areax/2, grid2, diagonal);
 			}
 			else if (placement != true && player2.equals("Rofongo")) {
-				randomboats1.placeRandomBoats(ships, areay, areax/2, grid1, diagonal);
+
 				JOptionPane.showMessageDialog(null, player1 + " enter your coordinates. \nExample: a1-b1");
 				grid2.placeTheBoats(ships, diagonal);
 			}

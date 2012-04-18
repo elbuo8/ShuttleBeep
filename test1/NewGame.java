@@ -177,9 +177,10 @@ public class NewGame extends JFrame implements ActionListener, KeyListener, Seri
 	}
 
 	public int getBoats() {
-		if (xShuttles > 8) {
+		if (xShuttles > 8) 
 			xShuttles = 8;
-		}
+		else if(xShuttles < 2)
+			xShuttles = 2;
 		return xShuttles;
 	}
 
