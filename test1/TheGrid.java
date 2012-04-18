@@ -22,7 +22,7 @@ public class TheGrid implements Serializable{
 	private static int numberOfColumns = 10;
 	private static int numberOfRows = 10;
 	private static int gridObjects = 0;
-	private static int boatSerial;
+	private int boatSerial;
 
 	/**
 	 * Creates a Grid object that in itself is an array of Tiles, each contains its location. 
@@ -49,6 +49,7 @@ public class TheGrid implements Serializable{
 	public TheGrid(int x, int y){
 		numberOfColumns = y;
 		numberOfRows = x;
+		boatSerial = 0;
 		int topX = ((WIDTH_OF_GRID/numberOfGrids)/(numberOfRows));
 		int topY = (HEIGHT_OF_GRID)/(numberOfColumns);
 		int offSet = (WIDTH_OF_GRID/numberOfGrids)*gridObjects;

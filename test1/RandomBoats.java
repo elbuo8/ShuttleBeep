@@ -16,7 +16,7 @@ public class RandomBoats {
 					int y = random.nextInt(rows);
 					if(boatSerial > 6) 	
 						y = random.nextInt(3);
-					int y2 = y + boatSerial;
+					int y2 = y + boatSerial - 1;
 					grid.setSerial(boatSerial);
 					placed = grid.addBoatHorizontal(x, y, y2);
 					System.out.println("Horizontal " + placed + " " + boatSerial);
@@ -26,7 +26,7 @@ public class RandomBoats {
 					int y = random.nextInt(rows);
 					if(boatSerial > 6)
 						x = random.nextInt(3);
-					int x2 = x + boatSerial;
+					int x2 = x + boatSerial - 1;
 					grid.setSerial(boatSerial);
 					placed = grid.addBoatVertical(y, x, x2);
 					System.out.println("Vertical " + placed + " " + boatSerial);
