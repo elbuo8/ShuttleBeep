@@ -163,7 +163,10 @@ public class NewGame extends JFrame implements ActionListener, KeyListener, Seri
 		addKeyListener(this);
 		setFocusable(true);
 	}
-
+	/**
+	 * 
+	 * @return Returns the amount of columns
+	 */
 	public int getColumns(){
 		if(xColumns < 10){
 			xColumns = 10;
@@ -171,6 +174,10 @@ public class NewGame extends JFrame implements ActionListener, KeyListener, Seri
 		return xColumns;
 	}
 
+	/**
+	 * 
+	 * @return Returns the amount of rows
+	 */
 	public int getRows(){
 		if(xRows < 10){
 			xRows = 10;
@@ -178,6 +185,10 @@ public class NewGame extends JFrame implements ActionListener, KeyListener, Seri
 		return xRows;
 	}
 
+	/**
+	 * 
+	 * @return The amount of boats
+	 */
 	public int getBoats() {
 		if (xShuttles > 8) 
 			xShuttles = 8;
@@ -185,11 +196,17 @@ public class NewGame extends JFrame implements ActionListener, KeyListener, Seri
 			xShuttles = 2;
 		return xShuttles;
 	}
-
+	/**
+	 * 
+	 * @return Name of player 1
+	 */
 	public String playerOne(){
 		return player1Name;
 	}
-
+	/**
+	 * 
+	 * @return Name of player 2
+	 */
 	public String playerTwo(){
 		return player2Name;
 	}
