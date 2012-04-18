@@ -36,6 +36,9 @@ public class RandomBoat {
 			/**
 			 * Places a boat with random coordinates horizontally 
 			 */
+			for (int j = 0; j < available.length; j++) 
+				System.out.print(available[j] + " ");
+			System.out.println();
 			if(boatAlignment == 1){
 
 				while(!check1){
@@ -59,7 +62,7 @@ public class RandomBoat {
 							}
 							check2 = true;
 						}
-					}while(!check2 && (y2-y1) >= 2);
+					}while(!check2 && y2-y1 >= 2);
 
 					boatSerial = (y2 - y1) + 1;
 					currentGrid.setSerial(boatSerial);
@@ -95,13 +98,12 @@ public class RandomBoat {
 							}
 							check2 = true;
 						}
-					}while(!check2 && (x2 - x1) >= 2);
+					}while(!check2 && x2-x1 >= 2);
 
 					boatSerial = (x2 - x1) + 1;
 
 					currentGrid.setSerial(boatSerial);
 					check1 = currentGrid.addBoatVertical(y, x1, x2);
-
 				}
 				check1 = false;
 				check2 = false;

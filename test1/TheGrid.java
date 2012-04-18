@@ -142,7 +142,8 @@ public class TheGrid implements Serializable{
 			} catch (Exception e) {
 				return false;
 			}
-
+		if(boatSerial == 1)
+			return false;
 		return true;
 	}
 
@@ -162,7 +163,8 @@ public class TheGrid implements Serializable{
 		} catch (Exception e) {
 			return false;
 		}
-
+		if(boatSerial == 1)
+			return false;
 		return true;
 
 	}
