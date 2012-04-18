@@ -1,0 +1,12 @@
+ShuttleBeep 1.0
+
+-In order for Shuttle Beep to be played, the mongo JAR file must be added
+as a referenced lib to the build path.
+
+-Javadocs are included.
+
+-UML has also been included.
+
+-Public repository - https://github.com/elbuo8/ShuttleBeep
+
+-Enjoy.
