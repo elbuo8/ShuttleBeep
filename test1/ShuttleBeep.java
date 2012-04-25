@@ -21,7 +21,7 @@ public class ShuttleBeep {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setResizable(true);
 		frame.setTitle("ShuttleBeep");
-				
+
 		frame.setSize(631, 600);
 		frame.setLocation(325, 100);
 		Logic logic = new Logic();

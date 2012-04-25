@@ -602,7 +602,7 @@ public class Logic extends JPanel implements ActionListener, MouseListener, Wind
 			if ((keyCode1 | keyCode2) == (KeyEvent.VK_ALT | KeyEvent.VK_F4)) 
 				System.exit(0);
 		}
-		
+
 		public void windowActivated(WindowEvent arg0) {}
 		public void windowClosed(WindowEvent arg0) {}
 		public void windowClosing(WindowEvent e) {}
